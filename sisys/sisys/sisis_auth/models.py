@@ -16,6 +16,7 @@ class SisisUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.TimeField(
         auto_now_add=True,
     )
+    is_active = models.BooleanField(default=True)
     USERNAME_FIELD = 'email'
     objects = SisisUserManager()
 

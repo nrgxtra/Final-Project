@@ -80,8 +80,16 @@ class PassChangeDoneView(auth_views.PasswordChangeDoneView):
 
 
 class PassResetView(auth_views.PasswordResetView):
-    pass
+    template_name = 'accounts/password-reset.html'
 
 
 class PassResetDoneView(auth_views.PasswordResetDoneView):
-    pass
+    template_name = 'accounts/password-reset-complete.html'
+
+
+class PassConfirmationView(auth_views.PasswordResetConfirmView):
+    template_name = 'accounts/password-reset-confirm.html'
+
+
+class PassResetComplete(auth_views.PasswordResetCompleteView):
+    template_name = 'accounts/password-reset-done.html'
