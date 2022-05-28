@@ -1,0 +1,573 @@
+:root {
+  --darkColor: #1d1d1d;
+  --bgColor: #252525;
+  --cardColor: #0e0e0e;
+}
+
+.switch-box {
+  position: fixed;
+  bottom: 15px;
+  right: 120px;
+  z-index: 9999;
+}
+
+.switch-box .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 1.5px solid var(--mainColor);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.switch-box .slider::before {
+  position: absolute;
+  content: "";
+  height: 25px;
+  width: 25px;
+  left: 0px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  -webkit-box-shadow: 0 0px 15px #2020203d;
+          box-shadow: 0 0px 15px #2020203d;
+  background: white url("../images/night.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.switch-box .slider.round {
+  border-radius: 34px;
+}
+
+.switch-box .slider.round::before {
+  border-radius: 50%;
+}
+
+.switch-box .switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+}
+
+.switch-box .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-box input:checked + .slider {
+  background-color: transparent;
+  border: 1.5px solid var(--cardColor);
+}
+
+.switch-box input:focus + .slider {
+  -webkit-box-shadow: 0 0 1px var(--cardColor);
+          box-shadow: 0 0 1px var(--cardColor);
+}
+
+.switch-box input:checked + .slider:before {
+  -webkit-transform: translateX(24px);
+          transform: translateX(24px);
+  background: white url("../images/sunny.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.theme-dark {
+  --titleColor: var(--whiteColor);
+  --bodyColor: var(--whiteColor);
+}
+
+.theme-dark .default-btn:hover {
+  color: var(--cardColor) !important;
+}
+
+.theme-dark .section-title .section-vector img {
+  opacity: 0.1;
+}
+
+.theme-dark h1, .theme-dark h2, .theme-dark h3, .theme-dark h4, .theme-dark h5, .theme-dark h6 {
+  color: var(--whiteColor);
+}
+
+.theme-dark h3 {
+  color: var(--whiteColor);
+}
+
+.theme-dark h3 a {
+  color: var(--whiteColor);
+  -webkit-transition: 0.7s;
+  transition: 0.7s;
+}
+
+.theme-dark p {
+  color: var(--whiteColor);
+}
+
+.theme-dark body {
+  background: var(--darkColor);
+  color: var(--whiteColor);
+}
+
+.theme-dark .section-bg {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .top-header {
+  background-color: var(--darkColor);
+}
+
+.theme-dark .naon-area::before {
+  background-color: var(--darkColor);
+}
+
+.theme-dark .naon-area::after {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .desktop-nav {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .desktop-nav .navbar {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .desktop-nav .navbar .navbar-brand .logo-two {
+  display: inline-block;
+}
+
+.theme-dark .desktop-nav .navbar .navbar-brand .logo-one {
+  display: none;
+}
+
+.theme-dark .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu {
+  background-color: var(--darkColor) !important;
+}
+
+.theme-dark .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li a {
+  color: var(--whiteColor);
+}
+
+.theme-dark .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
+  color: var(--mainColor);
+}
+
+.theme-dark .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover {
+  color: var(--mainColor);
+}
+
+.theme-dark .mobile-responsive-nav .mobile-responsive-menu.mean-container .mean-nav {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .mobile-responsive-nav .mobile-responsive-menu.mean-container .mean-nav ul li a {
+  color: var(--whiteColor);
+}
+
+.theme-dark .mobile-responsive-nav .mobile-responsive-menu.mean-container .mean-nav ul li a.active {
+  color: var(--mainColor);
+}
+
+.theme-dark .mobile-responsive-nav .mean-container .mean-bar {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .mobile-responsive-nav .logo .logo-two {
+  display: inline-block;
+}
+
+.theme-dark .mobile-responsive-nav .logo .logo-one {
+  display: none;
+}
+
+.theme-dark .others-options .optional-item::before {
+  background-color: var(--whiteColor);
+}
+
+.theme-dark .others-options .optional-list-item a i {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .others-options .optional-list-item a:hover i {
+  background-color: var(--mainColor);
+  color: var(--whiteColor);
+}
+
+.theme-dark .others-options .optional-list-item a:hover span {
+  color: var(--cardColor);
+}
+
+.theme-dark .sidebarmodal .modal-content {
+  background-color: var(--darkColor);
+}
+
+.theme-dark .sidebarmodal .modal-content .modal-header .close:hover {
+  color: var(--cardColor);
+}
+
+.theme-dark .sidebarmodal .modal-content .modal-header .sidebar-logo .sidebar-logo2 {
+  display: inline-block;
+}
+
+.theme-dark .sidebarmodal .modal-content .modal-header .sidebar-logo .sidebar-logo1 {
+  display: none;
+}
+
+.theme-dark .banner-area {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .banner-area .owl-nav {
+  margin-top: 0;
+  overflow: hidden;
+}
+
+.theme-dark .banner-area .owl-nav .owl-prev {
+  color: var(--darkColor) !important;
+}
+
+.theme-dark .banner-area .owl-nav .owl-prev:hover {
+  color: var(--mainColor) !important;
+}
+
+.theme-dark .banner-area .owl-nav .owl-next {
+  color: var(--darkColor) !important;
+}
+
+.theme-dark .banner-area .owl-nav .owl-next:hover {
+  color: var(--mainColor) !important;
+}
+
+.theme-dark .banner-area-two {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .banner-area-two .owl-nav .owl-prev, .theme-dark .banner-area-three .owl-nav .owl-prev {
+  color: var(--cardColor) !important;
+}
+
+.theme-dark .banner-area-two .owl-nav .owl-next, .theme-dark .banner-area-three .owl-nav .owl-next {
+  color: var(--cardColor) !important;
+}
+
+.theme-dark .banner-content .learn-btn, .theme-dark .banner-content-two .learn-btn {
+  color: var(--cardColor);
+}
+
+.theme-dark .banner-img::before {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .banner-img .nail-img img {
+  border-color: var(--bgColor);
+}
+
+.theme-dark .banner-vector img {
+  opacity: 0.1;
+}
+
+.theme-dark .banner-img-two .woman .vector1 img, .theme-dark .banner-img-two .woman .vector2 img {
+  opacity: 0.1;
+}
+
+.theme-dark .banner-item {
+  position: relative;
+  z-index: 1;
+}
+
+.theme-dark .banner-item::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--cardColor);
+  opacity: 0.7;
+}
+
+.theme-dark .banner-form {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .banner-form .form-group.form-group-list .form-select {
+  background-color: transparent;
+}
+
+.theme-dark .banner-form .form-group.form-group-list .form-control {
+  background-color: transparent;
+}
+
+.theme-dark .banner-form .form-group .form-control-bg-2 {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .inner-banner {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .features-item {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .features-card-two .content {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .about-img-three .content {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .services-item .content .learn-btn {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .services-card {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .services-item-two {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .services-item-two .content .icon:before {
+  opacity: 0.3;
+}
+
+.theme-dark .services-catagory ul li a {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .faq-accordion .accordion .accordion-item {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .intro-video-area::after {
+  background-color: var(--cardColor);
+  opacity: 0.5;
+}
+
+.theme-dark .intro-video-bg::before {
+  background-color: var(--cardColor);
+  opacity: 0.9;
+}
+
+.theme-dark .video-content-two-bg {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .products-card {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .products-card .product-img {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .products-item {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .products-item .product-img {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .products-item-two {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .pricing-card {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .pricing-item, .theme-dark .pricing-item-two {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .side-bar-widget .price-range-filter-item h4 {
+  color: var(--whiteColor);
+}
+
+.theme-dark .cart-wraps-area .cart-buttons .cart-widget-form-area .cart-widget-form .form-control {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .cart-wraps-area .cart-buttons .cart-widget-form-area .cart-widget-form .subscribe-btn:hover {
+  color: var(--cardColor);
+}
+
+.theme-dark .cart-wraps-area .cart-table table tbody tr td.product-thumbnail a img {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .checkout-user {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .checkout-coupon-form-area .checkout-coupon-form .form-control {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .checkout-coupon-form-area .checkout-coupon-form .subscribe-btn:hover {
+  color: var(--cardColor);
+}
+
+.theme-dark .checkout-table {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .checkout-table .cart-table table tbody tr td.product-thumbnail a img {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .product-details-desc .products-quickView-image {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .product-desc .input-counter-area .input-counter input {
+  color: var(--whiteColor);
+}
+
+.theme-dark .shop-detls-tab-content .shop-detls-into {
+  background-color: var(--darkColor);
+}
+
+.theme-dark .products-card .product-img a img {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .invoice-table table thead th {
+  color: var(--whiteColor);
+}
+
+.theme-dark .team-card::before {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .team-card .team-img .social-links-btn li.share-btn:hover i {
+  color: var(--cardColor);
+}
+
+.theme-dark .team-card .team-img .social-links-btn li a {
+  opacity: 0;
+}
+
+.theme-dark .team-card .team-img .social-links-btn:hover a {
+  opacity: 1;
+}
+
+.theme-dark .blog-card {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .blog-item {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .blog-item .content .blog-top .blog-top-right .social-links li.share-btn i {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .blog-details-content blockquote {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .blog-details-content .comments-wrap .comment-form li a {
+  color: var(--cardColor);
+}
+
+.theme-dark .search-widget {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .search-widget .search-form .form-control {
+  background-color: var(--bgColor);
+  color: var(--whiteColor);
+}
+
+.theme-dark .side-bar-widget {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .author-profile {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .author-profile .profile-social-link li a:hover i {
+  color: var(--cardColor);
+}
+
+.theme-dark .gallery-width .follow-area {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .gallery-all-img .img::before {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .gallery-all-img-two .img::before {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .testimonial-card {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .contact-info-card {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .contact-form .form-group .form-control {
+  background-color: var(--cardColor);
+  color: var(--whiteColor);
+}
+
+.theme-dark .user-all-form .contact-form {
+  background-color: var(--bgColor);
+}
+
+.theme-dark .footer-bg {
+  background-color: var(--cardColor);
+}
+
+.theme-dark .footer-widget .footer-logo .footer-logo1 {
+  display: none;
+}
+
+.theme-dark .footer-widget .footer-logo .footer-logo2 {
+  display: inline-block;
+}
+
+.theme-dark .newsletter-form .form-control {
+  background-color: var(--bgColor);
+  color: var(--whiteColor);
+}
+
+.theme-dark .newsletter-form .subscribe-btn:hover {
+  color: var(--cardColor);
+}
+
+.theme-dark .copyright-area {
+  background-color: var(--darkColor);
+}
+
+.theme-dark .go-top:hover {
+  color: var(--cardColor);
+}
+
+.theme-dark .coming-soon-area::before {
+  background-color: var(--cardColor);
+}
+/*# sourceMappingURL=theme-dark.css.map */

@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1
+    container_name: Sisis_nails_instance
+    restart: always
+    environment:
+      - POSTGRES_DB=Sisis_nails_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123qwe
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local

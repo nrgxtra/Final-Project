@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+    <!-- Banner Area -->
+    <div class="banner-area">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="banner-slider owl-carousel owl-theme">
+                        <div class="banner-content">
+                            <span>Nail and Beauty Salon</span>
+                            <h1>Experience In Eyebrow Care</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit </p>
+                            <a href="about.html" class="learn-btn">Learn More <i
+                                    class="flaticon-arrow-pointing-to-right"></i></a>
+                        </div>
+
+                        <div class="banner-content">
+                            <span>Nail and Beauty Salon</span>
+                            <h1>Your Nail is Our Best Advert</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+                            <a href="about.html" class="learn-btn">Learn More <i
+                                    class="flaticon-arrow-pointing-to-right"></i></a>
+                        </div>
+
+                        <div class="banner-content">
+                            <span>Nail and Beauty Salon</span>
+                            <h1>Your Best Nail Affair Salon</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit</p>
+                            <a href="about.html" class="learn-btn">Learn More <i
+                                    class="flaticon-arrow-pointing-to-right"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="banner-img" data-speed="0.05" data-revert="true">
+                        <div class="woman" data-aos="fade-up" data-aos-delay="900"
+                                 data-aos-duration="1000" data-aos-once="true">
+                            <img src="{% static 'images/home-one/woman.png' %}"  alt="Banner"/>
+                            <div class="vector" data-aos="fade-down" data-aos-delay="900" data-aos-duration="1000"
+                                 data-aos-once="true">
+                                <img src="{% static 'images/home-one/home-vector.png' %}" alt="vector"/>
+                            </div>
+                        </div>
+                        <div class="nail-img" data-aos="fade-up" data-aos-delay="900" data-aos-duration="1000"
+                             data-aos-once="true">
+                            <img src="{% static 'images/home-one/nail-img.jpg' %}" alt="Nail"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner Area End -->
+
+    <!-- Features Area -->
+    <div class="features-area pt-100 pb-70">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="features-card">
+                        <div class="img">
+                            <img src="{% static 'images/features/features-img1.jpg' %}" alt="features"/>
+                        </div>
+                        <div class="content">
+                            <div class="top-icon">
+                                <i class="flaticon-make-up"></i>
+                            </div>
+                            <h3>LED Cured Gel Polish</h3>
+                            <div class="more-btn">
+                                <i class="flaticon-arrow-pointing-to-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="features-card">
+                        <div class="img">
+                            <img src="{% static 'images/features/features-img2.jpg' %}" alt="features"/>
+                        </div>
+                        <div class="content">
+                            <div class="top-icon">
+                                <i class="flaticon-relax"></i>
+                            </div>
+                            <h3>No Damaging Acrylics</h3>
+                            <div class="more-btn">
+                                <i class="flaticon-arrow-pointing-to-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="features-card">
+                        <div class="img">
+                            <img src="{% static 'images/features/features-img3.jpg' %}" alt="features"/>
+                        </div>
+                        <div class="content">
+                            <div class="top-icon">
+                                <i class="flaticon-makeup"></i>
+                            </div>
+                            <h3>Nail Experts Burlington</h3>
+                            <div class="more-btn">
+                                <i class="flaticon-arrow-pointing-to-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Features Area End -->
+{% endblock %}
+
