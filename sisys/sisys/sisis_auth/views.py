@@ -1,4 +1,5 @@
 import django.contrib.auth.views as auth_views
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -6,7 +7,7 @@ from django.urls import reverse_lazy
 import django.views.generic as views
 
 from sisys.blog_app.models import Post
-from sisys.sisis_auth.forms import RegisterForm, ProfileForm, PasswordChangeForm
+from sisys.sisis_auth.forms import RegisterForm, ProfileForm
 from sisys.sisis_auth.models import Profile
 
 
@@ -35,6 +36,15 @@ class UserLogoutView(auth_views.LogoutView):
     next_page = 'home'
 
 
+class AccountView(LoginRequiredMixin, views.TemplateView):
+    template_name = 'accounts/my-account.html'
+
+    def get_context_data(self, **kwargs):
+        profile = Profile.objects.get(pk=self.request.user.id)
+        self.extra_context = {'profile': profile, }
+        return super().get_context_data(**kwargs)
+
+
 @login_required
 def profile_details(request):
     profile = Profile.objects.get(pk=request.user.id)
@@ -50,14 +60,14 @@ def profile_details(request):
             'form': form,
             'profile': profile,
         }
-        return render(request, 'accounts/my-account.html', context)
+        return render(request, 'accounts/profile_details.html', context)
     user_posts = Post.objects.filter(author_id=request.user.id)
     context = {
         'form': form,
         'posts': user_posts,
         'profile': profile,
     }
-    return render(request, 'accounts/my-account.html', context)
+    return render(request, 'accounts/profile_details.html', context)
 
 
 class PassChangeView(auth_views.PasswordChangeView):

@@ -44,7 +44,7 @@
                                 Address
                             </li>
                             <li>
-                                Account Details
+                                Profile Details
                             </li>
                             <li>
                                 Password Change
@@ -60,32 +60,22 @@
                             <div class="tabs_item current">
                                 {% if profile.name %}
                                     <div class="account-details">
-                                        {% if form.errors %}
-                                            <h5>Unsuccessful Update</h5>
-                                            <p>{{ form.errors }}</p>
-                                        {% else %}
                                             <h2>Hello {{ profile.name }}</h2>
-                                        {% endif %}
                                         <p>
                                             From your account dashboard. you can easily check & view your recent orders,
-                                            manage your <a href="myaccount.html">shipping and billing addresses</a> and
-                                            <a href="myaccount.html">edit your password and account details</a>.
+                                            manage your <a href="{% url 'profile details' %}">shipping addresses</a> and
+                                            <a href="{% url 'change password' %}">edit your password</a>.
                                         </p>
                                     </div>
                                 {% else %}
                                     <div class="account-details">
-                                        {% if form.errors %}
-                                            <h5>Unsuccessful Update</h5>
-                                            <p>{{ form.errors }}</p>
-                                        {% else %}
                                             <h2>Hello {{ profile.user.email }}</h2>
-                                        {% endif %}>
                                         <p>
                                             From your account dashboard. you can easily check & view your recent
                                             orders,
-                                            manage your <a href="myaccount.html">shipping and billing addresses</a>
+                                            manage your <a href="{% url 'profile details' %}">shipping and billing addresses</a>
                                             and
-                                            <a href="myaccount.html">edit your password and account details</a>.
+                                            <a href="{% url 'change password' %}">edit your password</a>.
                                         </p>
                                     </div>
                                 {% endif %}
@@ -180,44 +170,47 @@
                             <div class="tabs_item">
                                 <div class="contact-form">
                                     <h3>Profile Details</h3>
+                                    {% if profile.profile_image %}
                                     <img src="{{ profile.profile_image.url }}"
                                          style="height: 300px;width: 300px;object-fit: cover" alt="#">
-                                    <form id="contactForm" action="{% url 'profile details' %}" method="post"
-                                          enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <div class="row">
-                                            {% for field in form %}
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        {{ field }}
-                                                    </div>
-                                                </div>
-                                            {% endfor %}
-                                            <p>{{ form.errors }}</p>
-
-                                            <div class="col-lg-12 col-md-12">
-                                                <button type="submit" class="default-btn border-radius-5">
-                                                    Update Profile
-                                                </button>
-                                            </div>
-
-
-
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            name: {{profile.name}}
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            phone number: {{ profile.phone_number }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            address: {{ profile.address }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12">
+                                            <button   class="default-btn border-radius-5">
+                                                <a href="{% url 'profile details' %}" style="color: ghostwhite">Update Profile</a>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="tabs_item">
                                 <div class="col-lg-12 col-md-12">
-                                    <a href="{% url 'change password' %}" class="default-btn border-radius-5" style="background-color: red">
+                                    <a href="{% url 'change password' %}" class="default-btn border-radius-5"
+                                       style="background-color: red">
                                         Change Password
                                     </a>
                                 </div>
                             </div>
                             <div class="tabs_item">
                                 <div class="col-lg-12 col-md-12">
-                                    <a href="{% url 'logout' %}" class="default-btn border-radius-5" style="background-color: red">
+                                    <a href="{% url 'logout' %}" class="default-btn border-radius-5"
+                                       style="background-color: red">
                                         Logout
                                     </a>
                                 </div>

@@ -97,7 +97,7 @@
             <div class="desktop-nav nav-area">
                 <div class="container-fluid">
                     <nav class="navbar navbar-expand-md navbar-light ">
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="{% url 'home' %}">
                             <img src="{% static 'images/logos/logo-small.png' %}" class="logo-one" alt="Logo">
                             <img src="{% static 'images/logos/logo-white-small.png' %}" class="logo-two" alt="Logo">
                         </a>
@@ -127,6 +127,11 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="{% url 'my account'%}" class="nav-link">
+                                                My Account
+                                            </a>
+                                        </li>
+                                            <li class="nav-item">
                                             <a href="{% url 'logout' %}" class="nav-link">
                                                 Logout
                                             </a>
