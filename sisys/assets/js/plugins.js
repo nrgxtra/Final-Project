@@ -5,7 +5,7 @@ document.writeln('<script src="/assets/js/bootstrap.bundle.min.js" type="text/ja
 document.writeln('<script src="/assets/js/meanmenu.min.js" type="text/javascript"></script>');
 
 // Ajaxchimp Min Js
-document.writeln('<script src="/assets/js/ajaxchimp.min.js" type="text/javascript"></script>');
+// document.writeln('<script src="/assets/js/ajaxchimp.min.js" type="text/javascript"></script>');
 
 // Form Validator Min Js
 // document.writeln('<script src="/assets/js/form-validator.min.js" type="text/javascript"></script>');

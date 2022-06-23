@@ -1,25 +1,74 @@
 import django.contrib.auth.views as auth_views
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 import django.views.generic as views
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import EmailMessage
 
 from sisys.blog_app.models import Post
 from sisys.sisis_auth.forms import RegisterForm, ProfileForm
 from sisys.sisis_auth.models import Profile
+from sisys.sisis_auth.utils import generate_token
+
+User = get_user_model()
+
+
+def send_activation_mail(request, user):
+    current_site = get_current_site(request)
+    email_subject = 'Activation link has been sent to your email'
+    email_body = render_to_string('accounts/acc_active_email.html', {
+        'user': user,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': generate_token.make_token(user),
+    })
+    email = EmailMessage(
+        subject=email_subject,
+        body=email_body,
+        from_email=settings.EMAIL_HOST_USER,
+        to=[user.email],
+    )
+    email.send()
 
 
 class RegisterUser(views.CreateView):
     template_name = 'accounts/register.html'
     form_class = RegisterForm
-    success_url = reverse_lazy('profile details')
+    success_url = reverse_lazy('email_confirm')
 
     def form_valid(self, form):
         result = super().form_valid(form)
-        login(self.request, self.object)
+        form.save()
+        user = self.object
+        send_activation_mail(self.request, user)
         return result
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except Exception as e:
+        user = None
+    if user and generate_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.add_message(request, messages.SUCCESS, 'Now You can log on to Your account')
+        return redirect('login')
+    else:
+        return render(request, 'accounts/activation-failed.html', {'user': user})
+
+
+class EmailConfirmationView(views.TemplateView):
+    template_name = 'accounts/activate-your-account.html'
 
 
 class UserLoginView(auth_views.LoginView):

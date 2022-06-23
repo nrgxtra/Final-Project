@@ -20,7 +20,9 @@ class LoginForm(forms.Form):
 class RegisterForm(UserCreationForm):
     class Meta:
         model = UserModel
-        fields = ('email',)
+        fields = (
+            'email',
+        )
 
 
 class ProfileForm(forms.ModelForm):

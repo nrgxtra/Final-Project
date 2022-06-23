@@ -16,7 +16,8 @@ class SisisUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.TimeField(
         auto_now_add=True,
     )
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'
     objects = SisisUserManager()
 
@@ -34,7 +35,7 @@ class Profile(models.Model):
                                  message="Phone number must be entered in the format: '+34000000000'. Exactly 11 digits allowed.")
     phone_number = models.CharField(
         validators=[phone_regex],
-        max_length=17, blank=True
+        max_length=11, blank=True
     )
     address = models.CharField(
         max_length=100,

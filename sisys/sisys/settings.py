@@ -1,22 +1,26 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-$+j0h)&jhqz2#eqin4v$#slg(3s^&hv3-y!z!^t+d@swl$q2bj'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # SMTP conf
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sisi.eyebrows@gmail.com'
-EMAIL_HOST_PASSWORD = '@Sisincet0@'
+
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,6 +34,7 @@ INSTALLED_APPS = [
     'sisys.home_app',
     'sisys.shopping_app',
     'sisys.blog_app',
+    'sisys.newsletters_app',
 ]
 
 MIDDLEWARE = [
@@ -43,6 +48,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'sisys.urls'
+
+SITE_ID = 1
 
 TEMPLATES = [
     {
@@ -95,7 +102,7 @@ USE_TZ = True
 
 STATIC_URL = 'assets/'
 
-STATICFILES_DIRS = (BASE_DIR / 'assets', )
+STATICFILES_DIRS = (BASE_DIR / 'assets',)
 
 MEDIA_URL = 'media/'
 
