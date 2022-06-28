@@ -1,42 +1,20 @@
 import django.contrib.auth.views as auth_views
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 import django.views.generic as views
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.core.mail import EmailMessage
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 
 from sisys.blog_app.models import Post
 from sisys.sisis_auth.forms import RegisterForm, ProfileForm
 from sisys.sisis_auth.models import Profile
 from sisys.sisis_auth.utils import generate_token
-
+from sisys.sisis_auth.utils import send_activation_mail
 User = get_user_model()
-
-
-def send_activation_mail(request, user):
-    current_site = get_current_site(request)
-    email_subject = 'Activation link has been sent to your email'
-    email_body = render_to_string('accounts/acc_active_email.html', {
-        'user': user,
-        'domain': current_site,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': generate_token.make_token(user),
-    })
-    email = EmailMessage(
-        subject=email_subject,
-        body=email_body,
-        from_email=settings.EMAIL_HOST_USER,
-        to=[user.email],
-    )
-    email.send()
 
 
 class RegisterUser(views.CreateView):
