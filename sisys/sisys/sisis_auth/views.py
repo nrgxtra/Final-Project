@@ -10,10 +10,11 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
 from sisys.blog_app.models import Post
+from sisys.newsletters_app.models import NewsletterUser
 from sisys.sisis_auth.forms import RegisterForm, ProfileForm
 from sisys.sisis_auth.models import Profile
-from sisys.sisis_auth.utils import generate_token
-from sisys.sisis_auth.utils import send_activation_mail
+from sisys.sisis_auth.utils import generate_token, send_activation_mail
+
 User = get_user_model()
 
 
@@ -21,6 +22,8 @@ class RegisterUser(views.CreateView):
     template_name = 'accounts/register.html'
     form_class = RegisterForm
     success_url = reverse_lazy('email_confirm')
+    user = None
+    request = None
 
     def form_valid(self, form):
         result = super().form_valid(form)
@@ -68,7 +71,13 @@ class AccountView(LoginRequiredMixin, views.TemplateView):
 
     def get_context_data(self, **kwargs):
         profile = Profile.objects.get(pk=self.request.user.id)
-        self.extra_context = {'profile': profile, }
+        subscribed = NewsletterUser.objects.filter(email=self.request.user.email)
+        if subscribed:
+            self.extra_context = {'profile': profile,
+                                  'subscribed': subscribed,
+                                  }
+        else:
+            self.extra_context = {'profile': profile, }
         return super().get_context_data(**kwargs)
 
 

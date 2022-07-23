@@ -8,3 +8,9 @@ class NewsletterUser(models.Model):
     def __str__(self):
         return self.email
 
+
+class Newsletter(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+

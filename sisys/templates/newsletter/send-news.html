@@ -7,12 +7,12 @@
             <div class="row align-items-center">
                 <div class="col-lg-7 col-md-7">
                     <div class="inner-title">
-                        <h3>Subscribe</h3>
+                        <h3>Newsletter</h3>
                         <ul>
                             <li>
                                 <a href="{% url 'home' %}">Home</a>
                             </li>
-                            <li>Subscribe</li>
+                            <li>Newsletter</li>
                         </ul>
                     </div>
                 </div>
@@ -28,20 +28,12 @@
     <!-- Inner Banner End -->
     <div style="display: flex; justify-content: center; align-items: center">
         <div class="contact-form">
-            <h3 class="user-title"> Subscribe our newsletter</h3>
-            <form id="contactForm" method="post">
+            <h3 class="user-title"> send newsletter</h3>
+            <form id="contactForm" method="post" action="{% url 'send-newsletter' %}">
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="form-group">
-                            <p type="text"> {{ form.email }} </p>
-                            {% if errors %}
-                                <p> {{ errors }} </p>
-                            {% endif %}
-                        </div>
-                    </div>
                     <button class="default-btn" type="submit">
-                        Subscribe Now <i class="flaticon-paper-plane"></i>
+                        Inform All <i class="flaticon-paper-plane"></i>
                     </button>
                 </div>
             </form>

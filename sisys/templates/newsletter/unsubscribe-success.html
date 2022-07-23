@@ -28,23 +28,8 @@
     <!-- Inner Banner End -->
     <div style="display: flex; justify-content: center; align-items: center">
         <div class="contact-form">
-            <h3 class="user-title"> Subscribe our newsletter</h3>
-            <form id="contactForm" method="post">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="form-group">
-                            <p type="text"> {{ form.email }} </p>
-                            {% if errors %}
-                                <p> {{ errors }} </p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <button class="default-btn" type="submit">
-                        Subscribe Now <i class="flaticon-paper-plane"></i>
-                    </button>
-                </div>
-            </form>
+            <h3 class="user-title"> Sorry to see You are unsubscribed! </h3>
+            <h3 class="user-title"> You will not receive our newsletter anymore. </h3>
         </div>
     </div>
 {% endblock %}

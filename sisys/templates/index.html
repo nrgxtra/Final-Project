@@ -116,7 +116,7 @@
         </div>
     </div>
     <!-- Features Area End -->
-
+    {% if not subscribed_user %}
     <div style="display: flex; justify-content: center; align-items: center">
         <div class="footer-widget pe-2">
             <h3>Our Newsletter</h3>
@@ -128,5 +128,6 @@
 
         </div>
     </div>
+    {% endif %}
 {% endblock %}
 
