@@ -14,8 +14,11 @@ from sisys.newsletters_app.models import NewsletterUser
 from sisys.sisis_auth.forms import RegisterForm, ProfileForm
 from sisys.sisis_auth.models import Profile
 from sisys.sisis_auth.utils import generate_token, send_activation_mail
+import asyncio
 
 User = get_user_model()
+
+loop = asyncio.get_event_loop()
 
 
 class RegisterUser(views.CreateView):
@@ -29,7 +32,7 @@ class RegisterUser(views.CreateView):
         result = super().form_valid(form)
         form.save()
         user = self.object
-        send_activation_mail(self.request, user)
+        loop.run_in_executor(None, send_activation_mail, self.request, user)
         return result
 
 
