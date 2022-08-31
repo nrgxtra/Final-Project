@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from sisys.newsletters_app.models import NewsletterUser, Newsletter
+from newsletters_app.models import NewsletterUser, Newsletter
 
 
 @admin.register(NewsletterUser)

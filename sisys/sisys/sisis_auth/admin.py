@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from sisys.sisis_auth.models import SisisUser
+
+
+@admin.register(SisisUser)
+class UserAdmin(admin.ModelAdmin):
+    pass
+

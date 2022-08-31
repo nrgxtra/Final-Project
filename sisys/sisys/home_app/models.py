@@ -1,6 +1,6 @@
 from django.db import models
 
-from sisys.blog_app.models import Category, Tags
+from blog_app.models import Category, Tags
 
 
 class Service(models.Model):

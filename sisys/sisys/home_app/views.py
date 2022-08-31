@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import django.views.generic as views
 
-from sisys.newsletters_app.models import NewsletterUser
+from newsletters_app.models import NewsletterUser
 
 
 class HomeView(views.TemplateView):

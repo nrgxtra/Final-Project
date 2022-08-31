@@ -9,8 +9,9 @@ import django.views.generic as views
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
-from sisys.blog_app.models import Post
-from sisys.newsletters_app.models import NewsletterUser
+from blog_app.models import Post
+from newsletters_app.models import NewsletterUser
+
 from sisys.sisis_auth.forms import RegisterForm, ProfileForm
 from sisys.sisis_auth.models import Profile
 from sisys.sisis_auth.utils import generate_token, send_activation_mail

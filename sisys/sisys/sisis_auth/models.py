@@ -35,7 +35,7 @@ class Profile(models.Model):
                                  message="Phone number must be entered in the format: '+34000000000'. Exactly 11 digits allowed.")
     phone_number = models.CharField(
         validators=[phone_regex],
-        max_length=11, blank=True
+        max_length=12, blank=True
     )
     address = models.CharField(
         max_length=100,

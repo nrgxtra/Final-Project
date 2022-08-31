@@ -1,8 +1,8 @@
 from django.urls import path
 
-from sisys.sisis_auth.views import UserLoginView, UserLogoutView, profile_details, \
-    PassChangeDoneView, PassResetView, PassResetDoneView, PassChangeView, AccountView, PassConfirmationView, \
-    PassResetComplete, EmailConfirmationView, activate, RegisterUser
+from sisys.sisis_auth.views import UserLoginView, UserLogoutView, RegisterUser, profile_details, AccountView, \
+    PassChangeView, PassChangeDoneView, PassResetView, PassResetDoneView, PassConfirmationView, PassResetComplete, \
+    EmailConfirmationView, activate
 
 urlpatterns = (
     path('login/', UserLoginView.as_view(), name='login'),

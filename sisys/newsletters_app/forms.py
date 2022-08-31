@@ -1,6 +1,6 @@
 from django import forms
 
-from sisys.newsletters_app.models import NewsletterUser
+from newsletters_app.models import NewsletterUser
 
 
 class NewsletterUserSignUpForm(forms.ModelForm):
