@@ -8,16 +8,16 @@ from newsletters_app.models import NewsletterUser
 @login_required
 def newsletter_signup(request):
     form = NewsletterUserSignUpForm(request.POST)
+    context = {
+        'form': form,
+        'name': request.user.email,
+    }
     if request.method == 'POST':
         if form.is_valid():
             sub_user = NewsletterUser(email=request.user.email)
             sub_user.save()
-            context = {
-                'form': form,
-                'name': request.user.email,
-            }
-            return render(request, 'newsletter/subscriber-welcome.html', context)
-    return render(request, 'newsletter/news-sign-up.html', context={'form': form, })
+            return redirect('home')
+    return render(request, 'newsletter/news-sign-up.html', context)
 
 
 def newsletter_signout(request):
