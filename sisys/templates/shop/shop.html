@@ -36,7 +36,7 @@
                             <div class="row align-items-center">
                                 <div class="col-lg-8 col-md-6">
                                     <div class="product-title">
-                                        <h3>Showing 1-9 of 12 results</h3>
+                                        <h3>Showing 1-9 of {{ items.count }} results</h3>
                                     </div>
                                 </div>
         
@@ -53,11 +53,12 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
+                            {% for item in items %}
                             <div class="col-lg-4 col-md-6">
                                 <div class="products-card products-card-short-css">
                                     <div class="product-img">
                                         <a href="shop-details.html">
-                                            <img src={% static "images/products/product-img1.png"%} alt="Products" />
+                                            <img src={{ item.picture.url }} alt="Products" />
                                         </a>
                                         <ul class="products-action-two">
                                             <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
@@ -67,8 +68,8 @@
                                         </ul>
                                     </div>
                                     <div class="content">
-                                        <h3><a href="shop-details.html">Nail Polish Removers</a></h3>
-                                        <span>21.00$</span>
+                                        <h3><a href="shop-details.html">{{ item.name}}</a></h3>
+                                        <span>{{ item.price }}$</span>
                                         <div class="rating">
                                             <i class="ri-star-fill"></i>
                                             <i class="ri-star-fill"></i>
@@ -79,6 +80,9 @@
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
+
+
         
                             <div class="col-lg-4 col-md-6">
                                 <div class="products-card products-card-short-css">
