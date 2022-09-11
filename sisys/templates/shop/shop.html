@@ -62,7 +62,7 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="products-card products-card-short-css">
                                     <div class="product-img">
-                                        <a href="shop-details.html">
+                                        <a href="{% url 'item-details' item.id %}">
                                             <img src={{ item.picture.url }} alt="Products" />
                                         </a>
                                         <ul class="products-action-two">
@@ -73,7 +73,7 @@
                                         </ul>
                                     </div>
                                     <div class="content">
-                                        <h3><a href="shop-details.html">{{ item.name}}</a></h3>
+                                        <h3><a href="{% url 'item-details' item.id %}">{{ item.name}}</a></h3>
                                         <span>{{ item.price }} $</span>
                                         <div class="rating">
                                             <i class="ri-star-fill"></i>
@@ -82,232 +82,18 @@
                                             <i class="ri-star-fill"></i>
                                             <i class="ri-star-line"></i>
                                         </div>
+                                        {% if user.is_staff %}
                                         <div>
                                             <a class="button" href="{% url 'update-item' item.id %}">Update</a>
                                         </div>
+                                        <div>
+                                            <a class="button" href="{% url 'delete-item' item.id %}">Delete</a>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                             {% endfor %}
-
-
-        
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img2.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Nail Care Tools Premium</a></h3>
-                                        <span>31.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-        
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img3.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Nail Nourishing Oil</a></h3>
-                                        <span>28.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img10.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Glitter Nail Polish</a></h3>
-                                        <span>20.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img11.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Nail Care Clipper</a></h3>
-                                        <span>10.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img12.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Striping Tape</a></h3>
-                                        <span>22.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img13.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Striper Brush</a></h3>
-                                        <span>30.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img14.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Nail Loose Glitter</a></h3>
-                                        <span>26.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/products/product-img15.png" alt="Products" />
-                                        </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Nail Domed Pearls</a></h3>
-                                        <span>24.00$</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-        
                             <div class="col-lg-12 col-md-12 text-center">
                                 <div class="pagination-area">
                                     <a href="blog-1.html" class="prev page-numbers">
