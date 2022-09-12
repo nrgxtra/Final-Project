@@ -58,7 +58,6 @@
                                     {{ item.description }}
                                 </p>
                                 <ul class="product-category-list">
-                                    <li>Availablity: <span>In Stock</span></li>
                                     <li>Tags: <span>Nail, Lover</span> </li>
                                 </ul>
                                 <div class="input-counter-area">
@@ -71,9 +70,9 @@
                                 </div>
                                 
                                 <div class="product-add-btn">
-                                    <button type="submit" class="default-btn border-radius-5">
+                                    <a href="{% url 'add-to-cart' item.id %}" type="submit" class="default-btn border-radius-5">
                                         Add To Cart <i class="flaticon-shopping-cart-empty-side-view"></i>
-                                    </button>
+                                    </a>
                                     <ul class="products-action">
                                         <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
                                         <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>

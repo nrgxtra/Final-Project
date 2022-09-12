@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.views.generic import DetailView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
 
 from shopping_app.forms import ItemCreationForm
-from shopping_app.models import Item
+from shopping_app.models import Item, OrderItem, Order
 from shopping_app.utils import resize_image
 
 
@@ -22,9 +22,6 @@ def item_details(request, pk):
         'item': item,
     }
     return render(request, 'shop/item-details.html', context)
-
-
-
 
 
 @login_required
@@ -88,3 +85,25 @@ def delete_item(request, pk):
         'user': user,
     }
     return render(request, 'shop/item-delete.html', context)
+
+
+def add_to_cart(request, pk):
+    item = get_object_or_404(Item, id=pk)
+    order_item = OrderItem.objects.get_or_create(item=item)
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        order.ordered_date = timezone.now()
+        if order.items.filter(item_id__exact=item.pk):
+            order_item.quantity += 1
+            order_item.save()
+        else:
+            order.items.add(order_item)
+    else:
+        order = Order.objects.create(user=request.user)
+        order.items.add(order_item)
+        order.ordered_date = timezone.now()
+    return redirect('item-details', pk)
+
+
+
