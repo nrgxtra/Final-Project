@@ -23,6 +23,14 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def pictureURL(self):
+        try:
+            url = self.picture.url
+        except:
+            url = ''
+        return url
+
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
@@ -45,6 +53,8 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
+    class Meta:
+        verbose_name_plural = 'Shipping Addresses'
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=200, null=False)

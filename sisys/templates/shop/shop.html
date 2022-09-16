@@ -63,7 +63,7 @@
                                 <div class="products-card products-card-short-css">
                                     <div class="product-img">
                                         <a href="{% url 'item-details' item.id %}">
-                                            <img src={{ item.picture.url }} alt="Products" />
+                                            <img src={{ item.pictureURL }} alt="Products" />
                                         </a>
 {#                                        <ul class="products-action-two">#}
 {#                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>#}
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="content">
                                         <h2><a href="{% url 'item-details' item.id %}">{{ item.name}}</a></h2>
-                                        <span style="font-size: larger; font-weight: bold">{{ item.price }} $</span>
+                                        <span style="font-size: larger; font-weight: bold">{{ item.price | floatformat:2 }} $</span>
 {#                                        <div class="rating">#}
 {#                                            <i class="ri-star-fill"></i>#}
 {#                                            <i class="ri-star-fill"></i>#}

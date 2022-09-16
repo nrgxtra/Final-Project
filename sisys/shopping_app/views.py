@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from shopping_app.forms import ItemCreationForm
-from shopping_app.models import Product, OrderItem, Order
+from shopping_app.models import Product, OrderItem, Order, Customer
 from shopping_app.utils import resize_image
 
 
@@ -89,10 +89,15 @@ def delete_item(request, pk):
     return render(request, 'shop/item-delete.html', context)
 
 
-def cart(request):
+def show_cart(request):
     if request.user.is_authenticated:
-        pass
-    context={}
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+
+    context = {
+        'items': items,
+    }
     return render(request, 'shop/cart.html', context)
-
-

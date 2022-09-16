@@ -33,7 +33,7 @@
                             <ul>
                                 <li>
                                     <i class="flaticon-email"></i>
-                                    <a href="mailto:info@naon.com">info@naon.com</a>
+                                    <a href="mailto:sisyeyebrows@gmail.com">sisyeyebrows@gmail.com</a>
                                 </li>
                                 <li>
                                     <i class="flaticon-telephone"></i>
@@ -325,9 +325,9 @@
                                     </div>
                                 </div>
                                 <div class="optional-item">
-                                    <a class="optional-item-cart" href="shop/cart.html">
+                                    <a class="optional-item-cart" href={% url 'shopping-cart' %}>
                                         <i class='flaticon-shopping-cart-empty-side-view'></i>
-                                        <span>2</span>
+                                        <span>{{ items.count }}</span>
                                     </a>
                                 </div>
                             </div>
