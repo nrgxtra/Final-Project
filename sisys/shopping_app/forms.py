@@ -1,11 +1,11 @@
 from django import forms
 
-from shopping_app.models import Item
+from shopping_app.models import Product
 
 
 class ItemCreationForm(forms.ModelForm):
     class Meta:
-        model = Item
+        model = Product
         fields = '__all__'
 
 

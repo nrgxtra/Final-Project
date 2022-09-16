@@ -3,23 +3,25 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from shopping_app.forms import ItemCreationForm
-from shopping_app.models import Item, OrderItem, Order
+from shopping_app.models import Product, OrderItem, Order
 from shopping_app.utils import resize_image
 
 
 def shop_home(request):
     user = request.user
     context = {
-        'items': Item.objects.all(),
+        'items': Product.objects.all(),
         'user': user,
     }
     return render(request, 'shop/shop.html', context)
 
 
 def item_details(request, pk):
-    item = Item.objects.all().get(id=pk)
+    item = Product.objects.all().get(id=pk)
+
     context = {
         'item': item,
+
     }
     return render(request, 'shop/item-details.html', context)
 
@@ -50,7 +52,7 @@ def create_item(request):
 @login_required
 def update_item(request, pk):
     user = request.user
-    item = Item.objects.all().get(id=pk)
+    item = Product.objects.all().get(id=pk)
 
     if request.method == 'POST':
         form = ItemCreationForm(request.POST, request.FILES, instance=item)
@@ -75,7 +77,7 @@ def update_item(request, pk):
 
 def delete_item(request, pk):
     user = request.user
-    item = Item.objects.all().get(id=pk)
+    item = Product.objects.all().get(id=pk)
     if request.method == 'POST':
         if user.is_staff:
             item.delete()
@@ -87,23 +89,10 @@ def delete_item(request, pk):
     return render(request, 'shop/item-delete.html', context)
 
 
-def add_to_cart(request, pk):
-    item = get_object_or_404(Item, id=pk)
-    order_item = OrderItem.objects.get_or_create(item=item)
-    order_qs = Order.objects.filter(user=request.user, ordered=False)
-    if order_qs.exists():
-        order = order_qs[0]
-        order.ordered_date = timezone.now()
-        if order.items.filter(item_id__exact=item.pk):
-            order_item.quantity += 1
-            order_item.save()
-        else:
-            order.items.add(order_item)
-    else:
-        order = Order.objects.create(user=request.user)
-        order.items.add(order_item)
-        order.ordered_date = timezone.now()
-    return redirect('item-details', pk)
-
+def cart(request):
+    if request.user.is_authenticated:
+        pass
+    context={}
+    return render(request, 'shop/cart.html', context)
 
 

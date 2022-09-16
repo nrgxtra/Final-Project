@@ -36,7 +36,7 @@
         <div class="shop-area pt-100 pb-70">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-9" style="width:100%">
                         <div class="product-topper mb-45">
                             <div class="row align-items-center">
                                 <div class="col-lg-8 col-md-6">
@@ -46,14 +46,14 @@
                                 </div>
         
                                 <div class="col-lg-4 col-md-6">
-                                    <div class="product-list">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Default Price</option>
-                                            <option value="1">Price High To Low</option>
-                                            <option value="2">Price Low To High</option>
-                                        </select>
-                                        <i class="ri-arrow-down-s-line"></i>
-                                    </div>
+{#                                    <div class="product-list">#}
+{#                                        <select class="form-select" aria-label="Default select example">#}
+{#                                            <option selected>Default Price</option>#}
+{#                                            <option value="1">Price High To Low</option>#}
+{#                                            <option value="2">Price Low To High</option>#}
+{#                                        </select>#}
+{#                                        <i class="ri-arrow-down-s-line"></i>#}
+{#                                    </div>#}
                                 </div>
                             </div>
                         </div>
@@ -65,29 +65,29 @@
                                         <a href="{% url 'item-details' item.id %}">
                                             <img src={{ item.picture.url }} alt="Products" />
                                         </a>
-                                        <ul class="products-action-two">
-                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>
-                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>
-                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>
-                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>
-                                        </ul>
+{#                                        <ul class="products-action-two">#}
+{#                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>#}
+{#                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>#}
+{#                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>#}
+{#                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>#}
+{#                                        </ul>#}
                                     </div>
                                     <div class="content">
-                                        <h3><a href="{% url 'item-details' item.id %}">{{ item.name}}</a></h3>
-                                        <span>{{ item.price }} $</span>
-                                        <div class="rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
+                                        <h2><a href="{% url 'item-details' item.id %}">{{ item.name}}</a></h2>
+                                        <span style="font-size: larger; font-weight: bold">{{ item.price }} $</span>
+{#                                        <div class="rating">#}
+{#                                            <i class="ri-star-fill"></i>#}
+{#                                            <i class="ri-star-fill"></i>#}
+{#                                            <i class="ri-star-fill"></i>#}
+{#                                            <i class="ri-star-fill"></i>#}
+{#                                            <i class="ri-star-line"></i>#}
+{#                                        </div>#}
                                         {% if user.is_staff %}
                                         <div>
-                                            <a class="button" href="{% url 'update-item' item.id %}">Update</a>
+                                            <a class="button" style="font-size: larger" href="{% url 'update-item' item.id %}">Update</a>
                                         </div>
                                         <div>
-                                            <a class="button" href="{% url 'delete-item' item.id %}">Delete</a>
+                                            <a class="button" style="font-size: larger" href="{% url 'delete-item' item.id %}">Delete</a>
                                         </div>
                                         {% endif %}
                                     </div>
@@ -112,35 +112,35 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3">
-                        <div class="side-bar-area pl-20">
-                            <div class="search-widget">
-                                <form class="search-form">
-                                    <input type="search" class="form-control" placeholder="Search">
-                                    <button type="submit">
-                                        <i class="flaticon-search"></i>
-                                    </button>
-                                </form>
-                            </div>
-
-                            <div class="side-bar-widget">
-                                <h3 class="title-two">Prices</h3>
-                                <form class="price-range-content">
-                                    <div class="price-range-bar" id="range-slider"></div>
-                                    <div class="price-range-filter">
-                                        <div class="price-range-filter-item d-flex align-items-center order-1 order-xl-2">
-                                            <h4>Range:</h4>
-                                            <input type="text" id="price-amount" readonly>
-                                        </div>
-
-                                        <div class="price-range-filter-item price-range-filter-button order-2 order-xl-1">
-                                            <button class="btn btn-red btn-icon">Filter</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+{#                    <div class="col-lg-3">#}
+{#                        <div class="side-bar-area pl-20">#}
+{#                            <div class="search-widget">#}
+{#                                <form class="search-form">#}
+{#                                    <input type="search" class="form-control" placeholder="Search">#}
+{#                                    <button type="submit">#}
+{#                                        <i class="flaticon-search"></i>#}
+{#                                    </button>#}
+{#                                </form>#}
+{#                            </div>#}
+{##}
+{#                            <div class="side-bar-widget">#}
+{#                                <h3 class="title-two">Prices</h3>#}
+{#                                <form class="price-range-content">#}
+{#                                    <div class="price-range-bar" id="range-slider"></div>#}
+{#                                    <div class="price-range-filter">#}
+{#                                        <div class="price-range-filter-item d-flex align-items-center order-1 order-xl-2">#}
+{#                                            <h4>Range:</h4>#}
+{#                                            <input type="text" id="price-amount" readonly>#}
+{#                                        </div>#}
+{##}
+{#                                        <div class="price-range-filter-item price-range-filter-button order-2 order-xl-1">#}
+{#                                            <button class="btn btn-red btn-icon">Filter</button>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </form>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
                 </div>
             </div>
         </div>
