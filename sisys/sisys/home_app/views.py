@@ -1,13 +1,16 @@
 from django.shortcuts import render
 import django.views.generic as views
 
+import shopping_app.models
 from newsletters_app.models import NewsletterUser
+from shopping_app.models import Order
 
 
 class HomeView(views.TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
+
         if self.request.user.is_active:
             sub_user = NewsletterUser.objects.all().filter(email=self.request.user.email)
             if sub_user:

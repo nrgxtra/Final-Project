@@ -12,11 +12,11 @@
                                 <li>
                                     <a href="{% url 'home' %}">Home</a>
                                 </li>
-                                {% if user.is_staff %}
-                                <li>
-                                    <a href="{% url 'add-item' %}">ADD ITEM</a>
-                                </li>
-                                 {% endif %}
+{#                                {% if user.is_staff %}#}
+{#                                <li>#}
+{#                                    <a href="{% url 'add-item' %}">ADD ITEM</a>#}
+{#                                </li>#}
+{#                                 {% endif %}#}
                                 <li>Shop</li>
                             </ul>
                         </div>
@@ -46,14 +46,6 @@
                                 </div>
         
                                 <div class="col-lg-4 col-md-6">
-{#                                    <div class="product-list">#}
-{#                                        <select class="form-select" aria-label="Default select example">#}
-{#                                            <option selected>Default Price</option>#}
-{#                                            <option value="1">Price High To Low</option>#}
-{#                                            <option value="2">Price Low To High</option>#}
-{#                                        </select>#}
-{#                                        <i class="ri-arrow-down-s-line"></i>#}
-{#                                    </div>#}
                                 </div>
                             </div>
                         </div>
@@ -65,31 +57,19 @@
                                         <a href="{% url 'item-details' item.id %}">
                                             <img src={{ item.pictureURL }} alt="Products" />
                                         </a>
-{#                                        <ul class="products-action-two">#}
-{#                                            <li><a href="cart.html"><i class="ri-shopping-cart-line"></i></a></li>#}
-{#                                            <li><a href="compare.html"> <i class="ri-arrow-left-right-line"></i></a></li>#}
-{#                                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#productsQuickView"><i class="ri-eye-line"></i></a></li>#}
-{#                                            <li><a href="wishlist.html"><i class="ri-heart-line"></i></a></li>#}
-{#                                        </ul>#}
+
                                     </div>
                                     <div class="content">
                                         <h2><a href="{% url 'item-details' item.id %}">{{ item.name}}</a></h2>
                                         <span style="font-size: larger; font-weight: bold">{{ item.price | floatformat:2 }} $</span>
-{#                                        <div class="rating">#}
-{#                                            <i class="ri-star-fill"></i>#}
-{#                                            <i class="ri-star-fill"></i>#}
-{#                                            <i class="ri-star-fill"></i>#}
-{#                                            <i class="ri-star-fill"></i>#}
-{#                                            <i class="ri-star-line"></i>#}
+{#                                        {% if user.is_staff %}#}
+{#                                        <div>#}
+{#                                            <a class="button" style="font-size: larger" href="{% url 'update-item' item.id %}">Update</a>#}
 {#                                        </div>#}
-                                        {% if user.is_staff %}
-                                        <div>
-                                            <a class="button" style="font-size: larger" href="{% url 'update-item' item.id %}">Update</a>
-                                        </div>
-                                        <div>
-                                            <a class="button" style="font-size: larger" href="{% url 'delete-item' item.id %}">Delete</a>
-                                        </div>
-                                        {% endif %}
+{#                                        <div>#}
+{#                                            <a class="button" style="font-size: larger" href="{% url 'delete-item' item.id %}">Delete</a>#}
+{#                                        </div>#}
+{#                                        {% endif %}#}
                                     </div>
                                 </div>
                             </div>

@@ -34,6 +34,28 @@
 					<div class="col-lg-12">
 						<form>
 							<div class="cart-wraps">
+                                <div class="cart-table table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+
+												<th scope="col">Total Quantity</th>
+												<th scope="col">Total Amount</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr>
+                                                 <td class="product-quantity">
+													<span class="unit-amount">{{ order.get_cart_quantity }}</span>
+												</td>
+												<td class="product-price">
+													<span class="unit-amount">${{ order.get_cart_total }}</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 								<div class="cart-table table-responsive">
 									<table class="table table-bordered">
 										<thead>
@@ -43,6 +65,7 @@
 												<th scope="col">Name</th>
 												<th scope="col">Price</th>
 												<th scope="col">Quantity</th>
+												<th scope="col">SubTotal</th>
 											</tr>
 										</thead>
 
@@ -60,7 +83,7 @@
                                                 </td>
 
 												<td class="product-price">
-													<span class="unit-amount">${{ item.product.price }}</span>
+													<span class="unit-amount">${{ item.product.price | floatformat:2 }}</span>
 												</td>
 
 												<td class="product-quantity">
@@ -74,6 +97,9 @@
 														</span>
 													</div>
 												</td>
+                                            <td class="product-quantity">
+													<span class="unit-amount">${{ item.get_total |floatformat:2 }}</span>
+												</td>
 											</tr>
                                         {% endfor %}
 										</tbody>
@@ -84,23 +110,12 @@
 
                         <div class="cart-buttons">
                             <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="cart-widget-form-area">
-                                        <form class="cart-widget-form">
-                                            <input type="text" class="form-control" placeholder="Coupon Code">
-                                            <button class="subscribe-btn" type="submit">
-                                                Apply 
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-
                                 <div class="col-lg-6 col-md-6 text-end">
                                     <a href={% url 'shop-home' %} class="default-btn two">
                                         Continue Shopping
                                     </a>
-                                    <a href="cart.html" class="default-btn">
-                                        Update Cart
+                                    <a href="{% url 'checkout' %}" class="default-btn">
+                                        Checkout
                                     </a>
                                 </div>
                             </div>
