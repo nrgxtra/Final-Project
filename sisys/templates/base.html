@@ -225,25 +225,10 @@
                                     <a href="{% url 'shopping-cart' %}" class="nav-link">Cart</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="shop/checkout.html" class="nav-link">Checkout</a>
+                                    <a href="{% url 'checkout' %}" class="nav-link">Checkout</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="wishlist.html" class="nav-link">Wishlist</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="shop-details.html" class="nav-link">Shop Details</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="tracking-order.html" class="nav-link">Tracking Order</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="compare.html" class="nav-link">Compare</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="customer-services.html" class="nav-link">Customer Services</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="accounts/my-account.html" class="nav-link">My Account</a>
                                 </li>
                             </ul>
                         </li>
@@ -327,7 +312,7 @@
                         <div class="optional-item">
                             <a class="optional-item-cart" href={% url 'shopping-cart' %}>
                                 <i class='flaticon-shopping-cart-empty-side-view'></i>
-                                <span>{{ order.get_cart_quantity }}</span>
+                                <span>{{ cart_items }}</span>
                             </a>
                         </div>
                     </div>
@@ -346,7 +331,7 @@
                             <div class="optional-item">
                                 <a class="optional-item-cart" href="{% url 'shopping-cart' %}">
                                     <i class='flaticon-shopping-cart-empty-side-view'></i>
-                                    <span>{{ order.get_cart_quantity }}</span>
+                                    <span>{{ cart_items }}</span>
                                 </a>
                             </div>
                         </div>
@@ -356,6 +341,7 @@
         </div>
     </div>
 </div>
+
 <!-- End Navbar Area -->
 
 <!-- Modal Start -->
@@ -508,7 +494,6 @@
 <script src="{% static 'js/cart.js' %}"></script>
 <script>
     var user = '{{ request.user }}'
-
     function getToken(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

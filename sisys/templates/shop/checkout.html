@@ -1,43 +1,52 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        <!-- Inner Banner -->
-        <div class="inner-banner">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-lg-7 col-md-7">
-                        <div class="inner-title">
-                            <h3>Checkout</h3>
-                            <ul>
-                                <li>
-                                    <a href="{% url 'home' %}">Home</a>
-                                </li>
-                                <li>Checkout</li>
-                            </ul>
-                        </div>
+    <!-- Inner Banner -->
+    <div class="inner-banner">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-7">
+                    <div class="inner-title">
+                        <h3>Checkout</h3>
+                        <ul>
+                            <li>
+                                <a href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li>Checkout</li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="col-lg-5 col-md-5">
-                        <div class="inner-img">
-                            <img src="{% static "images/inner-banner/inner-banner3.png"%}" alt="Inner Banner" />
-                        </div>
+                <div class="col-lg-5 col-md-5">
+                    <div class="inner-img">
+                        <img src="{% static "images/inner-banner/inner-banner3.png" %}" alt="Inner Banner"/>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Inner Banner End -->
+    </div>
+    <!-- Inner Banner End -->
 
-        <!-- Checkout Area -->
-		<section class="checkout-area pt-100 pb-70">
-			<div class="container">
-               
+    <!-- Checkout Area -->
+    <section class="checkout-area pt-100 pb-70">
+        <div class="container">
+            {% if not user.is_authenticated %}
                 <div class="row">
-                    <div class="col-lg-7">
-                        {% if not user.is_authenticated %}
+                    <div class="checkout-user mb-45">
+                        <h3 style="text-align: center">You must have a registration to place an order</h3>
+                    </div>
+                    <
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-lg-7" id="form-wrapper">
+                    {% if not user.is_authenticated %}
                         <div class="row">
+
                             <div class="col-lg-7">
-                                <div class="checkout-user mb-45">
+                                <div class="checkout-user mb-45" style="align-content: center; text-align: center">
                                     <span> Already Have an Account? <a href="{% url 'login' %}">Click here to Log In</a></span>
+                                    <span>  <a href="{% url 'register' %}">Or Register</a></span>
                                 </div>
                             </div>
 
@@ -46,145 +55,195 @@
                                     <form class="checkout-coupon-form">
                                         <input type="text" class="form-control" placeholder="Coupon Code">
                                         <button class="subscribe-btn" type="submit">
-                                            Apply 
+                                            Apply
                                         </button>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                        {% endif %}
+                    {% endif %}
+                    <form id="form">
+                        <div class="billing-details">
+                            <h3 class="title">Shipping Details</h3>
+                            <div class="row" id="user-info">
+                                <div class="col-lg-6 col-md-6 " id="user-info">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name='name' placeholder="Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="shipping-info">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name='address' placeholder="Address">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name='province' placeholder="Province">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name='city' placeholder="Town / City">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name='postcode' placeholder="Postcode">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name='phone' placeholder="Phone">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="col-lg-12 col-md-12 text-center">
+                        <button type="submit" class="default-btn" id="make-payment">
+                            Place an Order
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="checkout-table ml-20 mb-30">
+                        <h3>Your Order</h3>
                         <form>
-                            <div class="billing-details">
-                                <h3 class="title">Billing Details</h3>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Name">
-                                        </div>
-                                    </div>
-        
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Address">
-                                        </div>
-                                    </div>
+                            <div class="cart-wraps">
+                                <div class="cart-table table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        {% for item in items %}
+                                            <tr>
+                                                <td class="product-thumbnail">
+                                                    <a href="cart.html">
+                                                        <img src="{{ item.product.pictureURL }}" alt="Image">
+                                                    </a>
+                                                </td>
 
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Province">
-                                        </div>
-                                    </div>
-        
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Town / City">
-                                        </div>
-                                    </div>
-        
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Postcode">
-                                        </div>
-                                    </div>
+                                                <td class="product-name">
+                                                    <a href="{% url 'shopping-cart' %}">{{ item.product.name }}</a>
 
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Phone">
-                                        </div>
-                                    </div>
-        
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="Email Address ">
-                                        </div>
-                                    </div>
+                                                </td>
 
-                                    <div class="col-lg-12 col-md-12 text-center">
-                                        <button type="submit" class="default-btn">
-                                            Place an Order
-                                        </button>
-                                    </div>
+                                                <td class="product-quentaty">
+                                                    x {{ item.quantity }}
+                                                </td>
+
+                                                <td class="product-price">
+                                                    <span class="unit-amount">${{ item.get_total }}</span>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                Total
+                                            </td>
+
+                                            <td class="product-name">
+
+
+                                            </td>
+
+                                            <td class="product-quentaty">
+                                                {{ order.get_cart_quantity }}
+                                            </td>
+
+                                            <td class="product-price">
+                                                <span class="unit-amount">${{ order.get_cart_total }}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    <div class="col-lg-5">
-                        <div class="checkout-table ml-20 mb-30">
-                            <h3>Your Order</h3>
-                            <form>
-                                <div class="cart-wraps">
-                                    <div class="cart-table table-responsive">
-                                        <table class="table table-bordered">
-                                            <tbody>
-                                            {% for item in items %}
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <a href="cart.html">
-                                                            <img src="{{ item.product.pictureURL }}" alt="Image">
-                                                        </a>
-                                                    </td>
-    
-                                                    <td class="product-name">
-                                                        <a href="{% url 'shopping-cart' %}">{{ item.product.name}}</a>
+                    <div class="payment-box ml-20">
+                        <div class="payment-method">
+                            <h3>Payment Method</h3>
 
-                                                    </td>
-    
-                                                    <td class="product-quentaty">
-                                                        x {{ item.quantity }}
-                                                    </td>
-                                                    
-                                                    <td class="product-price">
-                                                        <span class="unit-amount">${{ item.get_total}}</span>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            <tr>
-                                                    <td class="product-thumbnail">
-                                                        Total
-                                                    </td>
-
-                                                    <td class="product-name">
-
-
-                                                    </td>
-
-                                                    <td class="product-quentaty">
-                                                         {{ order.get_cart_quantity }}
-                                                    </td>
-
-                                                    <td class="product-price">
-                                                        <span class="unit-amount">${{ order.get_cart_total }}</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="payment-box ml-20">
-                            <div class="payment-method">
-                                <h3>Payment Method</h3>
-
-                                <p>
-                                    <input type="radio" id="direct-bank-transfer" name="radio-group" checked>
-                                    <label for="direct-bank-transfer">Direct Bank Transfer</label>
-                                </p>
-                                <p>
-                                    <input type="radio" id="paypal" name="radio-group">
-                                    <label for="paypal">PayPal</label>
-                                </p>
-                                <p>
-                                    <input type="radio" id="cash-on-delivery" name="radio-group">
-                                    <label for="cash-on-delivery">Cash On Delivery</label>
-                                </p>
-                            </div>
+                            <p>
+                                <input type="radio" id="paypal" name="radio-group">
+                                <label for="paypal">PayPal</label>
+                            </p>
+                            <p>
+                                <input type="radio" id="cash-on-delivery" name="radio-group">
+                                <label for="cash-on-delivery">Cash On Delivery</label>
+                            </p>
                         </div>
                     </div>
                 </div>
-			</div>
-		</section>
-		<!-- Checkout Area End -->
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+        var shipping = '{{ order.shipping }}'
+        var total = '{{ order.get_cart_total | floatformat:2 }}'
+        var user = '{{ request.user }}'
+        var form = document.getElementById('form')
+
+        if (shipping === 'False') {
+            document.getElementById('form').innerHTML = ''
+        }
+
+        document.getElementById('make-payment').addEventListener('click', function (e) {
+            submitFormData()
+        })
+
+        function submitFormData() {
+            var userFormData = {
+                'name': null,
+                'total': total,
+            }
+            var shippingInfo = {
+                'address': null,
+                'province': null,
+                'city': null,
+                'postcode': null,
+                'phone': null,
+            }
+            if (shipping !== 'False') {
+                userFormData.name = form.name.value
+                shippingInfo.address = form.address.value
+                shippingInfo.province = form.province.value
+                shippingInfo.city = form.city.value
+                shippingInfo.postcode = form.postcode.value
+                shippingInfo.phone = form.phone.value
+            }
+
+
+            let url = 'process_order'
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({'form': userFormData, 'shipping': shippingInfo})
+            })
+                .then((response) => {
+                    return response.json()})
+                .then((data) => {
+                                console.log('success', data);
+                                alert('Transaction completed');
+                                window.location.href = "{% url 'shop-home' %}"
+                            }
+                )}
+
+
+
+
+    </script>
+    <!-- Checkout Area End -->
 {% endblock %}

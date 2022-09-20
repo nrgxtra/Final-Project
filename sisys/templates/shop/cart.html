@@ -50,7 +50,7 @@
 													<span class="unit-amount">{{ order.get_cart_quantity }}</span>
 												</td>
 												<td class="product-price">
-													<span class="unit-amount">${{ order.get_cart_total }}</span>
+													<span class="unit-amount">${{ order.get_cart_total | floatformat:2}}</span>
 												</td>
 											</tr>
 										</tbody>
@@ -88,11 +88,11 @@
 
 												<td class="product-quantity">
 													<div class="input-counter">
-														<span class="minus-btn">
+														<span data-product="{{ item.product.id }}" data-action="remove" class="minus-btn update-cart">
 															<i class="ri-subtract-line"></i>
 														</span>
 														<input type="text" value={{ item.quantity }}>
-														<span class="plus-btn">
+														<span data-product="{{ item.product.id }}" data-action="add" class="plus-btn update-cart">
 															<i class="ri-add-fill"></i>
 														</span>
 													</div>
@@ -126,3 +126,4 @@
 		</section>
 		<!-- End Cart Area -->
 {% endblock %}
+<script src="{% static 'js/refresh.js' %}"></script>

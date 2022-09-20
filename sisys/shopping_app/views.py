@@ -1,31 +1,49 @@
 import json
-
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from shopping_app.forms import ItemCreationForm
-from shopping_app.models import Product, OrderItem, Order, Customer
+from shopping_app.models import Product, OrderItem, Order, Customer, ShippingAddress
 from shopping_app.utils import resize_image
 
 
 def shop_home(request):
     user = request.user
-    # order= Order.objects.get(customer=request.user.customer, complete=False)
+    if user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cart_items = order.get_cart_quantity
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
+        cart_items = order['get_cart_quantity']
+
     context = {
         'items': Product.objects.all(),
         'user': user,
-        # 'order': order,
+        'cart_items': cart_items
     }
     return render(request, 'shop/shop.html', context)
 
 
 def item_details(request, pk):
     item = Product.objects.all().get(id=pk)
+    user = request.user
+    if user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        cart_items = order.get_cart_quantity
+    else:
+        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
+        cart_items = order['get_cart_quantity']
 
     context = {
         'product': item,
+        'cart_items': cart_items,
 
     }
     return render(request, 'shop/item-details.html', context)
@@ -99,13 +117,16 @@ def show_cart(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
+        cart_items = order.get_cart_quantity
     else:
         items = []
-        order = {'get_cart_total': 0, 'get_cart_quantity': 0}
+        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
+        cart_items = order['get_cart_quantity']
 
     context = {
         'items': items,
         'order': order,
+        'cart_items': cart_items,
     }
     return render(request, 'shop/cart.html', context)
 
@@ -115,14 +136,17 @@ def checkout(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
+        cart_items = order.get_cart_quantity
     else:
         items = []
-        order = {'get_cart_total': 0, 'get_cart_quantity': 0}
+        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
+        cart_items = order['get_cart_quantity']
 
     context = {
         'user': request.user,
         'items': items,
         'order': order,
+        'cart_items': cart_items,
     }
     return render(request, 'shop/checkout.html', context)
 
@@ -147,3 +171,30 @@ def updateItem(request):
         orderItem.delete()
     return JsonResponse('Item was added.', safe=False)
 
+
+@login_required
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+
+    customer = request.user.customer
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
+    if total == order.get_cart_total:
+        order.complete = True
+    order.save()
+    if order.shipping == True:
+        ShippingAddress.objects.create(
+            customer=customer,
+            order=order,
+            email=request.user.email,
+            name=data['form']['name'],
+            address=data['shipping']['address'],
+            province=data['shipping']['province'],
+            city=data['shipping']['city'],
+            post_code=data['shipping']['postcode'],
+            phone=data['shipping']['phone'],
+
+        )
+    return JsonResponse('Payment complete.', safe=False)

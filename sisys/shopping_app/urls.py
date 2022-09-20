@@ -1,6 +1,6 @@
 from django.urls import path
 
-from shopping_app.views import shop_home, item_details, show_cart, checkout, updateItem
+from shopping_app.views import shop_home, item_details, show_cart, checkout, updateItem, processOrder
 
 urlpatterns = (
     path('shop', shop_home, name='shop-home'),
@@ -11,4 +11,5 @@ urlpatterns = (
     path('shopping-cart', show_cart, name='shopping-cart'),
     path('checkout', checkout, name='checkout'),
     path('update_item', updateItem, name='update_item'),
+    path('process_order', processOrder, name='process_order'),
 )

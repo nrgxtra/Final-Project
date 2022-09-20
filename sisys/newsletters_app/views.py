@@ -1,23 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from newsletters_app.forms import NewsletterUserSignUpForm
 from newsletters_app.models import NewsletterUser
 
 
 @login_required
 def newsletter_signup(request):
-    form = NewsletterUserSignUpForm(request.POST)
-    context = {
-        'form': form,
-        'name': request.user.email,
-    }
-    if request.method == 'POST':
-        if form.is_valid():
-            sub_user = NewsletterUser(email=request.user.email)
-            sub_user.save()
-            return redirect('home')
-    return render(request, 'newsletter/news-sign-up.html', context)
+    if request.method == 'GET':
+        sub_user = NewsletterUser(email=request.user.email)
+        sub_user.save()
+    return redirect('home')
 
 
 def newsletter_signout(request):
