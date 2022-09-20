@@ -1,138 +1,120 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        <!-- Inner Banner -->
-        <div class="inner-banner">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-lg-7 col-md-7">
-                        <div class="inner-title">
-                            <h3>Shop</h3>
-                            <ul>
+    <!-- Inner Banner -->
+    <div class="inner-banner">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-7">
+                    <div class="inner-title">
+                        <h3>Shop</h3>
+                        <ul>
+                            <li>
+                                <a href="{% url 'home' %}">Home</a>
+                            </li>
+                            {% if user.is_staff %}
                                 <li>
-                                    <a href="{% url 'home' %}">Home</a>
+                                    <a href="{% url 'add-item' %}">ADD ITEM</a>
                                 </li>
-{#                                {% if user.is_staff %}#}
-{#                                <li>#}
-{#                                    <a href="{% url 'add-item' %}">ADD ITEM</a>#}
-{#                                </li>#}
-{#                                 {% endif %}#}
-                                <li>Shop</li>
-                            </ul>
-                        </div>
+                            {% endif %}
+                            <li>Shop</li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="col-lg-5 col-md-5">
-                        <div class="inner-img">
-                            <img src={% static "images/inner-banner/inner-banner8.png"%} alt="InnerBanner"/>
-                        </div>
+                <div class="col-lg-5 col-md-5">
+                    <div class="inner-img">
+                        <img src={% static "images/inner-banner/inner-banner8.png" %} alt="InnerBanner"/>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Inner Banner End -->
+    </div>
+    <!-- Inner Banner End -->
 
-        <!-- Shop Area -->
-        <div class="shop-area pt-100 pb-70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-9" style="width:100%">
-                        <div class="product-topper mb-45">
-                            <div class="row align-items-center">
-                                <div class="col-lg-8 col-md-6">
-                                    <div class="product-title">
-                                        <h3>Showing 1-9 of {{ items.count }} results</h3>
-                                    </div>
-                                </div>
-        
-                                <div class="col-lg-4 col-md-6">
+    <!-- Shop Area -->
+    <div class="shop-area pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9" style="width:100%">
+                    <div class="product-topper mb-45">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 col-md-6">
+                                <div class="product-title">
+                                    <h3>Showing 1-9 of {{ items.count }} results</h3>
                                 </div>
                             </div>
+
+                            <div class="col-lg-4 col-md-6">
+                            </div>
                         </div>
-                        <div class="row justify-content-center">
-                            {% for item in items %}
+                    </div>
+                    <div class="row justify-content-center">
+                        {% for item in page.object_list %}
                             <div class="col-lg-4 col-md-6">
                                 <div class="products-card products-card-short-css">
                                     <div class="product-img">
                                         <a href="{% url 'item-details' item.id %}">
-                                            <img src={{ item.pictureURL }} alt="Products" />
+                                            <img src={{ item.pictureURL }} alt="Products"/>
                                         </a>
 
                                     </div>
                                     <div class="content">
-                                        <h2><a href="{% url 'item-details' item.id %}">{{ item.name}}</a></h2>
+                                        <h2><a href="{% url 'item-details' item.id %}">{{ item.name }}</a></h2>
                                         <span style="font-size: larger; font-weight: bold">{{ item.price | floatformat:2 }} $</span>
-{#                                        {% if user.is_staff %}#}
-{#                                        <div>#}
-{#                                            <a class="button" style="font-size: larger" href="{% url 'update-item' item.id %}">Update</a>#}
-{#                                        </div>#}
-{#                                        <div>#}
-{#                                            <a class="button" style="font-size: larger" href="{% url 'delete-item' item.id %}">Delete</a>#}
-{#                                        </div>#}
-{#                                        {% endif %}#}
+                                        {% if user.is_staff %}
+                                            <div>
+                                                <a class="button" style="font-size: larger"
+                                                   href="{% url 'update-item' item.id %}">Update</a>
+                                            </div>
+                                            <div>
+                                                <a class="button" style="font-size: larger"
+                                                   href="{% url 'delete-item' item.id %}">Delete</a>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
-                            <div class="col-lg-12 col-md-12 text-center">
-                                <div class="pagination-area">
-                                    <a href="blog-1.html" class="prev page-numbers">
+                        {% endfor %}
+                        <div class="col-lg-12 col-md-12 text-center">
+                            <div class="pagination-area">
+                                {% if page.has_previous %}
+                                    <a href="{% url 'shop-home' %}?page={{ page.previous_page_number }}"
+                                       class="prev page-numbers">
                                         <i class="flaticon-arrow-pointing-to-left"></i>
                                     </a>
-        
-                                    <span class="page-numbers current" aria-current="page">1</span>
-                                    <a href="blog-1.html" class="page-numbers">2</a>
-                                    <a href="blog-1.html" class="page-numbers">3</a>
-                                    
-                                    <a href="blog-1.html" class="next page-numbers">
+                                {% endif %}
+                                {% for i in products_paginator %}
+                                    {% if i.number == page.number %}
+                                        <span class="page-numbers current"
+                                              aria-current="page">{{i.number}}</span>
+                                    {% else %}
+                                        <a href="{% url 'shop-home' %}?page={{ i.number }}" class="page-numbers">{{ i.number }}</a>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if page.has_next %}
+                                    <a href="{% url 'shop-home' %}?page={{ page.next_page_number }}"
+                                       class="next page-numbers">
                                         <i class="flaticon-arrow-pointing-to-right"></i>
                                     </a>
-                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-
-{#                    <div class="col-lg-3">#}
-{#                        <div class="side-bar-area pl-20">#}
-{#                            <div class="search-widget">#}
-{#                                <form class="search-form">#}
-{#                                    <input type="search" class="form-control" placeholder="Search">#}
-{#                                    <button type="submit">#}
-{#                                        <i class="flaticon-search"></i>#}
-{#                                    </button>#}
-{#                                </form>#}
-{#                            </div>#}
-{##}
-{#                            <div class="side-bar-widget">#}
-{#                                <h3 class="title-two">Prices</h3>#}
-{#                                <form class="price-range-content">#}
-{#                                    <div class="price-range-bar" id="range-slider"></div>#}
-{#                                    <div class="price-range-filter">#}
-{#                                        <div class="price-range-filter-item d-flex align-items-center order-1 order-xl-2">#}
-{#                                            <h4>Range:</h4>#}
-{#                                            <input type="text" id="price-amount" readonly>#}
-{#                                        </div>#}
-{##}
-{#                                        <div class="price-range-filter-item price-range-filter-button order-2 order-xl-1">#}
-{#                                            <button class="btn btn-red btn-icon">Filter</button>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </form>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
                 </div>
             </div>
         </div>
-        <!-- Shop Area End -->
+    </div>
+    <!-- Shop Area End -->
 {% endblock %}
 
 
-        <!-- Jquery Min JS -->
-        <script src={% static "js/jquery.min.js"%}></script>
-        <!-- Plugins JS -->
-        <script src={% static "js/plugins.js"%}></script>
-        <!-- Custom  JS -->
-        <script src={% static "js/custom.js"%}></script>
-    </body>
+<!-- Jquery Min JS -->
+<script src={% static "js/jquery.min.js" %}></script>
+<!-- Plugins JS -->
+<script src={% static "js/plugins.js" %}></script>
+<!-- Custom  JS -->
+<script src={% static "js/custom.js" %}></script>
+</div>
 </html>

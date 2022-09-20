@@ -63,6 +63,7 @@
                         </div>
                     {% endif %}
                     <form id="form">
+                        {% csrf_token %}
                         <div class="billing-details">
                             <h3 class="title">Shipping Details</h3>
                             <div class="row" id="user-info">
@@ -107,9 +108,12 @@
                         </div>
 
                     </form>
-                    <div class="col-lg-12 col-md-12 text-center">
-                        <button type="submit" class="default-btn" id="make-payment">
-                            Place an Order
+                    <div class="col-lg-12 col-md-12 text-center" id="make-payment">
+                        <div id="paypal-button-container"></div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 text-center" id="make-payment">
+                        <button type="submit" class="default-btn">
+                            Place Order with COD
                         </button>
                     </div>
                 </div>
@@ -168,38 +172,66 @@
                             </div>
                         </form>
                     </div>
-
-                    <div class="payment-box ml-20">
-                        <div class="payment-method">
-                            <h3>Payment Method</h3>
-
-                            <p>
-                                <input type="radio" id="paypal" name="radio-group">
-                                <label for="paypal">PayPal</label>
-                            </p>
-                            <p>
-                                <input type="radio" id="cash-on-delivery" name="radio-group">
-                                <label for="cash-on-delivery">Cash On Delivery</label>
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <script src="https://www.paypal.com/sdk/js?client-id=AX4FQrTraefkuHlH0I3D9FJI9j2UnojPRqIKq7neU_06KVKBQLm0oO1sZa0zibw7-SQDp1IMrhnF73eK&currency=USD"></script>
+
+    <script>
+        var total = '{{ order.get_cart_total }}'
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: parseFloat(total).toFixed(2)
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+                    // Successful capture! For demo purposes:
+                    submitFormData()
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
     <script type="text/javascript">
         var shipping = '{{ order.shipping }}'
-        var total = '{{ order.get_cart_total | floatformat:2 }}'
+
         var user = '{{ request.user }}'
         var form = document.getElementById('form')
+        csrftoken = form.getElementsByTagName("input")[0].value
+        form.addEventListener('submit', function (e) {
+            e.preventDefault()
+        })
 
         if (shipping === 'False') {
             document.getElementById('form').innerHTML = ''
         }
 
+        /*
         document.getElementById('make-payment').addEventListener('click', function (e) {
             submitFormData()
         })
+
+         */
 
         function submitFormData() {
             var userFormData = {
@@ -233,15 +265,17 @@
                 body: JSON.stringify({'form': userFormData, 'shipping': shippingInfo})
             })
                 .then((response) => {
-                    return response.json()})
+                    return response.json()
+                })
                 .then((data) => {
-                                console.log('success', data);
-                                alert('Transaction completed');
-                                window.location.href = "{% url 'shop-home' %}"
-                            }
-                )}
-
-
+                        console.log('success', data);
+                        alert('Transaction completed');
+                        cart = {}
+                        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+                        window.location.href = "{% url 'shop-home' %}"
+                    }
+                )
+        }
 
 
     </script>

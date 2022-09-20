@@ -2,28 +2,32 @@ import json
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
+from django.shortcuts import render, redirect
 
 from shopping_app.forms import ItemCreationForm
-from shopping_app.models import Product, OrderItem, Order, Customer, ShippingAddress
+from shopping_app.models import Product, OrderItem, Order, ShippingAddress
 from shopping_app.utils import resize_image
+from django.core.paginator import Paginator, Page
 
 
 def shop_home(request):
     user = request.user
+    products = Product.objects.all()
+    products_paginator = Paginator(products, 9)
+    page_number = request.GET.get('page')
+    page = products_paginator.get_page(page_number)
     if user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
         cart_items = order.get_cart_quantity
     else:
-        items = []
         order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
         cart_items = order['get_cart_quantity']
 
     context = {
-        'items': Product.objects.all(),
+        'items': products,
+        'page': page,
+        'products_paginator': products_paginator,
         'user': user,
         'cart_items': cart_items
     }
@@ -49,67 +53,67 @@ def item_details(request, pk):
     return render(request, 'shop/item-details.html', context)
 
 
-# @login_required
-# def create_item(request):
-#     user = request.user
-#     if request.method == 'POST':
-#         if user.is_staff:
-#             form = ItemCreationForm(request.POST, request.FILES)
-#             if form.is_valid():
-#                 item = form.save(commit=False)
-#                 if item.picture:
-#                     img = resize_image(
-#                         item.picture,
-#                     )
-#                     img.save(item.picture.path)
-#                 item.save()
-#                 return redirect('shop-home')
-#     form = ItemCreationForm()
-#     context = {
-#         'form': form,
-#         'user': request.user,
-#     }
-#     return render(request, 'shop/item-add.html', context)
-#
-#
-# @login_required
-# def update_item(request, pk):
-#     user = request.user
-#     item = Product.objects.all().get(id=pk)
-#
-#     if request.method == 'POST':
-#         form = ItemCreationForm(request.POST, request.FILES, instance=item)
-#         if user.is_staff:
-#             if form.is_valid():
-#                 item = form.save(commit=False)
-#                 if item.picture:
-#                     img = resize_image(
-#                         item.picture,
-#                     )
-#                     img.save(item.picture.path)
-#                 item.save()
-#                 return redirect('shop-home')
-#     form = ItemCreationForm(instance=item)
-#     context = {
-#         'form': form,
-#         'user': request.user,
-#         'item': item,
-#     }
-#     return render(request, 'shop/item-update.html', context)
-#
-#
-# def delete_item(request, pk):
-#     user = request.user
-#     item = Product.objects.all().get(id=pk)
-#     if request.method == 'POST':
-#         if user.is_staff:
-#             item.delete()
-#             return redirect('shop-home')
-#     context = {
-#         'item': item,
-#         'user': user,
-#     }
-#     return render(request, 'shop/item-delete.html', context)
+@login_required
+def create_item(request):
+    user = request.user
+    if request.method == 'POST':
+        if user.is_staff:
+            form = ItemCreationForm(request.POST, request.FILES)
+            if form.is_valid():
+                item = form.save(commit=False)
+                if item.picture:
+                    img = resize_image(
+                        item.picture,
+                    )
+                    img.save(item.picture.path)
+                item.save()
+                return redirect('shop-home')
+    form = ItemCreationForm()
+    context = {
+        'form': form,
+        'user': request.user,
+    }
+    return render(request, 'shop/item-add.html', context)
+
+
+@login_required
+def update_item(request, pk):
+    user = request.user
+    item = Product.objects.all().get(id=pk)
+
+    if request.method == 'POST':
+        form = ItemCreationForm(request.POST, request.FILES, instance=item)
+        if user.is_staff:
+            if form.is_valid():
+                item = form.save(commit=False)
+                if item.picture:
+                    img = resize_image(
+                        item.picture,
+                    )
+                    img.save(item.picture.path)
+                item.save()
+                return redirect('shop-home')
+    form = ItemCreationForm(instance=item)
+    context = {
+        'form': form,
+        'user': request.user,
+        'item': item,
+    }
+    return render(request, 'shop/item-update.html', context)
+
+
+def delete_item(request, pk):
+    user = request.user
+    item = Product.objects.all().get(id=pk)
+    if request.method == 'POST':
+        if user.is_staff:
+            item.delete()
+            return redirect('shop-home')
+    context = {
+        'item': item,
+        'user': user,
+    }
+    return render(request, 'shop/item-delete.html', context)
 
 
 def show_cart(request):
