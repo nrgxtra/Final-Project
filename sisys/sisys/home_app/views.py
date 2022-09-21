@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import django.views.generic as views
 from newsletters_app.models import NewsletterUser
-from shopping_app.models import Order
+from shopping_app.models import Order, Customer
 
 
 class HomeView(views.TemplateView):
@@ -11,7 +11,7 @@ class HomeView(views.TemplateView):
         user = self.request.user
         if user.is_authenticated:
             sub_user = NewsletterUser.objects.all().filter(email=self.request.user.email)
-            customer = self.request.user.customer
+            customer, created = Customer.objects.get_or_create(user=user)
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
             cart_items = order.get_cart_quantity
             if sub_user:
