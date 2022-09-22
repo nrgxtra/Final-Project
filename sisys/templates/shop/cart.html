@@ -114,9 +114,11 @@
                                     <a href={% url 'shop-home' %} class="default-btn two">
                                         Continue Shopping
                                     </a>
+                                    {% if cart_items != 0 %}
                                     <a href="{% url 'checkout' %}" class="default-btn">
                                         Checkout
                                     </a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
