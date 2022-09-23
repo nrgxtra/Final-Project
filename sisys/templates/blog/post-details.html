@@ -34,6 +34,14 @@
                                 <a href="{% url 'home' %}">Home</a>
                             </li>
                             <li>Post Details</li>
+                            {% if post.author == user %}
+                            <li>
+                                <a href="{% url 'post_update' post.id post.slug%}">UPDATE</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'post_delete' post.id post.slug %}">DELETE</a>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -56,12 +64,16 @@
                     <div class="blog-details-content">
                         <h2 class="title">{{ post.title }}</h2>
                         <div class="blog-preview-img">
-                            <img src="{{ post.image.url }}" alt="Blog Details"/>
+                            <img src="{{ post.imageURL }}" alt="Blog Details"/>
                         </div>
                         <ul class="tag-list">
                             <li class="active"><a href="author.html"> <i
                                     class='flaticon-user'></i>{{ post.author }}</a></li>
                             <li><i class='flaticon-clock'></i> {{ post.created_on | date }} </li>
+                            <li>
+                                <a href="{% url 'like' post.id post.slug %}"><i class="ri-heart-line">{{ likes.count }}</i></a>
+                            </li>
+
                         </ul>
 
                         <div class="blog-article-content">

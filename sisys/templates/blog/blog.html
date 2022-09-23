@@ -9,6 +9,9 @@
                 <div class="col-lg-7 col-md-7">
                     <div class="inner-title">
                         <h3>Welcome to our blog</h3>
+                        {% if user.is_staff %}
+                            <a href="{% url 'post_create' %}">ADD POST</a>
+                        {% endif %}
                         <ul>
                             <li>
                                 <a href="{% url 'home' %}">Home</a>
@@ -35,8 +38,8 @@
                 <div class="col-lg-4">
                     <div class="side-bar-area pr-20">
                         <div class="search-widget">
-                            <form class="search-form">
-                                <input type="search" class="form-control" placeholder="Search By Keywords">
+                            <form class="search-form" name=query action="{% url 'search' %}" method="get">
+                                <input type="search" class="form-control" name=query placeholder="Search By Keywords">
                                 <button type="submit">
                                     <i class="flaticon-search"></i>
                                 </button>
@@ -47,37 +50,37 @@
                             <div class="side-bar-categories">
                                 <ul>
                                     <li>
-                                        <a href="categories.html" target="_blank">
+                                        <a href="post-create.html" target="_blank">
                                             <i class="ri-arrow-right-s-line"></i>
                                             Massage Therapy <span>(18)</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="categories.html" target="_blank">
+                                        <a href="post-create.html" target="_blank">
                                             <i class="ri-arrow-right-s-line"></i>
                                             Aroma Therapy <span>(35)</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="categories.html" target="_blank">
+                                        <a href="post-create.html" target="_blank">
                                             <i class="ri-arrow-right-s-line"></i>
                                             Oil Therapy <span>(54)</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="categories.html" target="_blank">
+                                        <a href="post-create.html" target="_blank">
                                             <i class="ri-arrow-right-s-line"></i>
                                             Salt Therapy <span>(25)</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="categories.html" target="_blank">
+                                        <a href="post-create.html" target="_blank">
                                             <i class="ri-arrow-right-s-line"></i>
                                             Revive with Rose <span>(18)</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="categories.html" target="_blank">
+                                        <a href="post-create.html" target="_blank">
                                             <i class="ri-arrow-right-s-line"></i>
                                             Organic Therapy <span>(45)</span>
                                         </a>
@@ -152,11 +155,9 @@
                         <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6">
                             <div class="blog-card box-shadow">
-                                {% if post.image %}
-                                    <a href="{% url 'post_details' post.id post.slug %}" class="img">
-                                        <img src="{{ post.image.url }}" alt="Blog"/>
-                                    </a>
-                                {% endif %}
+                                <a href="{% url 'post_details' post.id post.slug %}" class="img">
+                                    <img src="{{ post.imageURL }}" alt="Blog"/>
+                                </a>
                                 <div class="content">
                                     <ul>
                                         <li>
@@ -168,37 +169,39 @@
                                             {{ post.created_on | date }}
                                         </li>
                                     </ul>
-                                    <h3><a href="{% url 'post_details' post.id post.slug %}">{{ post.title}}</a></h3>
-                                    <a href="{% url 'post_details' post.id post.slug %}" class="default-btn two border-radius-5">Read More <i
+                                    <h3><a href="{% url 'post_details' post.id post.slug %}">{{ post.title }}</a></h3>
+                                    <a href="{% url 'post_details' post.id post.slug %}"
+                                       class="default-btn two border-radius-5">Read More <i
                                             class="flaticon-arrow-pointing-to-right"></i></a>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                     <div class="col-lg-12 col-md-12 text-center">
-                         <div class="pagination-area">
-                {% if paginator.page.has_previous %}
-                    <a href="{% url 'blog' %}?page={{ paginator.page.previous_page_number }}"
-                       class="prev page-numbers">
-                        <i class="flaticon-arrow-pointing-to-left"></i>
-                    </a>
-                {% endif %}
-                {% for i in paginator %}
-                    {% if i.number == page_obj.number %}
-                        <span class="page-numbers current"
-                              aria-current="page">{{ i.number }}</span>
-                    {% else %}
-                        <a href="{% url 'blog_home' %}?page={{ i.number }}" class="page-numbers">{{ i.number }}</a>
-                    {% endif %}
-                {% endfor %}
+                        <div class="pagination-area">
+                            {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}"
+                                   class="prev page-numbers">
+                                    <i class="flaticon-arrow-pointing-to-left"></i>
+                                </a>
+                            {% endif %}
+                            {% for i in paginator %}
+                                {% if i.number == page_obj.number %}
+                                    <span class="page-numbers current"
+                                          aria-current="page">{{ i.number }}</span>
+                                {% else %}
+                                    <a href="{% url 'blog_home' %}?page={{ i.number }}"
+                                       class="page-numbers">{{ i.number }}</a>
+                                {% endif %}
+                            {% endfor %}
 
-                {% if paginator.page.has_next %}
-                    <a href="{% url 'blog' %}?page={{ paginator.page.next_page_number }}"
-                       class="next page-numbers">
-                        <i class="flaticon-arrow-pointing-to-right"></i>
-                    </a>
-                {% endif %}
-            </div>
+                            {% if page_obj.has_next %}
+                                <a href="{% url 'blog_home' %}?page={{ page_obj.next_page_number }}"
+                                   class="next page-numbers">
+                                    <i class="flaticon-arrow-pointing-to-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                     </div>
                 </div>

@@ -155,7 +155,7 @@ def checkout(request):
     return render(request, 'shop/checkout.html', context)
 
 
-def updateItem(request):
+def updateItemQuantity(request):
     data = json.loads(request.body)
     productId = data['productId']
     action = data['action']
@@ -188,7 +188,7 @@ def processOrder(request):
     if total == order.get_cart_total:
         order.complete = True
     order.save()
-    if order.shipping == True:
+    if order.shipping is True:
         ShippingAddress.objects.create(
             customer=customer,
             order=order,
