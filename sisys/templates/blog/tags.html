@@ -8,12 +8,12 @@
                 <div class="row align-items-center">
                     <div class="col-lg-7 col-md-7">
                         <div class="inner-title">
-                            <h3>Tags</h3>
+                            <h3>Search Results</h3>
                             <ul>
                                 <li>
-                                    <a href="{% url 'home' %}">Home</a>
+                                    <a href="{% url 'blog_home' %}">Blog</a>
                                 </li>
-                                <li>Tags</li>
+                                <li>Search Results</li>
                             </ul>
                         </div>
                     </div>
@@ -43,10 +43,7 @@
                             </a>
                             <div class="content">
                                 <ul>
-                                    <li>
-                                        <i class="flaticon-spa"></i>
-                                        <a href="post-create.html">{{ query }}</a>
-                                    </li>
+
                                     <li>
                                         <i class="flaticon-clock"></i>
                                         {{ post.created_on | date}}
@@ -58,32 +55,6 @@
                         </div>
                     </div>
                     {% endfor %}
-
-                 <div class="col-lg-12 col-md-12 text-center">
-                         <div class="pagination-area">
-                {% if paginator.page.has_previous %}
-                    <a href="{% url 'search' %}?page={{ paginator.page.previous_page_number }}"
-                       class="prev page-numbers">
-                        <i class="flaticon-arrow-pointing-to-left"></i>
-                    </a>
-                {% endif %}
-                {% for i in paginator %}
-                    {% if i.number == page_obj.number %}
-                        <span class="page-numbers current"
-                              aria-current="page">{{ i.number }}</span>
-                    {% else %}
-                        <a href="{% url 'search' %}?page={{ i.number }}" class="page-numbers">{{ i.number }}</a>
-                    {% endif %}
-                {% endfor %}
-
-                {% if paginator.page.has_next %}
-                    <a href="{% url 'search' %}?page={{ paginator.page.next_page_number }}"
-                       class="next page-numbers">
-                        <i class="flaticon-arrow-pointing-to-right"></i>
-                    </a>
-                {% endif %}
-            </div>
-                    </div>
                 </div>
             </div>
         </div>

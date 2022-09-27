@@ -38,27 +38,40 @@
                     </div>
                     <form id="contactForm" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="row" style="justify-content: center">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    Title
-                                    <p class="form-control">{{ form.title }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
                         <div class="row">
+                            {% for line in form %}
+                                {% if line.name == 'image' %}
+                                    <div class="form-group">
+                                        <p>{{ line }}
+                                        </p>
+                                    </div>
+                                {% elif line.name == 'content' %}
+                                    <div class="about-content-max">
+                                        <p class="about-content">{{ line }} {{ line.label }}</p>
+                                    </div>
+                                {% elif line.name == 'title' %}
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <p class="form-control"
+                                               style="border-radius: 5px">{{ line }} {{ line.label }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                {% elif line.name == 'tags' %}
+                                    <br>
+                                    <div>
+                                    {{ line }} {{ line.label }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 
-                            <div class="form-group" style="text-align: center">
-                            {{ form }}
-
-                        <div class="col-lg-12 col-md-12">
-                            <button type="submit" class="default-btn">
-                                Publish
-                            </button>
-                            <div id="msgSubmit" class="h3 hidden"></div>
-                            <div class="clearfix"></div>
-                        </div>
+                            <div class="col-lg-12 col-md-12">
+                                <button type="submit" class="default-btn">
+                                    Publish
+                                </button>
+                                <div id="msgSubmit" class="h3 hidden"></div>
+                                <div class="clearfix"></div>
+                            </div>
                     </form>
                 </div>
             </div>

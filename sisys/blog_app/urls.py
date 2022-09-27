@@ -1,6 +1,7 @@
 from django.urls import path
 
-from blog_app.views import HomeView, PostView, PostCreateView, PostUpdateView, PostDeleteView, SearchView, post_like
+from blog_app.views import HomeView, PostView, PostCreateView, PostUpdateView, PostDeleteView, SearchView, post_like, \
+    posts_with_tag
 
 urlpatterns = [
     path('', HomeView.as_view(), name='blog_home'),
@@ -10,4 +11,5 @@ urlpatterns = [
     path('post-delete/<int:pk>/<slug:slug>', PostDeleteView.as_view(), name='post_delete'),
     path('search', SearchView.as_view(), name="search"),
     path('like/<int:pk>/<slug:slug>', post_like, name='like'),
+    path('posts-tag/<tag>', posts_with_tag, name='posts_with_tag'),
 ]

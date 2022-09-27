@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.text import slugify
 from django.urls import reverse_lazy
@@ -13,7 +14,7 @@ from django.views.generic import (
 )
 
 from .forms import CommentForm, PostCreationForm
-from .models import Post, Comment, Like
+from .models import Post, Comment, Like, Tag
 
 
 class HomeView(ListView):
@@ -23,8 +24,12 @@ class HomeView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        resent_posts = self.queryset[:3]
         user = self.request.user
+        tags = Tag.objects.all()
         context['user'] = user
+        context['tags'] = tags
+        context['resent_posts'] = resent_posts
 
         return context
 
@@ -41,6 +46,7 @@ class PostView(DetailView):
 
         form = CommentForm()
         post = get_object_or_404(Post, pk=pk, slug=slug)
+        tags = [t.name for t in post.tags.all()]
         comments = post.comment_set.all()
         likes = post.like_set.all()
 
@@ -49,6 +55,7 @@ class PostView(DetailView):
         context['form'] = form
         context['likes'] = likes
         context['user'] = user
+        context['tags'] = tags
         return context
 
     def post(self, request, *args, **kwargs):
@@ -141,16 +148,33 @@ class SearchView(ListView):
     model = Post
     template_name = 'blog/tags.html'
 
-    def get_context_data(self, **kwargs):
+    def get_queryset(self):  # new
+        query = self.request.GET.get("query")
+        posts = Post.objects.filter(title__icontains=query).all()
+
+        return posts
+
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        query = self.request.GET['query']
-        posts = Post.objects.filter(title__icontains=query)
-        context['query'] = query
+        posts = self.get_queryset()
+
         context['posts'] = posts
 
         return context
 
-    paginate_by = 6
+
+def posts_with_tag(request, tag):
+    posts = Post.objects.filter(tags__name__icontains=tag)
+    tags = Tag.objects.all()
+    resent_posts = Post.objects.all()[:3]
+
+    context = {
+        'object_list': posts,
+        'tags': tags,
+        'resent_posts': resent_posts,
+
+    }
+    return render(request, 'blog/blog.html', context)
 
 
 @login_required

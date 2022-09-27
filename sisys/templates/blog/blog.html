@@ -46,105 +46,32 @@
                             </form>
                         </div>
                         <div class="side-bar-widget">
-                            <h3 class="title">Popular Categories</h3>
-                            <div class="side-bar-categories">
-                                <ul>
-                                    <li>
-                                        <a href="post-create.html" target="_blank">
-                                            <i class="ri-arrow-right-s-line"></i>
-                                            Massage Therapy <span>(18)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="post-create.html" target="_blank">
-                                            <i class="ri-arrow-right-s-line"></i>
-                                            Aroma Therapy <span>(35)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="post-create.html" target="_blank">
-                                            <i class="ri-arrow-right-s-line"></i>
-                                            Oil Therapy <span>(54)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="post-create.html" target="_blank">
-                                            <i class="ri-arrow-right-s-line"></i>
-                                            Salt Therapy <span>(25)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="post-create.html" target="_blank">
-                                            <i class="ri-arrow-right-s-line"></i>
-                                            Revive with Rose <span>(18)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="post-create.html" target="_blank">
-                                            <i class="ri-arrow-right-s-line"></i>
-                                            Organic Therapy <span>(45)</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="side-bar-widget">
                             <h3 class="title">Recent Post</h3>
                             <div class="widget-popular-post">
+                                {% for p in resent_posts %}
                                 <article class="item">
-                                    <a href="blog-details.html" class="thumb">
-                                        <span class="full-image cover bg1" role="img"></span>
+                                    <a href="{% url 'post_details' p.id p.slug %}" class="thumb">
+                                        <span class="full-image cover bg1" role="img"><img src="{{ p.imageURL }}" alt="Blog"/></span>
                                     </a>
                                     <div class="info">
-                                        <p>Jan 12, 2021</p>
+                                        <p>{{ p.created_on | date}}</p>
                                         <h4 class="title-text">
-                                            <a href="blog-details.html">
-                                                Happy Hands Nail Polish And Exclusive Collection
+                                            <a href="{% url 'post_details' p.id p.slug %}">
+                                                {{ p.title}}
                                             </a>
                                         </h4>
                                     </div>
                                 </article>
+                                {% endfor %}
 
-                                <article class="item">
-                                    <a href="blog-details.html" class="thumb">
-                                        <span class="full-image cover bg2" role="img"></span>
-                                    </a>
-                                    <div class="info">
-                                        <p>Jan 14, 2022</p>
-                                        <h4 class="title-text">
-                                            <a href="blog-details.html">
-                                                Why You Should Use Non-Toxic Nail Polish
-                                            </a>
-                                        </h4>
-                                    </div>
-                                </article>
-
-                                <article class="item">
-                                    <a href="blog-details.html" class="thumb">
-                                        <span class="full-image cover bg3" role="img"></span>
-                                    </a>
-                                    <div class="info">
-                                        <p>Jan 17, 2022</p>
-                                        <h4 class="title-text">
-                                            <a href="blog-details.html">
-                                                How To Nourish And Protect Your Nails
-                                            </a>
-                                        </h4>
-                                    </div>
-                                </article>
                             </div>
                         </div>
                         <div class="side-bar-widget">
                             <h3 class="title">Popular Tags</h3>
                             <ul class="side-bar-widget-tag">
-                                <li><a href="tags.html" target="_blank">Massage </a></li>
-                                <li><a href="tags.html" target="_blank">Sauna</a></li>
-                                <li><a href="tags.html" target="_blank">Therapy</a></li>
-                                <li><a href="tags.html" target="_blank">Rellax</a></li>
-                                <li><a href="tags.html" target="_blank">Hot Stone</a></li>
-                                <li><a href="tags.html" target="_blank">Red Nail</a></li>
-                                <li><a href="tags.html" target="_blank">Spa</a></li>
-                                <li><a href="tags.html" target="_blank">Curly Hair</a></li>
+                                {% for tag in tags %}
+                                <li><a href="{% url 'posts_with_tag' tag %}" >{{ tag }} </a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -168,6 +95,7 @@
                                             <i class="flaticon-clock"></i>
                                             {{ post.created_on | date }}
                                         </li>
+
                                     </ul>
                                     <h3><a href="{% url 'post_details' post.id post.slug %}">{{ post.title }}</a></h3>
                                     <a href="{% url 'post_details' post.id post.slug %}"
