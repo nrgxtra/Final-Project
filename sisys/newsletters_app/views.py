@@ -6,7 +6,7 @@ from newsletters_app.models import NewsletterUser
 
 @login_required
 def newsletter_signup(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         sub_user = NewsletterUser(email=request.user.email)
         sub_user.save()
     return redirect('home')

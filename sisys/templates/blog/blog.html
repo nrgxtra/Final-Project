@@ -89,7 +89,7 @@
                                     <ul>
                                         <li>
                                             <i class="flaticon-user"></i>
-                                            <a href="author.html">{{ post.author }}</a>
+                                            <a href="{% url 'author_posts' post.author%}">{{ post.author }}</a>
                                         </li>
                                         <li>
                                             <i class="flaticon-clock"></i>

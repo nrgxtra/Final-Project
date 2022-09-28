@@ -119,8 +119,12 @@
     {% if not subscribed_user %}
     <div style="display: flex; justify-content: center; align-items: center">
         <div class="footer-widget pe-2">
-            <h3>Our Newsletter</h3>
-            <form action="{% url 'newsletter signup' %}">
+            <h3 style="text-align: center">Our Newsletter</h3>
+            <form action="{% url 'newsletter signup' %}" method="post">
+                {% csrf_token %}
+                <div style="text-align: center">
+                    {{ user.email }}
+                </div>
                 <button class="default-btn" type="submit">
                     Subscribe Now <i class="flaticon-paper-plane"></i>
                 </button>

@@ -67,7 +67,7 @@
                             <img src="{{ post.imageURL }}" alt="Blog Details"/>
                         </div>
                         <ul class="tag-list">
-                            <li class="active"><a href="author.html"> <i
+                            <li class="active"><a href="{% url 'author_posts' post.author %}"> <i
                                     class='flaticon-user'></i>{{ post.author }}</a></li>
                             <li><i class='flaticon-clock'></i> {{ post.created_on | date }} </li>
                             {% if likes.count == 0 %}

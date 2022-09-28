@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import django.views.generic as views
+
 from newsletters_app.models import NewsletterUser
 from shopping_app.models import Order, Customer
 
@@ -16,22 +17,23 @@ class HomeView(views.TemplateView):
             cart_items = order.get_cart_quantity
             if sub_user:
                 context = {
-                    'subscribed_user': self.request.user,
+                    'subscribed_user': sub_user,
                     'cart_items': cart_items,
+                    'user': user,
                 }
                 return context
             else:
                 context = {
                     'cart_items': cart_items,
+                    'user': user,
                 }
                 return context
         else:
-            items = []
             order = {'get_cart_total': 0, 'get_cart_quantity': 0, }
             cart_items = order['get_cart_quantity']
 
             context = {
-                'user': self.request.user,
+                'user': user,
                 'order': order,
                 'cart_items': cart_items,
             }
