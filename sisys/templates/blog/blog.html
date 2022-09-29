@@ -49,19 +49,20 @@
                             <h3 class="title">Recent Post</h3>
                             <div class="widget-popular-post">
                                 {% for p in resent_posts %}
-                                <article class="item">
-                                    <a href="{% url 'post_details' p.id p.slug %}" class="thumb">
-                                        <span class="full-image cover bg1" role="img"><img src="{{ p.imageURL }}" alt="Blog"/></span>
-                                    </a>
-                                    <div class="info">
-                                        <p>{{ p.created_on | date}}</p>
-                                        <h4 class="title-text">
-                                            <a href="{% url 'post_details' p.id p.slug %}">
-                                                {{ p.title}}
-                                            </a>
-                                        </h4>
-                                    </div>
-                                </article>
+                                    <article class="item">
+                                        <a href="{% url 'post_details' p.id p.slug %}" class="thumb">
+                                            <span class="full-image cover bg1" role="img"><img src="{{ p.imageURL }}"
+                                                                                               alt="Blog"/></span>
+                                        </a>
+                                        <div class="info">
+                                            <p>{{ p.created_on | date }}</p>
+                                            <h4 class="title-text">
+                                                <a href="{% url 'post_details' p.id p.slug %}">
+                                                    {{ p.title }}
+                                                </a>
+                                            </h4>
+                                        </div>
+                                    </article>
                                 {% endfor %}
 
                             </div>
@@ -70,7 +71,7 @@
                             <h3 class="title">Popular Tags</h3>
                             <ul class="side-bar-widget-tag">
                                 {% for tag in tags %}
-                                <li><a href="{% url 'posts_with_tag' tag %}" >{{ tag }} </a></li>
+                                    <li><a href="{% url 'posts_with_tag' tag %}">{{ tag }} </a></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -89,7 +90,7 @@
                                     <ul>
                                         <li>
                                             <i class="flaticon-user"></i>
-                                            <a href="{% url 'author_posts' post.author%}">{{ post.author }}</a>
+                                            <a href="{% url 'author_posts' post.author %}">{{ post.author }}</a>
                                         </li>
                                         <li>
                                             <i class="flaticon-clock"></i>
@@ -105,32 +106,34 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <div class="col-lg-12 col-md-12 text-center">
-                        <div class="pagination-area">
-                            {% if page_obj.has_previous %}
-                                <a href="?page={{ page_obj.previous_page_number }}"
-                                   class="prev page-numbers">
-                                    <i class="flaticon-arrow-pointing-to-left"></i>
-                                </a>
-                            {% endif %}
-                            {% for i in paginator %}
-                                {% if i.number == page_obj.number %}
-                                    <span class="page-numbers current"
-                                          aria-current="page">{{ i.number }}</span>
-                                {% else %}
-                                    <a href="{% url 'blog_home' %}?page={{ i.number }}"
-                                       class="page-numbers">{{ i.number }}</a>
+                    {% if page_obj %}
+                        <div class="col-lg-12 col-md-12 text-center">
+                            <div class="pagination-area">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}"
+                                       class="prev page-numbers">
+                                        <i class="flaticon-arrow-pointing-to-left"></i>
+                                    </a>
                                 {% endif %}
-                            {% endfor %}
+                                {% for i in paginator %}
+                                    {% if i.number == page_obj.number %}
+                                        <span class="page-numbers current"
+                                              aria-current="page">{{ i.number }}</span>
+                                    {% else %}
+                                        <a href="{% url 'blog_home' %}?page={{ i.number }}"
+                                           class="page-numbers">{{ i.number }}</a>
+                                    {% endif %}
+                                {% endfor %}
 
-                            {% if page_obj.has_next %}
-                                <a href="{% url 'blog_home' %}?page={{ page_obj.next_page_number }}"
-                                   class="next page-numbers">
-                                    <i class="flaticon-arrow-pointing-to-right"></i>
-                                </a>
-                            {% endif %}
+                                {% if page_obj.has_next %}
+                                    <a href="{% url 'blog_home' %}?page={{ page_obj.next_page_number }}"
+                                       class="next page-numbers">
+                                        <i class="flaticon-arrow-pointing-to-right"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                     </div>
                 </div>
             </div>

@@ -32,3 +32,8 @@ def send_activation_mail(request, user):
         to=[user.email],
     )
     email.send()
+
+
+
+
+    

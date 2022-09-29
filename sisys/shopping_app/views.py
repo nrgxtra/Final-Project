@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from shopping_app.forms import ItemCreationForm
+from shopping_app.mixins import required_group
 from shopping_app.models import Product, OrderItem, Order, ShippingAddress
 from shopping_app.utils import resize_image
 from django.core.paginator import Paginator, Page
@@ -53,7 +54,7 @@ def item_details(request, pk):
     return render(request, 'shop/item-details.html', context)
 
 
-@login_required
+@required_group(groups=['store managers'])
 def create_item(request):
     user = request.user
     if request.method == 'POST':
@@ -76,7 +77,7 @@ def create_item(request):
     return render(request, 'shop/item-add.html', context)
 
 
-@login_required
+@required_group(groups=['store managers'])
 def update_item(request, pk):
     user = request.user
     item = Product.objects.all().get(id=pk)
@@ -102,6 +103,7 @@ def update_item(request, pk):
     return render(request, 'shop/item-update.html', context)
 
 
+@required_group(groups=['store managers'])
 def delete_item(request, pk):
     user = request.user
     item = Product.objects.all().get(id=pk)
