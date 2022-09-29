@@ -41,4 +41,4 @@ class HomeView(views.TemplateView):
 
 
 def show_gallery(request):
-    return render(request, 'gallery-1.html')
+    return render(request, 'common/gallery.html')

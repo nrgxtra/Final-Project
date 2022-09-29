@@ -1,4 +1,3 @@
-{% load static %}
 <!doctype html>
 <html lang="zxx">
     <head>
@@ -8,23 +7,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
          <!-- Plugins CSS -->
-        <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+        <link rel="stylesheet" href="assets/css/plugins.css">
         <!-- Icon Plugins CSS -->
-        <link rel="stylesheet" href="{% static 'css/iconplugins.css' %}">
+        <link rel="stylesheet" href="assets/css/iconplugins.css">
         <!-- Style CSS -->
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="assets/css/style.css">
         <!-- Responsive CSS -->
-        <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="assets/css/responsive.css">
         <!-- Theme Dark CSS -->
-        <link rel="stylesheet" href="{% static 'css/theme-dark.css' %}">
+        <link rel="stylesheet" href="assets/css/theme-dark.css">
 
         <!-- Title -->
         <title>Naon - Nail & Beauty Salon HTML Template</title>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+        <link rel="icon" type="image/png" href="assets/images/favicon.png">
     </head>
     <body>
+        <!-- Pre Loader -->
+        <div id="preloader">
+            <div id="preloader-area">
+                <div class="spinner"></div>
+                <div class="spinner"></div>
+                <div class="spinner"></div>
+            </div>
+            <div class="preloader-section preloader-left"></div>
+            <div class="preloader-section preloader-right"></div>
+        </div>
+        <!-- End Pre Loader -->
+
         <!-- Top Header -->
         <header class="top-header">
             <div class="container-fluid">
@@ -85,9 +96,9 @@
                 <div class="container">
                     <div class="mobile-responsive-menu">
                          <div class="logo">
-                            <a href="index.html">
-                                <img src="{% static 'images/logos/logo-small.png' %}" class="logo-one" alt="logo">
-                                <img src="{% static 'images/logos/logo-white-small.png' %}" class="logo-two" alt="logo">
+                            <a href="../index.html">
+                                <img src="assets/images/logos/logo-small.png" class="logo-one" alt="logo">
+                                <img src="assets/images/logos/logo-white-small.png" class="logo-two" alt="logo">
                             </a>
                         </div>
                     </div>
@@ -98,9 +109,9 @@
             <div class="desktop-nav nav-area">
                 <div class="container-fluid">
                     <nav class="navbar navbar-expand-md navbar-light ">
-                         <a class="navbar-brand" href="index.html">
-                            <img src="{% static 'images/logos/logo.png' %}" class="logo-one" alt="Logo">
-                            <img src="{% static 'images/logos/logo-white.png' %}" class="logo-two" alt="Logo">
+                         <a class="navbar-brand" href="../index.html">
+                            <img src="assets/images/logos/logo.png" class="logo-one" alt="Logo">
+                            <img src="assets/images/logos/logo-white.png" class="logo-two" alt="Logo">
                         </a>
 
                         <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -111,7 +122,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
-                                            <a href="{% url 'home' %}" class="nav-link">
+                                            <a href="../index.html" class="nav-link">
                                                 Home Demo - 1  
                                             </a>
                                         </li>
@@ -193,13 +204,13 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link dropdown-toggle active">
+                                            <a href="#" class="nav-link dropdown-toggle">
                                                 Gallery
                                                 <i class='bx bx-chevron-down'></i>
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-item">
-                                                    <a href="gallery-1.html" class="nav-link active">
+                                                    <a href="gallery.html" class="nav-link">
                                                         Gallery Style One
                                                     </a>
                                                 </li>
@@ -216,17 +227,17 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="nav-item">
-                                                    <a href="accounts/login.html" class="nav-link">
+                                                    <a href="login.html" class="nav-link">
                                                         Login 
                                                     </a>
                                                 </li>
                                                <li class="nav-item">
-                                                    <a href="accounts/register.html" class="nav-link">
+                                                    <a href="register.html" class="nav-link">
                                                         Register
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="accounts/forgot-password.html" class="nav-link">
+                                                    <a href="forgot-password.html" class="nav-link">
                                                         Forgot Password
                                                     </a>
                                                 </li>
@@ -239,13 +250,13 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a href="privacy-policy.html" class="nav-link">
+                                            <a href="privacy-policy.html" class="nav-link active">
                                                 Privacy Policy
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a href="404.html" class="nav-link">
+                                            <a href="../404.html" class="nav-link">
                                                 404 Page
                                             </a>
                                         </li>
@@ -287,13 +298,13 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
-                                            <a href="shop/shop.html" class="nav-link">Shop</a>
+                                            <a href="shop.html" class="nav-link">Shop</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="shop/cart.html" class="nav-link">Cart</a>
+                                            <a href="cart.html" class="nav-link">Cart</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="shop/checkout.html" class="nav-link">Checkout</a>
+                                            <a href="checkout.html" class="nav-link">Checkout</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="wishlist.html" class="nav-link">Wishlist</a>
@@ -311,7 +322,7 @@
                                             <a href="customer-services.html" class="nav-link">Customer Services</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="accounts/my-account.html" class="nav-link">My Account</a>
+                                            <a href="my-account.html" class="nav-link">My Account</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -393,7 +404,7 @@
                                     </div>
                                 </div>
                                 <div class="optional-item">
-                                    <a class="optional-item-cart" href="shop/cart.html">
+                                    <a class="optional-item-cart" href="cart.html">
                                         <i class='flaticon-shopping-cart-empty-side-view'></i>
                                         <span>2</span>
                                     </a>
@@ -411,7 +422,7 @@
                                     </div>
 
                                     <div class="optional-item">
-                                        <a class="optional-item-cart" href="shop/cart.html">
+                                        <a class="optional-item-cart" href="cart.html">
                                             <i class='flaticon-shopping-cart-empty-side-view'></i>
                                             <span>2</span>
                                         </a>
@@ -451,19 +462,19 @@
                 <div class="row align-items-center">
                     <div class="col-lg-7 col-md-7">
                         <div class="inner-title">
-                            <h3> Gallery Style One</h3>
+                            <h3>Privacy Policy</h3>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="../index.html">Home</a>
                                 </li>
-                                <li> Gallery Style One</li>
+                                <li>Privacy Policy</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="col-lg-5 col-md-5">
                         <div class="inner-img">
-                            <img src="{% static 'images/inner-banner/inner-banner1.png' %}" alt="Inner Banner" />
+                            <img src="assets/images/inner-banner/inner-banner10.png" alt="Inner Banner" />
                         </div>
                     </div>
                 </div>
@@ -471,62 +482,131 @@
         </div>
         <!-- Inner Banner End -->
 
-         <!-- Gallery Area -->
-         <div class="gallery-area pt-100">
+        <!-- Privacy-Policy Area -->
+        <div class="privacy-policy-area pt-100 pb-70">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="gallery-content">
-                            <div class="title">
-                                <h2>Follow Us On Instagram</h2>
-                            </div>
-                            <div class="gallery-all-img">
-                                <div class="img">
-                                    <img src="{% static 'images/gallery/gallery-img9.jpg' %}" alt="Gallery" />
-                                    <div class="follow-btn-area">
-                                        <a href="https://www.instagram.com/?hl=en" target="_blank" class="follow-btn">
-                                            <i class="ri-instagram-line"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="img2">
-                                    <img src="{% static 'images/gallery/gallery-sub-img1.jpg' %}" alt="Gallery" />
-                                </div>
-                                <div class="img3">
-                                    <img src="{% static 'images/gallery/gallery-sub-img2.jpg' %}" alt="Gallery" />
-                                </div>
-                                <div class="vector-img">
-                                    <img src="{% static 'images/gallery/vector-img2.png' %}" alt="Gallery" />
-                                </div>
-                            </div>
+                <div class="section-title text-center">
+                    <span>Privacy Policy</span>
+                    <h2>Naon Privacy Policy</h2>
+                </div>
+                <div class="row pt-45">
+                    <div class="col-lg-12">
+                        <div class="single-content">
+                            <h3>Information Collection</h3>
+                            <p>
+                                Maecenas non sem ex. Nullam ac augue vel turpis fringilla maximus. Vivamus commodo laoreet augue non porta. Nam egestas dui turpis, non pulvinar nisi 
+                                rhoncus eu. Phasellus et sollicitudin nulla, at efficitur nunc. Quisque et neque commodo, blandit lacus malesuada, scelerisque ante. Suspendisse lacinia
+                                tristique justo, vitae ornare ipsum interdum sed. Vestibulum porttitor urna eget nunc porttitor rutrum. Aliquam tempor sapien orci, quis mollis velit laoreet
+                                sit amet. Morbi luctus magna tellus, quis accumsan nisi cursus id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius convallis massa, sed 
+                                ultrices dolor fermentum id. 
+                            </p>
+                            <p>
+                                Vestibulum eu aliquet justo. Aenean at mauris leo. Etiam placerat ac turpis ac feugiat. Pellentesque habitant morbi tristique senectus et netus et 
+                                malesuada fames ac turpis egestas. Fusce velit nibh, consequat sed mi in, consectetur posuere erat. Ut mauris arcu, finibus quis lectus et, hendrerit
+                                rutrum erat. Integer varius pharetra arcu, et rhoncus leo commodo sed. Nullam sollicitudin pulvinar pharetra. In ut lacinia sem. Nunc vel ex sed sapien hendrerit consequat pharetra a metus.
+                            </p>
                         </div>
-                    </div>
 
-                    <div class="col-lg-6">
-                        <div class="gallery-all-img-two">
-                            <div class="img">
-                                <img src="{% static 'images/gallery/gallery-img10.jpg' %}" alt="Gallery" />
-                                <div class="follow-btn-area">
-                                    <a href="https://www.instagram.com/?hl=en" target="_blank" class="follow-btn">
-                                        <i class="ri-instagram-line"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="img2">
-                                <img src="{% static 'images/gallery/gallery-sub-img3.jpg' %}" alt="Gallery" />
-                            </div>
-                            <div class="img3">
-                                <img src="{% static 'images/gallery/gallery-sub-img4.jpg' %}" alt="Gallery" />
-                            </div>
-                            <div class="vector-img">
-                                <img src="{% static 'images/gallery/vector-img.png' %}" alt="Gallery" />
-                            </div>
+                        <div class="single-content">
+                            <h3>Privacy Policy Naon</h3>
+                            <p>
+                                Maecenas non sem ex. Nullam ac augue vel turpis fringilla maximus. Vivamus commodo laoreet augue non porta. Nam egestas dui turpis, non pulvinar nisi 
+                                rhoncus eu. Phasellus et sollicitudin nulla, at efficitur nunc. Quisque et neque commodo, blandit lacus malesuada, scelerisque ante. Suspendisse lacinia
+                                tristique justo, vitae ornare ipsum interdum sed. Vestibulum porttitor urna eget nunc porttitor rutrum. Aliquam tempor sapien orci, quis mollis velit laoreet
+                                sit amet. Morbi luctus magna tellus, quis accumsan nisi cursus id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius convallis massa, sed 
+                                ultrices dolor fermentum id. 
+                            </p>
+                            <p>
+                                Vestibulum eu aliquet justo. Aenean at mauris leo. Etiam placerat ac turpis ac feugiat. Pellentesque habitant morbi tristique senectus et netus et 
+                                malesuada fames ac turpis egestas. Fusce velit nibh, consequat sed mi in, consectetur posuere erat. Ut mauris arcu, finibus quis lectus et, hendrerit
+                                rutrum erat. Integer varius pharetra arcu, et rhoncus leo commodo sed. Nullam sollicitudin pulvinar pharetra. In ut lacinia sem. Nunc vel ex sed sapien hendrerit consequat pharetra a metus.
+                            </p>
+                        </div>
+
+                        <div class="single-content">
+                            <h3>The Collection, Process and Use of Personal Data</h3>
+                            <p>
+                                Maecenas non sem ex. Nullam ac augue vel turpis fringilla maximus. Vivamus commodo laoreet augue non porta. Nam egestas dui turpis, non pulvinar nisi 
+                                rhoncus eu. Phasellus et sollicitudin nulla, at efficitur nunc. Quisque et neque commodo, blandit lacus malesuada, scelerisque ante. Suspendisse lacinia
+                                tristique justo, vitae ornare ipsum interdum sed. Vestibulum porttitor urna eget nunc porttitor rutrum. Aliquam tempor sapien orci, quis mollis velit laoreet
+                                sit amet. Morbi luctus magna tellus, quis accumsan nisi cursus id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius convallis massa, sed 
+                                ultrices dolor fermentum id. 
+                            </p>
+                            <p>
+                                Vestibulum eu aliquet justo. Aenean at mauris leo. Etiam placerat ac turpis ac feugiat. Pellentesque habitant morbi tristique senectus et netus et 
+                                malesuada fames ac turpis egestas. Fusce velit nibh, consequat sed mi in, consectetur posuere erat. Ut mauris arcu, finibus quis lectus et, hendrerit
+                                rutrum erat. Integer varius pharetra arcu, et rhoncus leo commodo sed. Nullam sollicitudin pulvinar pharetra. In ut lacinia sem. Nunc vel ex sed sapien hendrerit consequat pharetra a metus.
+                            </p>
+                        </div>
+
+                        <div class="single-content">
+                            <h3>Disclaimers</h3>
+                            <p>
+                                Maecenas non sem ex. Nullam ac augue vel turpis fringilla maximus. Vivamus commodo laoreet augue non porta. Nam egestas dui turpis, non pulvinar nisi 
+                                rhoncus eu. Phasellus et sollicitudin nulla, at efficitur nunc. Quisque et neque commodo, blandit lacus malesuada, scelerisque ante. Suspendisse lacinia
+                                tristique justo, vitae ornare ipsum interdum sed. Vestibulum porttitor urna eget nunc porttitor rutrum. Aliquam tempor sapien orci, quis mollis velit laoreet
+                                sit amet. Morbi luctus magna tellus, quis accumsan nisi cursus id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius convallis massa, sed 
+                                ultrices dolor fermentum id. 
+                            </p>
+                            <p>
+                                Vestibulum eu aliquet justo. Aenean at mauris leo. Etiam placerat ac turpis ac feugiat. Pellentesque habitant morbi tristique senectus et netus et 
+                                malesuada fames ac turpis egestas. Fusce velit nibh, consequat sed mi in, consectetur posuere erat. Ut mauris arcu, finibus quis lectus et, hendrerit
+                                rutrum erat. Integer varius pharetra arcu, et rhoncus leo commodo sed. Nullam sollicitudin pulvinar pharetra. In ut lacinia sem. Nunc vel ex sed sapien hendrerit consequat pharetra a metus.
+                            </p>
+                        </div>
+
+                        <div class="single-content">
+                            <h3> Data Protection</h3>
+                            <p>
+                                Maecenas non sem ex. Nullam ac augue vel turpis fringilla maximus. Vivamus commodo laoreet augue non porta. Nam egestas dui turpis, non pulvinar nisi 
+                                rhoncus eu. Phasellus et sollicitudin nulla, at efficitur nunc. Quisque et neque commodo, blandit lacus malesuada, scelerisque ante. Suspendisse lacinia
+                                tristique justo, vitae ornare ipsum interdum sed. Vestibulum porttitor urna eget nunc porttitor rutrum. Aliquam tempor sapien orci, quis mollis velit laoreet
+                                sit amet. Morbi luctus magna tellus, quis accumsan nisi cursus id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius convallis massa, sed 
+                                ultrices dolor fermentum id. 
+                            </p>
+                            <p>
+                                Vestibulum eu aliquet justo. Aenean at mauris leo. Etiam placerat ac turpis ac feugiat. Pellentesque habitant morbi tristique senectus et netus et 
+                                malesuada fames ac turpis egestas. Fusce velit nibh, consequat sed mi in, consectetur posuere erat. Ut mauris arcu, finibus quis lectus et, hendrerit
+                                rutrum erat. Integer varius pharetra arcu, et rhoncus leo commodo sed. Nullam sollicitudin pulvinar pharetra. In ut lacinia sem. Nunc vel ex sed sapien hendrerit consequat pharetra a metus.
+                            </p>
+                        </div>
+
+                        <div class="single-content">
+                            <h3>How We Use Cookies</h3>
+                            <p>
+                                Maecenas non sem ex. Nullam ac augue vel turpis fringilla maximus. Vivamus commodo laoreet augue non porta. Nam egestas dui turpis, non pulvinar nisi 
+                                rhoncus eu. Phasellus et sollicitudin nulla, at efficitur nunc. Quisque et neque commodo, blandit lacus malesuada, scelerisque ante. Suspendisse lacinia
+                                tristique justo, vitae ornare ipsum interdum sed. Vestibulum porttitor urna eget nunc porttitor rutrum. Aliquam tempor sapien orci, quis mollis velit laoreet
+                                sit amet. Morbi luctus magna tellus, quis accumsan nisi cursus id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius convallis massa, sed 
+                                ultrices dolor fermentum id. 
+                            </p>
+                            <p>
+                                Vestibulum eu aliquet justo. Aenean at mauris leo. Etiam placerat ac turpis ac feugiat. Pellentesque habitant morbi tristique senectus et netus et 
+                                malesuada fames ac turpis egestas. Fusce velit nibh, consequat sed mi in, consectetur posuere erat. Ut mauris arcu, finibus quis lectus et, hendrerit
+                                rutrum erat. Integer varius pharetra arcu, et rhoncus leo commodo sed. Nullam sollicitudin pulvinar pharetra. In ut lacinia sem. Nunc vel ex sed sapien hendrerit consequat pharetra a metus.
+                            </p>
+                        </div>
+
+                        <div class="single-content">
+                            <h3> The Collection, Process, and Use of Personal Data</h3>
+                            <p>
+                                Maecenas non sem ex. Nullam ac augue vel turpis fringilla maximus. Vivamus commodo laoreet augue non porta. Nam egestas dui turpis, non pulvinar nisi 
+                                rhoncus eu. Phasellus et sollicitudin nulla, at efficitur nunc. Quisque et neque commodo, blandit lacus malesuada, scelerisque ante. Suspendisse lacinia
+                                tristique justo, vitae ornare ipsum interdum sed. Vestibulum porttitor urna eget nunc porttitor rutrum. Aliquam tempor sapien orci, quis mollis velit laoreet
+                                sit amet. Morbi luctus magna tellus, quis accumsan nisi cursus id. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius convallis massa, sed 
+                                ultrices dolor fermentum id. 
+                            </p>
+                            <p>
+                                Vestibulum eu aliquet justo. Aenean at mauris leo. Etiam placerat ac turpis ac feugiat. Pellentesque habitant morbi tristique senectus et netus et 
+                                malesuada fames ac turpis egestas. Fusce velit nibh, consequat sed mi in, consectetur posuere erat. Ut mauris arcu, finibus quis lectus et, hendrerit
+                                rutrum erat. Integer varius pharetra arcu, et rhoncus leo commodo sed. Nullam sollicitudin pulvinar pharetra. In ut lacinia sem. Nunc vel ex sed sapien hendrerit consequat pharetra a metus.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Gallery Area End -->
+        <!-- Privacy-Policy Area End -->
 
         <!-- Footer Area -->
         <footer class="footer-area footer-bg">
@@ -535,11 +615,11 @@
                     <div class="col-lg-4 col-sm-6">
                         <div class="footer-widget pe-5">
                              <div class="footer-logo">
-                                <a href="index.html">
-                                    <img src="{% static 'images/logos/logo.png' %}" class="footer-logo1" alt="Images">
+                                <a href="../index.html">
+                                    <img src="assets/images/logos/logo.png" class="footer-logo1" alt="Images">
                                 </a>
-                                <a href="index.html">
-                                    <img src="{% static 'images/logos/logo-white.png' %}" class="footer-logo2" alt="Images">
+                                <a href="../index.html">
+                                    <img src="assets/images/logos/logo-white.png" class="footer-logo2" alt="Images">
                                 </a>
                             </div>
                             <p>
@@ -650,10 +730,10 @@
         <!-- Copyright Area End -->
 
         <!-- Jquery Min JS -->
-        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="assets/js/jquery.min.js"></script>
         <!-- Plugins JS -->
-        <script src="{% static 'js/plugins.js' %}"></script>
+        <script src="assets/js/plugins.js"></script>
         <!-- Custom  JS -->
-        <script src="{% static 'js/custom.js' %}"></script>
+        <script src="assets/js/custom.js"></script>
     </body>
 </html>

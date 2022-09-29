@@ -1,0 +1,7 @@
+EMAIL_HOST='smtp.mail provider'
+EMAIL_PORT='port'
+EMAIL_USE_TLS='True'
+EMAIL_HOST_USER='your_mail@domain.com'
+EMAIL_HOST_PASSWORD='your_secret_key_for_email'
+
+SECRET_KEY='secret_key_for_your_site'

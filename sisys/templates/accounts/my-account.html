@@ -39,7 +39,7 @@
                                     Dashboard
                                 </li>
                                 <li>
-                                    My Order
+                                    Delete Account
                                 </li>
                                 <li>
                                     Address
@@ -91,64 +91,11 @@
                                 </div>
 
                                 <div class="tabs_item">
-                                    <div class="invoice-area">
-                                        <div class="invoice-table table-responsive">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Description</th>
-                                                    <th>Unit Price</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>01</td>
-                                                    <td>Midnight Musk</td>
-                                                    <td class="text-end">$100.00</td>
-                                                    <td class="text-end">$100.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>02</td>
-                                                    <td>Moisture Balm</td>
-                                                    <td class="text-end">$25.00</td>
-                                                    <td class="text-end">$50.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03</td>
-                                                    <td>Oil Foundation</td>
-                                                    <td class="text-end">$15.00</td>
-                                                    <td class="text-end">$45.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>04</td>
-                                                    <td>Sensual Skin Trio</td>
-                                                    <td class="text-end">$15.00</td>
-                                                    <td class="text-end">$45.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-end" colspan="3"><strong>Subtotal</strong></td>
-                                                    <td class="text-end">$195.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-end" colspan="3"><strong>Sales Tax 5.0%</strong>
-                                                    </td>
-                                                    <td class="text-end">$9.75</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-end total" colspan="3"><strong>Total</strong></td>
-                                                    <td class="text-end total-price"><strong>$204.75</strong></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="invoice-btn-box text-end">
-                                            <button class="default-btn" type="submit">
-                                                Send Invoice
-                                            </button>
-                                        </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <a href="{% url 'delete_account' %}" class="default-btn border-radius-5"
+                                           style="background-color: red">
+                                            Delete Account
+                                        </a>
                                     </div>
                                 </div>
 
@@ -156,14 +103,6 @@
                                     <div class="invoice-area">
                                         <div class="invoice-middle">
                                             <div class="row">
-                                                {#                                                <div class="col-lg-6">#}
-                                                {#                                                    <div class="text mb-30">#}
-                                                {#                                                        <h4 class="mb-2">Bill To</h4>#}
-                                                {#                                                        <span class="d-block mb-1">{{ profile.name}}</span>#}
-                                                {#                                                        <span class="d-block mb-1">{{ profile.address}}</span>#}
-                                                {#                                                        <span class="d-block">{{profile.phone_number}}</span>#}
-                                                {#                                                    </div>#}
-                                                {#                                                </div>#}
                                                 <div class="col-lg-6">
                                                     <div class="text">
                                                         <h4 class="mb-2">Ship To</h4>
@@ -212,8 +151,7 @@
 
                                 <div class="tabs_item">
                                     <div class="col-lg-12 col-md-12">
-                                        <a href="{% url 'change password' %}" class="default-btn border-radius-5"
-                                           style="background-color: red">
+                                        <a href="{% url 'change password' %}" class="default-btn border-radius-5">
                                             Change Password
                                         </a>
                                     </div>
@@ -228,8 +166,7 @@
                                 </div>
                                 <div class="tabs_item">
                                     <div class="col-lg-12 col-md-12">
-                                        <a href="{% url 'logout' %}" class="default-btn border-radius-5"
-                                           style="background-color: red">
+                                        <a href="{% url 'logout' %}" class="default-btn border-radius-5">
                                             Logout
                                         </a>
                                     </div>
@@ -251,7 +188,7 @@
                                     Dashboard
                                 </li>
                                 <li>
-                                    My Order
+                                    Delete Account
                                 </li>
                                 <li>
                                     Address
@@ -298,64 +235,11 @@
                                 </div>
 
                                 <div class="tabs_item">
-                                    <div class="invoice-area">
-                                        <div class="invoice-table table-responsive">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Description</th>
-                                                    <th>Unit Price</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>01</td>
-                                                    <td>Midnight Musk</td>
-                                                    <td class="text-end">$100.00</td>
-                                                    <td class="text-end">$100.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>02</td>
-                                                    <td>Moisture Balm</td>
-                                                    <td class="text-end">$25.00</td>
-                                                    <td class="text-end">$50.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>03</td>
-                                                    <td>Oil Foundation</td>
-                                                    <td class="text-end">$15.00</td>
-                                                    <td class="text-end">$45.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>04</td>
-                                                    <td>Sensual Skin Trio</td>
-                                                    <td class="text-end">$15.00</td>
-                                                    <td class="text-end">$45.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-end" colspan="3"><strong>Subtotal</strong></td>
-                                                    <td class="text-end">$195.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-end" colspan="3"><strong>Sales Tax 5.0%</strong>
-                                                    </td>
-                                                    <td class="text-end">$9.75</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-end total" colspan="3"><strong>Total</strong></td>
-                                                    <td class="text-end total-price"><strong>$204.75</strong></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="invoice-btn-box text-end">
-                                            <button class="default-btn" type="submit">
-                                                Send Invoice
-                                            </button>
-                                        </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <a href="{% url 'delete_account' %}" class="default-btn border-radius-5"
+                                           style="background-color: red">
+                                            Delete Account
+                                        </a>
                                     </div>
                                 </div>
 
@@ -363,14 +247,6 @@
                                     <div class="invoice-area">
                                         <div class="invoice-middle">
                                             <div class="row">
-                                                {#                                                <div class="col-lg-6">#}
-                                                {#                                                    <div class="text mb-30">#}
-                                                {#                                                        <h4 class="mb-2">Bill To</h4>#}
-                                                {#                                                        <span class="d-block mb-1">{{ profile.name}}</span>#}
-                                                {#                                                        <span class="d-block mb-1">{{ profile.address}}</span>#}
-                                                {#                                                        <span class="d-block">{{profile.phone_number}}</span>#}
-                                                {#                                                    </div>#}
-                                                {#                                                </div>#}
                                                 <div class="col-lg-6">
                                                     <div class="text">
                                                         <h4 class="mb-2">Ship To</h4>
@@ -419,16 +295,14 @@
 
                                 <div class="tabs_item">
                                     <div class="col-lg-12 col-md-12">
-                                        <a href="{% url 'change password' %}" class="default-btn border-radius-5"
-                                           style="background-color: red">
+                                        <a href="{% url 'change password' %}" class="default-btn border-radius-5">
                                             Change Password
                                         </a>
                                     </div>
                                 </div>
                                 <div class="tabs_item">
                                     <div class="col-lg-12 col-md-12">
-                                        <a href="{% url 'logout' %}" class="default-btn border-radius-5"
-                                           style="background-color: red">
+                                        <a href="{% url 'logout' %}" class="default-btn border-radius-5">
                                             Logout
                                         </a>
                                     </div>

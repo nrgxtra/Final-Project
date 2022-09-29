@@ -4,7 +4,6 @@ from pathlib import Path
 from celery.schedules import crontab
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,7 +12,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # SMTP conf
 
@@ -38,6 +37,7 @@ INSTALLED_APPS = [
     'shopping_app',
     'blog_app',
     'newsletters_app.apps.NewslettersAppConfig',
+    'common',
 
     'rest_framework',
     'django_celery_beat',
@@ -125,5 +125,3 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Madrid'
 CELERY_RESULT_BACKEND = 'django-db'
-
-

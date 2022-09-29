@@ -13,7 +13,7 @@ from blog_app.models import Post
 from newsletters_app.models import NewsletterUser
 
 from sisys.sisis_auth.forms import RegisterForm, ProfileForm
-from sisys.sisis_auth.models import Profile
+from sisys.sisis_auth.models import Profile, SisisUser
 from sisys.sisis_auth.utils import generate_token, send_activation_mail
 import asyncio
 
@@ -133,3 +133,16 @@ class PassConfirmationView(auth_views.PasswordResetConfirmView):
 
 class PassResetComplete(auth_views.PasswordResetCompleteView):
     template_name = 'accounts/password-reset-done.html'
+
+
+@login_required
+def delete_account(request):
+    user = SisisUser.objects.filter(email__exact=request.user.email).first()
+    if user:
+        if request.method == 'POST':
+            user.delete()
+            return redirect('home')
+    context = {
+        'user': user,
+    }
+    return render(request, 'accounts/account-delete.html', context)

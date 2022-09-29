@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+     <div class="row" style="object-fit: fill; position: center; height: 500px">
+
+        <h1 style="text-align: center; background-color: #FAEFED;">Are You Sure?</h1>
+        <h2 style="text-align: center">You will lose all of Your data...</h2>
+     <form method="post" action="{% url 'delete_account' %}" style="text-align: center">
+         {% csrf_token %}
+         <button type="submit" class="default-btn">DELETE</button>
+     </form>
+
+    </div>
+{% endblock %}

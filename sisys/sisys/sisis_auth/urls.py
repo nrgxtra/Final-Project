@@ -2,7 +2,7 @@ from django.urls import path
 
 from sisys.sisis_auth.views import UserLoginView, UserLogoutView, RegisterUser, profile_details, AccountView, \
     PassChangeView, PassChangeDoneView, PassResetView, PassResetDoneView, PassConfirmationView, PassResetComplete, \
-    EmailConfirmationView, activate
+    EmailConfirmationView, activate, delete_account
 
 urlpatterns = (
     path('login/', UserLoginView.as_view(), name='login'),
@@ -18,4 +18,5 @@ urlpatterns = (
     path('reset-password-complete/', PassResetComplete.as_view(), name='password_reset_complete'),
     path('email-confirmation', EmailConfirmationView.as_view(), name='email_confirm'),
     path('activate/<uidb64>/<token>', activate, name='activate'),
+    path('delete/', delete_account, name='delete_account'),
 )
