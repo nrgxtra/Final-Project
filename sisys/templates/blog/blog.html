@@ -38,7 +38,7 @@
                 <div class="col-lg-4">
                     <div class="side-bar-area pr-20">
                         <div class="search-widget">
-                            <form class="search-form" name=query action="{% url 'search' %}" method="get">
+                            <form class="search-form" name=query action="{% url 'search_blog' %}" method="get">
                                 <input type="search" class="form-control" name=query placeholder="Search By Keywords">
                                 <button type="submit">
                                     <i class="flaticon-search"></i>
@@ -79,18 +79,18 @@
                 </div>
 
                 <div class="col-lg-8">
+                <div class="row justify-content-between">
                     {% for post in object_list %}
-                        <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6">
                             <div class="blog-card box-shadow">
                                 <a href="{% url 'post_details' post.id post.slug %}" class="img">
-                                    <img src="{{ post.imageURL }}" alt="Blog"/>
+                                    <img src="{{ post.imageURL }}" alt="Blog" width="250" height="150"/>
                                 </a>
                                 <div class="content">
                                     <ul>
                                         <li>
                                             <i class="flaticon-user"></i>
-                                            <a href="{% url 'author_posts' post.author %}">{{ post.author }}</a>
+                                            <a href="{% url 'author_posts' post.author %}">{{ post.author_name }}</a>
                                         </li>
                                         <li>
                                             <i class="flaticon-clock"></i>

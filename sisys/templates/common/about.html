@@ -37,19 +37,19 @@
                             <div class="about-slider owl-carousel owl-theme">
                                 <div class="about-img">
                                     <div class="top-border"></div>
-                                    <img src="{% static 'images/about/about-img1.jpg' %}" alt="About" />
+                                    <img src="{% static 'images/about/about-img1.jpg' %}" alt="About" width="600" height="600"/>
                                     <div class="bottom-border bottom-border-color"></div>
                                 </div>
 
                                 <div class="about-img">
                                     <div class="top-border"></div>
-                                    <img src="{% static 'images/about/about-img2.jpg' %}" alt="About" />
+                                    <img src="{% static 'images/about/about-img2.jpg' %}" alt="About" width="600" height="600"/>
                                     <div class="bottom-border bottom-border-color"></div>
                                 </div>
 
                                 <div class="about-img">
                                     <div class="top-border"></div>
-                                    <img src="{% static 'images/about/about-img3.jpg' %}" alt="About" />
+                                    <img src="{% static 'images/about/about-img3.jpg' %}" alt="About" width="600" height="600"/>
                                     <div class="bottom-border bottom-border-color"></div>
                                 </div>
                             </div>
@@ -63,9 +63,9 @@
                         <div class="about-content pl-20">
                             <div class="section-title">
                                 <span>About us</span>
-                                <h2>Moisturize Your Hands Everyday</h2>
+                                <h2>Take Care of Your Eyebrows Everyday</h2>
                                 <p>Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled but also the leap into electronic typesetting. </p>
-                                <p>Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and</p>
+
                             </div>
                             <a href="about.html" class="default-btn border-radius-5">Learn More <i class="flaticon-arrow-pointing-to-right" ></i> </a>
                         </div>
@@ -83,96 +83,27 @@
                     <h2>What We Offer</h2>
                 </div>
                 <div class="row">
+                    {% for servis in services %}
                     <div class="col-lg-4 col-6">
                         <div class="services-card">
-                            <a href="service-details.html">
-                                <img src="assets/images/services/services-img1.jpg" alt="Services" />
+                            <a href="{% url 'service_details' servis.id %}">
+                                <img src="{{ servis.imageURL}} " alt="Services" width="550" height="430"/>
                             </a>
                             <div class="content">
-                                <h3><a href="service-details.html">Glitter For Nail Art</a></h3>
-                                <a href="service-details.html" class="more-btn">
+                                <h3><a href="{% url 'service_details' servis.id %}">{{ servis.name }}t</a></h3>
+                                <a href="{% url 'service_details' servis.id %}" class="more-btn">
                                     <i class="flaticon-arrow-pointing-to-right"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-6">
-                        <div class="services-card">
-                            <a href="service-details.html">
-                                <img src="assets/images/services/services-img2.jpg" alt="Services" />
-                            </a>
-                            <div class="content">
-                                <h3><a href="service-details.html">Classic Nail Pedicure</a></h3>
-                                <a href="service-details.html" class="more-btn">
-                                    <i class="flaticon-arrow-pointing-to-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-6">
-                        <div class="services-card">
-                            <a href="service-details.html">
-                                <img src="assets/images/services/services-img3.jpg" alt="Services" />
-                            </a>
-                            <div class="content">
-                                <h3><a href="service-details.html">Paraffin For Nail Hands</a></h3>
-                                <a href="service-details.html" class="more-btn">
-                                    <i class="flaticon-arrow-pointing-to-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-6">
-                        <div class="services-card">
-                            <a href="service-details.html">
-                                <img src="assets/images/services/services-img4.jpg" alt="Services" />
-                            </a>
-                            <div class="content">
-                                <h3><a href="service-details.html">Deep Paraffin Waxing</a></h3>
-                                <a href="service-details.html" class="more-btn">
-                                    <i class="flaticon-arrow-pointing-to-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-6">
-                        <div class="services-card">
-                            <a href="service-details.html">
-                                <img src="assets/images/services/services-img5.jpg" alt="Services" />
-                            </a>
-                            <div class="content">
-                                <h3><a href="service-details.html">Classic Nail Manicure</a></h3>
-                                <a href="service-details.html" class="more-btn">
-                                    <i class="flaticon-arrow-pointing-to-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-6">
-                        <div class="services-card">
-                            <a href="service-details.html">
-                                <img src="assets/images/services/services-img6.jpg" alt="Services" />
-                            </a>
-                            <div class="content">
-                                <h3><a href="service-details.html">Art Nail & Effects</a></h3>
-                                <a href="service-details.html" class="more-btn">
-                                    <i class="flaticon-arrow-pointing-to-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                     <div class="col-lg-12 text-center mt-20">
-                        <a href="services.html" class="default-btn two border-radius-5">See All Service <i class="flaticon-arrow-pointing-to-right"></i></a>
+                        <a href="{% url 'services' %}" class="default-btn two border-radius-5">See All Service <i class="flaticon-arrow-pointing-to-right"></i></a>
                     </div>
                 </div>
                 <div class="services-vector">
-                    <img src="assets/images/services/services-vector.png" alt="vector" />
+                    <img src="{% static 'images/services/services-vector.png' %}" alt="vector" />
                 </div>
             </div>
         </div>

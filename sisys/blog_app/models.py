@@ -31,6 +31,12 @@ class Post(models.Model):
             url = ''
         return url
 
+    @property
+    def author_name(self):
+        idx = [c for c in self.author.email].index('@')
+        name = self.author.email[:idx]
+        return name
+
     def __str__(self):
         return self.title
 

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, InvalidPage
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.text import slugify
 from django.urls import reverse_lazy
@@ -17,12 +18,13 @@ from sisys.sisis_auth.models import SisisUser
 from .forms import CommentForm, PostCreationForm
 from .mixins import GroupRequiredMixin
 from .models import Post, Comment, Like, Tag
+from .utils import get_author_name
 
 
 class HomeView(ListView):
     template_name = 'blog/blog.html'
     queryset = Post.objects.all()
-    paginate_by = 2
+    paginate_by = 4
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -159,9 +161,9 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         return self.model.objects.filter(author=self.request.user)
 
 
-class SearchView(ListView):
+class BlogSearchView(ListView):
     model = Post
-    template_name = 'blog/tags.html'
+    template_name = 'blog/blog.html'
 
     def get_queryset(self):  # new
         query = self.request.GET.get("query")
@@ -182,29 +184,37 @@ def posts_with_tag(request, tag):
     posts = Post.objects.filter(tags__name__icontains=tag)
     tags = Tag.objects.all()
     resent_posts = Post.objects.all()[:3]
-
+    paginator = Paginator(posts, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'object_list': posts,
+        'page_obj': page_obj,
         'tags': tags,
+        'tag': tag,
         'resent_posts': resent_posts,
+        'paginator': paginator,
 
     }
-    return render(request, 'blog/blog.html', context)
+    return render(request, 'blog/tags.html', context)
 
 
 def author_posts(request, author):
     author = SisisUser.objects.filter(email=author).first()
-    idx = [c for c in author.email].index('@')
-    name = author.email[:idx]
     author_id = author.id
-    posts = Post.objects.filter(author_id=author_id)
     tags = Tag.objects.all()
+    posts = Post.objects.filter(author_id=author_id)
+    name = get_author_name(author)
+    paginator = Paginator(posts, 4)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        'posts': posts,
         'author': author,
         'name': name,
         'tags': tags,
+        'page_obj': page_obj,
+        'paginator': paginator,
     }
     return render(request, 'blog/author.html', context)
 
