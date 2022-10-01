@@ -375,8 +375,8 @@ Top Header Area
   color: var(--whiteColor);
   margin-right: 35px;
   font-size: 15px;
-  -webkit-transition: var(--transition);
-  transition: var(--transition);
+  -webkit-transition: var(----transition);
+  transition: var(----transition);
 }
 
 .header-left ul li:last-child {
@@ -391,8 +391,8 @@ Top Header Area
           transform: translateY(-50%);
   left: 0;
   color: var(--whiteColor);
-  -webkit-transition: var(--transition);
-  transition: var(--transition);
+  -webkit-transition: var(----transition);
+  transition: var(----transition);
   font-size: 17px;
 }
 
@@ -1956,7 +1956,13 @@ Main Banner Area
   padding: 165px 0 310px;
 }
 
+.banner-item-bg1 {
+  background-image: url(../images/home-three/home-three-img1.jpg);
+}
 
+.banner-item-bg2 {
+  background-image: url(../images/home-three/home-three-img2.jpg);
+}
 
 .banner-form-area {
   position: relative;

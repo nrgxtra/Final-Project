@@ -1678,8 +1678,12 @@ Main Banner Area
     background-repeat: no-repeat;
     padding: 165px 0 310px;
 }
-
-
+.banner-item-bg1 {
+    background-image: url(../images/home-three/home-three-img1.jpg);
+}
+.banner-item-bg2 {
+    background-image: url(../images/home-three/home-three-img2.jpg);
+}
 .banner-form-area {
     position: relative;
     z-index: 1;
@@ -2145,7 +2149,7 @@ About Area
 }
 
 .about-content-max {
-    max-width: 600px;
+    max-width: 530px;
 }
 .about-shape {
     .shape1 {
@@ -3481,13 +3485,12 @@ Product Details Area
             font-weight: 600;
             background-color: rgba(107, 146, 70, 0.12%);
             height: 55px;
-            //noinspection CssInvalidPropertyValue
             span {
                 position: absolute;
                 top: 4px;
                 background-color: transparent;
                 cursor: pointer;
-                color: inherit;
+                color: --bodyColor;
                 width: 50px;
                 height: 43px;
                 line-height: 43px;
@@ -3507,11 +3510,9 @@ Product Details Area
             .plus-btn {
                 right: 0;
             }
-
-            //noinspection CssInvalidPropertyValue
             input {
                 height: 53px;
-                color: var(--bodyColor);
+                color: --bodyColor;
                 outline: 0;
                 display: block;
                 border: none;
@@ -3782,7 +3783,7 @@ Product Details Area
         .review-form {
             margin-top: 25px;
             .contact-form {
-                width: 100% ;
+                max-width: 100% ;
                 margin: 0 auto;
                 background-color: transparent;
                 box-shadow: none;
@@ -4626,7 +4627,7 @@ Pricing Area
                     color: var(--titleColor);
                     margin-bottom: 7px;
                     font-family: var(--bodyFonts);
-
+                    font-family: 500;
                     span {
                         float: right;
                         color: var(--mainColor);
@@ -6343,7 +6344,7 @@ Contact Area
             padding: 15px 25px;
             width: 100%;
             border-radius: 0;
-            &::-webkit-input-placeholder , &:-ms-input-placeholder, &::-ms-input-placeholder, &::placeholder {
+            &::-webkit-input-placeholder, &:-ms-input-placeholder, &::-ms-input-placeholder, &::placeholder {
                 color: var(--bodyColor);
             }
             &:focus {
@@ -6354,7 +6355,6 @@ Contact Area
         }
         textarea.form-control {
             height: auto;
-
         }
     }
     .agree-label {

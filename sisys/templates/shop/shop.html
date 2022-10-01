@@ -52,10 +52,10 @@
                     <div class="row justify-content-center">
                         {% for item in page.object_list %}
                             <div class="col-lg-4 col-md-6">
-                                <div class="products-card products-card-short-css">
-                                    <div class="product-img">
+                                <div class="products-card products-card-short-css" >
+                                    <div class="product-img" >
                                         <a href="{% url 'item-details' item.id %}">
-                                            <img src={{ item.pictureURL }} alt="Products"/>
+                                            <img src="{{  item.pictureURL }}" alt="Blog" width="305" height="305"/>
                                         </a>
 
                                     </div>

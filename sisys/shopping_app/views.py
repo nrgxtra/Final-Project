@@ -14,7 +14,7 @@ from django.core.paginator import Paginator, Page
 def shop_home(request):
     user = request.user
     products = Product.objects.all()
-    products_paginator = Paginator(products, 9)
+    products_paginator = Paginator(products, 6)
     page_number = request.GET.get('page')
     page = products_paginator.get_page(page_number)
     if user.is_authenticated:

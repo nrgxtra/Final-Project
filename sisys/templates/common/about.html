@@ -63,11 +63,11 @@
                         <div class="about-content pl-20">
                             <div class="section-title">
                                 <span>About us</span>
-                                <h2>Take Care of Your Eyebrows Everyday</h2>
-                                <p>Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled but also the leap into electronic typesetting. </p>
+                                <h2>Look Awesome Everyday</h2>
+                                <p>You may follow our blog updates for everyday tips and tricks. </p>
 
                             </div>
-                            <a href="about.html" class="default-btn border-radius-5">Learn More <i class="flaticon-arrow-pointing-to-right" ></i> </a>
+                            <a href="{% url 'blog_home' %}" class="default-btn border-radius-5">Learn More <i class="flaticon-arrow-pointing-to-right" ></i> </a>
                         </div>
                     </div>
                 </div>
@@ -112,14 +112,14 @@
         <!-- Intro Video Area -->
         <div class="intro-video-area section-bg pb-100">
             <div class="container">
-                <div class="video-content">
-                    <a href="https://www.youtube.com/watch?v=Zd00oIDAt60" class="play-btn">
+                <div class="video-content" >
+                    <a href="https://www.youtube.com/watch?v=ri-BM1i4WSs" class="play-btn">
                         <i class="ri-play-fill"></i>
                     </a>
                 </div>
                 <div class="section-title text-center pt-100">
                     <span class="color1">You're Welcomed!</span>
-                    <h2 class="color1">We Care About Your Nail And Your well-Being</h2>
+                    <h2 class="color1">We Care About Your Look And Your well-Being</h2>
                 </div>
             </div>
         </div>
@@ -140,7 +140,7 @@
                         <div class="team-card">
                             <div class="team-img">
                                 <a href="#">
-                                    <img src="assets/images/team/team-img1.jpg" alt="Team" />
+                                    <img src="{% static 'images/team/team-img1.jpg' %}" alt="Team" />
                                 </a>
                                 <ul class="social-links-btn">
                                     <li class="share-btn"><i class="flaticon-arrow-pointing-to-right"></i></li>
@@ -155,7 +155,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://www.facebook.com/" target="_blank">
+                                        <a href="https://www.facebook.com/silvia.dimitrova.355" target="_blank">
                                             <i class="ri-facebook-fill"></i>
                                         </a>
                                     </li>
@@ -163,11 +163,11 @@
                             </div>
                             <div class="content">
                                 <h3>
-                                    <a href="#">
+                                    <a href="#" style="text-align: center">
                                         Silviya
                                     </a>
-                                </h3>
-                                <span>Nail & Makeup Specialist</span>
+                                </h3 >
+                                <span style="text-align: center">Nail Art & Makeup Specialist</span>
                             </div>
                         </div>
                     </div>
@@ -210,27 +210,10 @@
                                             <input type="email" class="form-control" required data-error="Please Enter Your Phone number" placeholder="Phone number">
                                         </div>
                                     </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <select class="form-select form-control">
-                                                <option selected>2 Person</option>
-                                                <option value="1">1 Person</option>
-                                                <option value="2">4 Person</option>
-                                                <option value="3">7 Person</option>
-                                            </select>
-                                        </div>
-                                    </div>
         
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <input type="text" id="datetimepicker" class="form-control" required data-error="Please Enter Date" placeholder=" Enter Date">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" required data-error="Please Enter Address" placeholder="Address">
                                         </div>
                                     </div>
 
@@ -262,17 +245,17 @@
                     <h2>Our Latest Blog Update</h2>
                 </div>
                 <div class="row justify-content-center">
+                     {% for post in resent_posts %}
                     <div class="col-lg-4 col-md-6">
-                        {% for post in resent_posts %}
                         <div class="blog-card">
                             <a href="{% url 'post_details' post.id post.slug %}" class="img">
-                                <img src="{{ post.imageURL }}" alt="Blog" />
+                                <img src="{{ post.imageURL }}" alt="Blog" width="350" height="250"/>
                             </a>
                             <div class="content">
                                 <ul>
                                     <li>
                                         <i class="flaticon-user"></i>
-                                        {{ post.author }}
+                                        {{ post.author_name }}
                                     </li>
                                     <li>
                                         <i class="flaticon-clock"></i>
@@ -304,7 +287,7 @@
                     <div class="row">
                         <div class="col-lg-3 col-6">
                             <div class="gallery-img">
-                                <img src="assets/images/gallery/gallery-img1.jpg" alt="Gallery" />
+                                <img src="{% static 'images/gallery/gallery-img1.jpg' %}" alt="Gallery" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
