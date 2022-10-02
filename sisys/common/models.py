@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 
 
@@ -49,8 +50,27 @@ class Service(models.Model):
         return self.name
 
 
-class Appointment:
+class Appointment(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=30, validators=)
-    message = models.TextField()
+    phone_number = models.CharField(
+        max_length=12,
+    )
+    date = models.DateField(blank=True, null=True)
+    message = models.TextField(blank=True)
+
+
+class GalleryPicks(models.Model):
+    id = models.IntegerField(primary_key=True)
+    image = models.ImageField(upload_to='gallery')
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
+    def __str__(self):
+        return f'image {self.id}'

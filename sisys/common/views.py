@@ -1,9 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, TemplateView
 
 from blog_app.models import Post
 from common.forms import BookingForm
-from common.models import Service, Category
+from common.models import Service, Category, Appointment, GalleryPicks
 
 
 def page_not_found_view(request, exception):
@@ -13,11 +13,24 @@ def page_not_found_view(request, exception):
 def show_about(request):
     resent_posts = Post.objects.all()[:3]
     services = Service.objects.all()[:3]
+    gallery = GalleryPicks.objects.all()[:8]
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('booking_success')
+    form = BookingForm
     context = {
         'resent_posts': resent_posts,
         'services': services,
+        'picks': gallery,
+        'form': form,
     }
     return render(request, 'common/about.html', context)
+
+
+class BookingSuccess(TemplateView):
+    template_name = 'common/booking-success.html'
 
 
 class ServicesView(ListView):
@@ -53,4 +66,31 @@ def make_appointment(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('booking_success')
+        else:
+            errors = form.errors
+            context = {
+                'form': form,
+                'errors': errors,
+            }
+            return render(request, 'common/appointment.html', context)
+    form = BookingForm
+    context = {
+        'form': form,
+    }
+    return render(request, 'common/appointment.html', context)
+
+
+class GalleryView(ListView):
+    template_name = 'common/gallery.html'
+    model = GalleryPicks
+    context_object_name = 'gallery_picks'
+    paginate_by = 6
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recent_pics = GalleryPicks.objects.all()[:6]
+        context['recent_pics'] = recent_pics
+        return context
+
 

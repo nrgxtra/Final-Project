@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'blog_app',
     'newsletters_app.apps.NewslettersAppConfig',
     'common',
+    'crispy_forms',
 
     'rest_framework',
     'django_celery_beat',
@@ -125,3 +126,6 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Europe/Madrid'
 CELERY_RESULT_BACKEND = 'django-db'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

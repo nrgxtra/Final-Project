@@ -1,6 +1,7 @@
 from django.urls import path
 
-from common.views import show_about, ServicesView, ServiceDetailView, list_services_by_category, make_appointment
+from common.views import show_about, ServicesView, ServiceDetailView, list_services_by_category, make_appointment, \
+    BookingSuccess, GalleryView
 
 urlpatterns = [
     path('about/', show_about, name='about'),
@@ -8,5 +9,7 @@ urlpatterns = [
     path('service-details/<int:pk>', ServiceDetailView.as_view(), name='service_details'),
     path('service-category/<cat>', list_services_by_category, name='service_category'),
     path('appointment/', make_appointment, name='make_appointment'),
+    path('booking-success/', BookingSuccess.as_view(), name='booking_success'),
+    path('gallery/', GalleryView.as_view(), name='gallery'),
 
 ]

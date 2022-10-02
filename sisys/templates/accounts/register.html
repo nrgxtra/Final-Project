@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_utils %}
 {% block content %}
         <!-- Inner Banner -->
         <div class="inner-banner">
@@ -28,26 +32,23 @@
         <!-- Inner Banner End -->
 
          <!-- User Area -->
-         <div class="user-area pt-100 pb-70">
+        <div class="user-area pt-100 pb-70">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-6">
                         <div class="user-all-form">
                             <div class="contact-form">
-                                <h3 class="user-title"> Register </h3><p >{{form.errors}}</p>
-                                <form id="contactForm" method="post" >
-                                    {% csrf_token %}
+                                <h3 class="user-title"> Register </h3>
+                                <form id="contactForm">
                                     <div class="row">
-                                        {% for line in form %}
+                                        {% for field in form %}
                                         <div class="col-lg-12">
                                             <div class="form-group">
-{#                                                <input type="text" class="form-control" required data-error="{{ line.errors }}" placeholder="{{ line.label }}">#}
-                                                <p class="form-control" style="border-radius: 5px">{{ line }} {{ line.label }}
-                                                </p>
-
+                                                {{ field |as_crispy_field }}{{ errors | as_crispy_errors }}
                                             </div>
                                         </div>
                                         {% endfor %}
+
                                         <div class="col-lg-12 col-md-12">
                                             <button type="submit" class="default-btn">
                                                 Register Now

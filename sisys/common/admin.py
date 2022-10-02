@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from common.models import Service, Category
+from common.models import Service, Category, GalleryPicks
 
 
 @admin.register(Service)
@@ -11,3 +11,8 @@ class ServiceAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     fields = ('name',)
+
+
+@admin.register(GalleryPicks)
+class GalleryAdmin(admin.ModelAdmin):
+    fields = ('image',)
