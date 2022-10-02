@@ -4,6 +4,10 @@ from django.views.generic import ListView, DetailView, TemplateView
 from blog_app.models import Post
 from common.forms import BookingForm
 from common.models import Service, Category, Appointment, GalleryPicks
+from common.utils import send_appointment_confirmation_mail, send_appointment_to_staff
+import asyncio
+
+loop = asyncio.get_event_loop()
 
 
 def page_not_found_view(request, exception):
@@ -65,6 +69,10 @@ def make_appointment(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
+            email = form.cleaned_data['email']
+            message = f"name: {form.cleaned_data['name']} email: {form.cleaned_data['email']} phone: {form.cleaned_data['phone_number']} for date:{form.cleaned_data['date']} message: {form.cleaned_data['message']}"
+            loop.run_in_executor(None, send_appointment_confirmation_mail, email)
+            loop.run_in_executor(None, send_appointment_to_staff, message)
             form.save()
             return redirect('booking_success')
         else:
@@ -92,5 +100,3 @@ class GalleryView(ListView):
         recent_pics = GalleryPicks.objects.all()[:6]
         context['recent_pics'] = recent_pics
         return context
-
-
