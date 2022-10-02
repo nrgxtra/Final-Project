@@ -158,7 +158,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="faq.html" class="nav-link">
+                                    <a href="{% url 'faq' %}" class="nav-link">
                                         FAQ
                                     </a>
                                 </li>
@@ -175,19 +175,14 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="common/terms-condition.html" class="nav-link">
+                                    <a href="{% url 'terms' %}" class="nav-link">
                                         Terms & Conditions
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="common/privacy-policy.html" class="nav-link">
+                                    <a href="{% url 'privacy' %}" class="nav-link">
                                         Privacy Policy
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="coming-soon.html" class="nav-link">
-                                        Coming Soon
                                     </a>
                                 </li>
                             </ul>
@@ -212,9 +207,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="{% url 'checkout' %}" class="nav-link">Checkout</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="wishlist.html" class="nav-link">Wishlist</a>
                                 </li>
                             </ul>
                         </li>
@@ -244,7 +236,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="contact.html" class="nav-link">
+                            <a href="{% url 'contact' %}" class="nav-link">
                                 Contact Us
                             </a>
                         </li>

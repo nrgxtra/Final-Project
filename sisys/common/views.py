@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, TemplateView
 
 from blog_app.models import Post
-from common.forms import BookingForm
+from common.forms import BookingForm, ContactForm
 from common.models import Service, Category, Appointment, GalleryPicks
-from common.utils import send_appointment_confirmation_mail, send_appointment_to_staff
+from common.utils import send_appointment_confirmation_mail, send_appointment_to_staff, send_question_to_staff
 import asyncio
 
 loop = asyncio.get_event_loop()
@@ -21,6 +21,10 @@ def show_about(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
+            email = form.cleaned_data['email']
+            message = f"name: {form.cleaned_data['name']} email: {form.cleaned_data['email']} phone: {form.cleaned_data['phone_number']} for date:{form.cleaned_data['date']} message: {form.cleaned_data['message']}"
+            loop.run_in_executor(None, send_appointment_confirmation_mail, email)
+            loop.run_in_executor(None, send_appointment_to_staff, message)
             form.save()
             return redirect('booking_success')
     form = BookingForm
@@ -100,3 +104,37 @@ class GalleryView(ListView):
         recent_pics = GalleryPicks.objects.all()[:6]
         context['recent_pics'] = recent_pics
         return context
+
+
+class FaqView(TemplateView):
+    template_name = 'common/faq.html'
+
+
+class TermsView(TemplateView):
+    template_name = 'common/terms-condition.html'
+
+
+class PrivacyView(TemplateView):
+    template_name = 'common/privacy-policy.html'
+
+
+def send_question(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            message = f"name: {form.cleaned_data['name']} email: {form.cleaned_data['email']} phone: {form.cleaned_data['phone_number']} subject:{form.cleaned_data['subject']} message: {form.cleaned_data['message']}"
+            loop.run_in_executor(None, send_question_to_staff, message)
+            form.save()
+            return redirect('question_sent')
+    form = ContactForm
+    errors = form.errors
+    context = {
+        'form': form,
+        'errors': errors,
+    }
+    return render(request, 'common/contact.html', context)
+
+
+class QuestionSentView(TemplateView):
+    template_name = 'common/question-sent.html'
+

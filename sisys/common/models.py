@@ -60,6 +60,16 @@ class Appointment(models.Model):
     message = models.TextField(blank=True)
 
 
+class Question(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(
+        max_length=12,
+    )
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+
+
 class GalleryPicks(models.Model):
     id = models.IntegerField(primary_key=True)
     image = models.ImageField(upload_to='gallery')

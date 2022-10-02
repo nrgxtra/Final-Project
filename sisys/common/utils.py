@@ -24,3 +24,15 @@ def send_appointment_to_staff(form):
         to=[settings.EMAIL_HOST_USER],
     )
     email.send()
+
+
+def send_question_to_staff(form):
+    email_subject = 'New Customer Question'
+    email_body = form
+    email = EmailMessage(
+        subject=email_subject,
+        body=email_body,
+        from_email=settings.EMAIL_HOST_USER,
+        to=[settings.EMAIL_HOST_USER],
+    )
+    email.send()

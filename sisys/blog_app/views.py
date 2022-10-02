@@ -200,6 +200,8 @@ def posts_with_tag(request, tag):
 
 def author_posts(request, author):
     author = SisisUser.objects.filter(email=author).first()
+    if not author:
+        return render(request, 'blog/no-author.html')
     author_id = author.id
     tags = Tag.objects.all()
     posts = Post.objects.filter(author_id=author_id)
