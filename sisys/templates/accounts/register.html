@@ -5,63 +5,67 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_utils %}
 {% block content %}
-        <!-- Inner Banner -->
-        <div class="inner-banner">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-lg-7 col-md-7">
-                        <div class="inner-title">
-                            <h3>Register</h3>
-                            <ul>
-                                <li>
-                                    <a href="{% url 'home' %}">Home</a>
-                                </li>
-                                <li>Register</li>
-                            </ul>
-                        </div>
+    <!-- Inner Banner -->
+    <div class="inner-banner">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-7">
+                    <div class="inner-title">
+                        <h3>Register</h3>
+                        <ul>
+                            <li>
+                                <a href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li>Register</li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="col-lg-5 col-md-5">
-                        <div class="inner-img">
-                            <img src="{% static 'images/inner-banner/inner-banner7.png' %}" alt="Inner Banner" />
-                        </div>
+                <div class="col-lg-5 col-md-5">
+                    <div class="inner-img">
+                        <img src="{% static 'images/inner-banner/inner-banner7.png' %}" alt="Inner Banner"/>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Inner Banner End -->
+    </div>
+    <!-- Inner Banner End -->
 
-         <!-- User Area -->
-        <div class="user-area pt-100 pb-70">
-            <div class="container">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="user-all-form">
-                            <div class="contact-form">
-                                <h3 class="user-title"> Register </h3>
-                                <form id="contactForm">
-                                    <div class="row">
-                                        {% for field in form %}
+    <!-- User Area -->
+    <div class="user-area pt-100 pb-70">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-6">
+                    <div class="user-all-form">
+                        <div class="contact-form">
+                            <h3 class="user-title"> Register </h3>
+                            <form id="contactForm">
+                                <div class="row">
+                                    {% for field in form %}
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 {{ field |as_crispy_field }}{{ errors | as_crispy_errors }}
                                             </div>
                                         </div>
-                                        {% endfor %}
+                                    {% endfor %}
 
-                                        <div class="col-lg-12 col-md-12">
-                                            <button type="submit" class="default-btn">
-                                                Register Now
-                                            </button>
-                                        </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <button type="submit" class="default-btn">
+                                            Register Now
+                                        </button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- User Area End -->
-
+    </div>
+    <!-- User Area End -->
+    <script>
+        var user = '{{ request.user }}'
+        var order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
+        cart_items = 0
+    </script>
 {% endblock %}

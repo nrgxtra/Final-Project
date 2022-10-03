@@ -183,7 +183,7 @@
     <script>
         var total = '{{ order.get_cart_total }}'
         var cart_items = '{{ order.get_cart_quantity }}'
-        if (cart_items !== 0) {
+        if (cart_items !== '0') {
             // Render the PayPal button into #paypal-button-container
             paypal.Buttons({
 

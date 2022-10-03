@@ -11,6 +11,7 @@ from django.utils.http import urlsafe_base64_decode
 
 from blog_app.models import Post
 from newsletters_app.models import NewsletterUser
+from shopping_app.models import Order
 
 from sisys.sisis_auth.forms import RegisterForm, ProfileForm
 from sisys.sisis_auth.models import Profile, SisisUser
@@ -35,6 +36,12 @@ class RegisterUser(views.CreateView):
         user = self.object
         loop.run_in_executor(None, send_activation_mail, self.request, user)
         return result
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['cart_items'] = '0'
+        return context
 
 
 def activate(request, uidb64, token):
@@ -65,6 +72,12 @@ class UserLoginView(auth_views.LoginView):
             return self.success_url
         return super().get_success_url()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['cart_items'] = '0'
+        return context
+
 
 class UserLogoutView(auth_views.LogoutView):
     next_page = 'home'
@@ -76,17 +89,32 @@ class AccountView(LoginRequiredMixin, views.TemplateView):
     def get_context_data(self, **kwargs):
         profile = Profile.objects.get(pk=self.request.user.id)
         subscribed = NewsletterUser.objects.filter(email=self.request.user.email)
+        user = self.request.user
+        if user.is_authenticated:
+            customer = user.customer
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            cart_items = order.get_cart_quantity
+        else:
+            cart_items = '0'
         if subscribed:
             self.extra_context = {'profile': profile,
                                   'subscribed': subscribed,
+                                  'cart_items': cart_items,
                                   }
         else:
-            self.extra_context = {'profile': profile, }
+            self.extra_context = {'profile': profile, 'cart_items': cart_items,}
         return super().get_context_data(**kwargs)
 
 
 @login_required
 def profile_details(request):
+    user = request.user
+    if user.is_authenticated:
+        customer = user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        cart_items = order.get_cart_quantity
+    else:
+        cart_items = '0'
     profile = Profile.objects.get(pk=request.user.id)
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -99,6 +127,7 @@ def profile_details(request):
         context = {
             'form': form,
             'profile': profile,
+            'cart_items': cart_items,
         }
         return render(request, 'accounts/profile_details.html', context)
     user_posts = Post.objects.filter(author_id=request.user.id)

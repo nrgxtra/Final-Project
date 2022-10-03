@@ -181,6 +181,13 @@ class BlogSearchView(ListView):
 
 
 def posts_with_tag(request, tag):
+    user = request.user
+    if user.is_authenticated:
+        customer = user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        cart_items = order.get_cart_quantity
+    else:
+        cart_items = '0'
     posts = Post.objects.filter(tags__name__icontains=tag)
     tags = Tag.objects.all()
     resent_posts = Post.objects.all()[:3]
@@ -191,6 +198,7 @@ def posts_with_tag(request, tag):
         'page_obj': page_obj,
         'tags': tags,
         'tag': tag,
+        'cart_items': cart_items,
         'resent_posts': resent_posts,
         'paginator': paginator,
 
@@ -199,9 +207,19 @@ def posts_with_tag(request, tag):
 
 
 def author_posts(request, author):
+    user = request.user
+    if user.is_authenticated:
+        customer = user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        cart_items = order.get_cart_quantity
+    else:
+        cart_items = '0'
     author = SisisUser.objects.filter(email=author).first()
     if not author:
-        return render(request, 'blog/no-author.html')
+        context = {
+            'cart_items': cart_items,
+        }
+        return render(request, 'blog/no-author.html', context)
     author_id = author.id
     tags = Tag.objects.all()
     posts = Post.objects.filter(author_id=author_id)
@@ -215,6 +233,7 @@ def author_posts(request, author):
         'author': author,
         'name': name,
         'tags': tags,
+        'cart_items': cart_items,
         'page_obj': page_obj,
         'paginator': paginator,
     }

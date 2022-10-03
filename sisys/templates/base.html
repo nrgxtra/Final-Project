@@ -244,13 +244,6 @@
 
                     <div class="others-options d-flex align-items-center">
                         <div class="optional-item">
-                            <div class="search-btn">
-                                <a class="#" href="#searchmodal" data-bs-toggle="modal" data-bs-target="#searchmodal">
-                                    <i class='flaticon-search'></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="optional-item">
                             <a class="optional-item-cart" href={% url 'shopping-cart' %}>
                                 <i class='flaticon-shopping-cart-empty-side-view'></i>
                                 <span>{{ cart_items }}</span>
@@ -393,7 +386,8 @@
                             <i class="flaticon-email"></i>
                             <div class="content">
                                 <h4>Email:</h4>
-                                <span><a href="mailto:sisi.eyebrows@gmail.com" target="_blank">sisi.eyebrows@gmail.com</a></span>
+                                <span><a href="mailto:sisi.eyebrows@gmail.com"
+                                         target="_blank">sisi.eyebrows@gmail.com</a></span>
                             </div>
                         </li>
                         <li>
@@ -436,6 +430,7 @@
 <script src="{% static 'js/cart.js' %}"></script>
 <script>
     var user = '{{ request.user }}'
+
     function getToken(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
