@@ -254,15 +254,6 @@
                     <div class="mobile-nav">
                         <div class="mobile-other d-flex align-items-center">
                             <div class="optional-item">
-                                <div class="search-btn">
-                                    <a class="#" href="#searchmodal" data-bs-toggle="modal"
-                                       data-bs-target="#searchmodal">
-                                        <i class='flaticon-search'></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="optional-item">
                                 <a class="optional-item-cart" href="{% url 'shopping-cart' %}">
                                     <i class='flaticon-shopping-cart-empty-side-view'></i>
                                     <span>{{ cart_items }}</span>
@@ -348,6 +339,23 @@
             </div>
 
             <div class="col-lg-3 col-sm-6">
+                {% if not subscribed_user %}
+    <div style="display: flex; justify-content: center; align-items: center">
+        <div class="footer-widget pe-2">
+            <h3 style="text-align: center">Our Newsletter</h3>
+            <form action="{% url 'newsletter signup' %}" method="post">
+                {% csrf_token %}
+                <div style="text-align: center">
+                    {{ user.email }}
+                </div>
+                <button class="default-btn" type="submit">
+                    Subscribe Now <i class="flaticon-paper-plane"></i>
+                </button>
+            </form>
+
+        </div>
+    </div>
+    {% endif %}
 
             </div>
 

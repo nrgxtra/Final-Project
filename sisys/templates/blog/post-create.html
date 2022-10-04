@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_utils %}
 {% block content %}
 
     <!-- Inner Banner -->
@@ -40,27 +44,13 @@
                         {% csrf_token %}
                         <div class="row">
                             {% for line in form %}
-                                {% if line.name == 'image' %}
-                                    <div class="form-group">
-                                        <p>{{ line }}
-                                        </p>
-                                    </div>
-                                {% elif line.name == 'content' %}
-                                    <div class="about-content-max">
-                                        <p class="about-content">{{ line }} {{ line.label }}</p>
-                                    </div>
-                                {% elif line.name == 'title' %}
+                                {% if line.name == 'content' %}
                                     <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <p class="form-control"
-                                               style="border-radius: 5px">{{ line }} {{ line.label }}
-                                            </p>
-                                        </div>
+                                        {{ line |as_crispy_field}}{{ line.errors |as_crispy_errors}}
                                     </div>
-                                {% elif line.name == 'tags' %}
-                                    <br>
-                                    <div>
-                                    {{ line }} {{ line.label }}
+                                {% else %}
+                                    <div class="col-lg-6">
+                                        {{ line |as_crispy_field}}{{ line.errors |as_crispy_errors}}
                                     </div>
                                 {% endif %}
                             {% endfor %}
