@@ -59,7 +59,7 @@ class Order(models.Model):
         return shipping
 
     def __str__(self):
-        return str(self.id)
+        return str(self.transaction_id)
 
 
 class OrderItem(models.Model):

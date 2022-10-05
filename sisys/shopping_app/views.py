@@ -1,3 +1,4 @@
+import asyncio
 import json
 import datetime
 from django.contrib.auth.decorators import login_required
@@ -9,6 +10,10 @@ from shopping_app.mixins import required_group
 from shopping_app.models import Product, OrderItem, Order, ShippingAddress
 from shopping_app.utils import resize_image
 from django.core.paginator import Paginator, Page
+
+from sisys.utils import send_order_to_staff, send_order_confirmation_mail
+
+loop = asyncio.get_event_loop()
 
 
 def shop_home(request):
@@ -182,19 +187,23 @@ def updateItemQuantity(request):
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
-
+    email = data['form']['email']
     customer = request.user.customer
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
+    mail_data = str(data) + str.join(" ;", [f'{item.product.name} price: {item.product.price} quantity: {item.quantity}' for item in
+                                            order.orderitem_set.all()])
     if total == order.get_cart_total:
         order.complete = True
+        loop.run_in_executor(None, send_order_to_staff, mail_data)
+        loop.run_in_executor(None, send_order_confirmation_mail, email)
     order.save()
     if order.shipping is True:
         ShippingAddress.objects.create(
             customer=customer,
             order=order,
-            email=request.user.email,
+            email=data['form']['email'],
             name=data['form']['name'],
             address=data['shipping']['address'],
             province=data['shipping']['province'],

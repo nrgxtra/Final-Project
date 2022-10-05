@@ -12,5 +12,5 @@ urlpatterns = (
     path('shopping-cart', show_cart, name='shopping-cart'),
     path('checkout', checkout, name='checkout'),
     path('update_item', updateItemQuantity, name='update_item'),
-    path('process_order', processOrder, name='process_order'),
+    path('process-order', processOrder, name='process_order'),
 )
