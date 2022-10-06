@@ -8,12 +8,14 @@ from common.utils import send_appointment_confirmation_mail, send_appointment_to
 import asyncio
 
 from shopping_app.models import Order
+from shopping_app.utils import get_user_subscription
 
 loop = asyncio.get_event_loop()
 
 
 def page_not_found_view(request, exception):
-    return render(request, '404.html', status=404)
+    subscribed_user = get_user_subscription(request.user)
+    return render(request, '404.html', status=404, context={'subscribed_user': subscribed_user, })
 
 
 def show_about(request):
@@ -21,6 +23,7 @@ def show_about(request):
     services = Service.objects.all()[:3]
     gallery = GalleryPicks.objects.all()[:8]
     user = request.user
+    subscribed_user = get_user_subscription(user)
     if user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -43,12 +46,21 @@ def show_about(request):
         'picks': gallery,
         'form': form,
         'cart_items': cart_items,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'common/about.html', context)
 
 
 class BookingSuccess(TemplateView):
     template_name = 'common/booking-success.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        subscribed_user = get_user_subscription(user)
+        context['subscribed_user'] = subscribed_user
+
+        return context
 
 
 class ServicesView(ListView):
@@ -60,6 +72,7 @@ class ServicesView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer = user.customer
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -67,6 +80,7 @@ class ServicesView(ListView):
         else:
             cart_items = '0'
         context['cart_items'] = cart_items
+        context['subscribed_user'] = subscribed_user
         return context
 
 
@@ -78,6 +92,7 @@ class ServiceDetailView(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer = user.customer
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -87,12 +102,14 @@ class ServiceDetailView(DetailView):
         category = Category.objects.all()
         context['category'] = category
         context['cart_items'] = cart_items
+        context['subscribed_user'] = subscribed_user
         return context
 
 
 def list_services_by_category(request, cat):
     filtered = Service.objects.filter(category__name__icontains=cat).all()
     user = request.user
+    subscribed_user = get_user_subscription(user)
     if user.is_authenticated:
         customer = user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -103,12 +120,14 @@ def list_services_by_category(request, cat):
     context = {
         'service_category': filtered,
         'cart_items': cart_items,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'common/service-categories.html', context)
 
 
 def make_appointment(request):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     if user.is_authenticated:
         customer = user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -130,12 +149,14 @@ def make_appointment(request):
                 'form': form,
                 'errors': errors,
                 'cart_items': cart_items,
+                'subscribed_user': subscribed_user,
             }
             return render(request, 'common/appointment.html', context)
     form = BookingForm
     context = {
         'form': form,
         'cart_items': cart_items,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'common/appointment.html', context)
 
@@ -150,6 +171,7 @@ class GalleryView(ListView):
         context = super().get_context_data(**kwargs)
         recent_pics = GalleryPicks.objects.all()[:6]
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer = user.customer
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -158,6 +180,7 @@ class GalleryView(ListView):
             cart_items = '0'
         context['cart_items'] = cart_items
         context['recent_pics'] = recent_pics
+        context['subscribed_user'] = subscribed_user
         return context
 
 
@@ -167,6 +190,7 @@ class FaqView(TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer = user.customer
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -174,6 +198,7 @@ class FaqView(TemplateView):
         else:
             cart_items = '0'
         context['cart_items'] = cart_items
+        context['subscribed_user'] = subscribed_user
         return context
 
 
@@ -183,6 +208,7 @@ class TermsView(TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer = user.customer
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -190,6 +216,7 @@ class TermsView(TemplateView):
         else:
             cart_items = '0'
         context['cart_items'] = cart_items
+        context['subscribed_user'] = subscribed_user
         return context
 
 
@@ -199,6 +226,7 @@ class PrivacyView(TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer = user.customer
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -206,11 +234,13 @@ class PrivacyView(TemplateView):
         else:
             cart_items = '0'
         context['cart_items'] = cart_items
+        context['subscribed_user'] = subscribed_user
         return context
 
 
 def send_question(request):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     if user.is_authenticated:
         customer = user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -230,6 +260,7 @@ def send_question(request):
         'form': form,
         'errors': errors,
         'cart_items': cart_items,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'common/contact.html', context)
 
@@ -240,6 +271,7 @@ class QuestionSentView(TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer = user.customer
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -247,4 +279,5 @@ class QuestionSentView(TemplateView):
         else:
             cart_items = '0'
         context['cart_items'] = cart_items
+        context['subscribed_user'] = subscribed_user
         return context

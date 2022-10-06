@@ -14,6 +14,7 @@ from django.views.generic import (
 )
 
 from shopping_app.models import Customer, Order
+from shopping_app.utils import get_user_subscription
 from sisys.sisis_auth.models import SisisUser
 from .forms import CommentForm, PostCreationForm
 from .mixins import GroupRequiredMixin
@@ -31,6 +32,7 @@ class HomeView(ListView):
         resent_posts = self.queryset[:3]
         user = self.request.user
         tags = Tag.objects.all()
+        subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
             customer, created = Customer.objects.get_or_create(user=user)
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -39,15 +41,16 @@ class HomeView(ListView):
             context['tags'] = tags
             context['resent_posts'] = resent_posts
             context['cart_items'] = cart_items
+            context['subscribed_user'] = subscribed_user
 
             return context
         else:
-            order = {'get_cart_total': 0, 'get_cart_quantity': 0, }
-            cart_items = order['get_cart_quantity']
+            cart_items = 0
             context['user'] = user
             context['tags'] = tags
             context['resent_posts'] = resent_posts
             context['cart_items'] = cart_items
+            context['subscribed_user'] = subscribed_user
 
             return context
 
@@ -61,6 +64,7 @@ class PostView(DetailView):
         pk = self.kwargs["pk"]
         slug = self.kwargs["slug"]
         user = self.request.user
+        subscribed_user = get_user_subscription(user)
 
         form = CommentForm()
         post = get_object_or_404(Post, pk=pk, slug=slug)
@@ -74,6 +78,7 @@ class PostView(DetailView):
         context['likes'] = likes
         context['user'] = user
         context['tags'] = tags
+        context['subscribed_user'] = subscribed_user
         return context
 
     def post(self, request, *args, **kwargs):
@@ -110,8 +115,12 @@ class PostCreateView(GroupRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         form = PostCreationForm()
+        user = self.request.user
+        subscribed_user = get_user_subscription(user)
+
         context = super().get_context_data(**kwargs)
         context['form'] = form
+        context['subscribed_user'] = subscribed_user
         return context
 
     def get_success_url(self):
@@ -134,8 +143,10 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        subscribed_user = get_user_subscription(self.request.user)
         update = True
         context['update'] = update
+        context['subscribed_user'] = subscribed_user
 
         return context
 
@@ -174,7 +185,8 @@ class BlogSearchView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         posts = self.get_queryset()
-
+        subscribed_user = get_user_subscription(self.request.user)
+        context['subscribed_user'] = subscribed_user
         context['posts'] = posts
 
         return context
@@ -182,6 +194,7 @@ class BlogSearchView(ListView):
 
 def posts_with_tag(request, tag):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     if user.is_authenticated:
         customer = user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -201,6 +214,7 @@ def posts_with_tag(request, tag):
         'cart_items': cart_items,
         'resent_posts': resent_posts,
         'paginator': paginator,
+        'subscribed_user': subscribed_user,
 
     }
     return render(request, 'blog/tags.html', context)
@@ -208,6 +222,7 @@ def posts_with_tag(request, tag):
 
 def author_posts(request, author):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     if user.is_authenticated:
         customer = user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -218,6 +233,7 @@ def author_posts(request, author):
     if not author:
         context = {
             'cart_items': cart_items,
+            'subscribed_user': subscribed_user,
         }
         return render(request, 'blog/no-author.html', context)
     author_id = author.id
@@ -236,6 +252,7 @@ def author_posts(request, author):
         'cart_items': cart_items,
         'page_obj': page_obj,
         'paginator': paginator,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'blog/author.html', context)
 

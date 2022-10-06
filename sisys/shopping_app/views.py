@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from shopping_app.forms import ItemCreationForm
 from shopping_app.mixins import required_group
 from shopping_app.models import Product, OrderItem, Order, ShippingAddress
-from shopping_app.utils import resize_image, get_context_attributes
+from shopping_app.utils import resize_image, get_context_attributes, get_user_subscription
 from django.core.paginator import Paginator
 
 from sisys.utils import send_order_to_staff, send_order_confirmation_mail
@@ -18,6 +18,7 @@ loop = asyncio.get_event_loop()
 
 def shop_home(request):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     products = Product.objects.all()
     products_paginator = Paginator(products, 6)
     page_number = request.GET.get('page')
@@ -28,7 +29,8 @@ def shop_home(request):
         'page': page,
         'products_paginator': products_paginator,
         'user': user,
-        'cart_items': context_data['cart_items']
+        'cart_items': context_data['cart_items'],
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'shop/shop.html', context)
 
@@ -36,12 +38,13 @@ def shop_home(request):
 def item_details(request, pk):
     item = Product.objects.all().get(id=pk)
     user = request.user
+    subscribed_user = get_user_subscription(user)
     context_data = get_context_attributes(request, user)
 
     context = {
         'product': item,
         'cart_items': context_data['cart_items'],
-
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'shop/item-details.html', context)
 
@@ -49,6 +52,7 @@ def item_details(request, pk):
 @required_group(groups=['store managers'])
 def create_item(request):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     if request.method == 'POST':
         if user.is_staff:
             form = ItemCreationForm(request.POST, request.FILES)
@@ -65,6 +69,7 @@ def create_item(request):
     context = {
         'form': form,
         'user': request.user,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'shop/item-add.html', context)
 
@@ -72,6 +77,7 @@ def create_item(request):
 @required_group(groups=['store managers'])
 def update_item(request, pk):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     item = Product.objects.all().get(id=pk)
 
     if request.method == 'POST':
@@ -91,6 +97,7 @@ def update_item(request, pk):
         'form': form,
         'user': request.user,
         'item': item,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'shop/item-update.html', context)
 
@@ -98,6 +105,7 @@ def update_item(request, pk):
 @required_group(groups=['store managers'])
 def delete_item(request, pk):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     item = Product.objects.all().get(id=pk)
     if request.method == 'POST':
         if user.is_staff:
@@ -106,18 +114,21 @@ def delete_item(request, pk):
     context = {
         'item': item,
         'user': user,
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'shop/item-delete.html', context)
 
 
 def show_cart(request):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     context_data = get_context_attributes(request, user)
 
     context = {
         'items': context_data['items'],
         'order': context_data['order'],
         'cart_items': context_data['cart_items'],
+        'subscribed_user': subscribed_user,
     }
     return render(request, 'shop/cart.html', context)
 
@@ -125,6 +136,7 @@ def show_cart(request):
 @login_required()
 def checkout(request):
     user = request.user
+    subscribed_user = get_user_subscription(user)
     context_data = get_context_attributes(request, user)
     cart_items = context_data['cart_items']
     if cart_items > 0:
@@ -133,6 +145,7 @@ def checkout(request):
             'items': context_data['items'],
             'order': context_data['order'],
             'cart_items': context_data['cart_items'],
+            'subscribed_user': subscribed_user,
         }
         return render(request, 'shop/checkout.html', context)
     else:

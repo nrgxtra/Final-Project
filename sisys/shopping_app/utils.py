@@ -1,5 +1,6 @@
 from PIL import Image
 
+from newsletters_app.models import NewsletterUser
 from shopping_app.models import Order
 
 
@@ -30,3 +31,9 @@ def get_context_attributes(request, user):
             'cart_items': cart_items,
         }
         return result
+
+
+def get_user_subscription(user):
+    subscribed_user = NewsletterUser.objects.filter(email=user.email)
+    return subscribed_user
+
