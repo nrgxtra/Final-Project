@@ -39,7 +39,8 @@
                     <div class="user-all-form">
                         <div class="contact-form">
                             <h3 class="user-title"> Register </h3>
-                            <form id="contactForm">
+                            <form id="contactForm" method="post" action="{% url 'register' %}">
+                            {% csrf_token %}
                                 <div class="row">
                                     {% for field in form %}
                                         <div class="col-lg-12">
@@ -65,7 +66,6 @@
     <!-- User Area End -->
     <script>
         var user = '{{ request.user }}'
-        var order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
         cart_items = 0
     </script>
 {% endblock %}

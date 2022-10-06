@@ -149,7 +149,8 @@ def checkout(request):
         }
         return render(request, 'shop/checkout.html', context)
     else:
-        return render(request, 'shop/empty-cart-checkout.html')
+        return render(request, 'shop/empty-cart-checkout.html',
+                      context={'subscribed_user': subscribed_user, 'cart_items': context_data['cart_items'], })
 
 
 def updateItemQuantity(request):

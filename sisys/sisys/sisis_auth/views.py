@@ -28,8 +28,6 @@ class RegisterUser(views.CreateView):
     template_name = 'accounts/register.html'
     form_class = RegisterForm
     success_url = reverse_lazy('email_confirm')
-    user = None
-    request = None
 
     def form_valid(self, form):
         result = super().form_valid(form)

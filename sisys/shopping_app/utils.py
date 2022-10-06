@@ -24,16 +24,18 @@ def get_context_attributes(request, user):
         }
         return result
     else:
-        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
-        cart_items = order['get_cart_quantity']
         result = {
-            'order': order,
-            'cart_items': cart_items,
+            'cart_items': 0,
         }
         return result
 
 
 def get_user_subscription(user):
-    subscribed_user = NewsletterUser.objects.filter(email=user.email)
-    return subscribed_user
+    if user.is_authenticated:
+        subscribed_user = NewsletterUser.objects.filter(email=user.email)
+        return subscribed_user
+    else:
+        subscribed_user = None
+        return subscribed_user
+
 
