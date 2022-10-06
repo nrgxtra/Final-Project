@@ -215,13 +215,14 @@
         </script>
     <script>
     document.getElementById('cod').addEventListener('click', function (ev){
+        payment = "COD"
         submitFormData()
     })
     </script>
 
     <script type="text/javascript">
         var shipping = '{{ order.shipping }}'
-
+        var payment = 'PayPal'
         if (shipping === 'False') {
             document.getElementById('shipping-info').innerHTML = ''
         }
@@ -245,6 +246,7 @@
                 'name': null,
                 'email': null,
                 'total': total,
+                'payment':payment
             }
             var shippingInfo = {
                 'address': null,
