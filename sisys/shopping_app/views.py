@@ -8,8 +8,8 @@ from django.shortcuts import render, redirect
 from shopping_app.forms import ItemCreationForm
 from shopping_app.mixins import required_group
 from shopping_app.models import Product, OrderItem, Order, ShippingAddress
-from shopping_app.utils import resize_image
-from django.core.paginator import Paginator, Page
+from shopping_app.utils import resize_image, get_context_attributes
+from django.core.paginator import Paginator
 
 from sisys.utils import send_order_to_staff, send_order_confirmation_mail
 
@@ -22,20 +22,13 @@ def shop_home(request):
     products_paginator = Paginator(products, 6)
     page_number = request.GET.get('page')
     page = products_paginator.get_page(page_number)
-    if user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        cart_items = order.get_cart_quantity
-    else:
-        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
-        cart_items = order['get_cart_quantity']
-
+    context_data = get_context_attributes(request, user)
     context = {
         'items': products,
         'page': page,
         'products_paginator': products_paginator,
         'user': user,
-        'cart_items': cart_items
+        'cart_items': context_data['cart_items']
     }
     return render(request, 'shop/shop.html', context)
 
@@ -43,17 +36,11 @@ def shop_home(request):
 def item_details(request, pk):
     item = Product.objects.all().get(id=pk)
     user = request.user
-    if user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        cart_items = order.get_cart_quantity
-    else:
-        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
-        cart_items = order['get_cart_quantity']
+    context_data = get_context_attributes(request, user)
 
     context = {
         'product': item,
-        'cart_items': cart_items,
+        'cart_items': context_data['cart_items'],
 
     }
     return render(request, 'shop/item-details.html', context)
@@ -124,42 +111,32 @@ def delete_item(request, pk):
 
 
 def show_cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cart_items = order.get_cart_quantity
-    else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
-        cart_items = order['get_cart_quantity']
+    user = request.user
+    context_data = get_context_attributes(request, user)
 
     context = {
-        'items': items,
-        'order': order,
-        'cart_items': cart_items,
+        'items': context_data['items'],
+        'order': context_data['order'],
+        'cart_items': context_data['cart_items'],
     }
     return render(request, 'shop/cart.html', context)
 
 
+@login_required()
 def checkout(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cart_items = order.get_cart_quantity
+    user = request.user
+    context_data = get_context_attributes(request, user)
+    cart_items = context_data['cart_items']
+    if cart_items > 0:
+        context = {
+            'user': user,
+            'items': context_data['items'],
+            'order': context_data['order'],
+            'cart_items': context_data['cart_items'],
+        }
+        return render(request, 'shop/checkout.html', context)
     else:
-        items = []
-        order = {'get_cart_total': 0, 'get_cart_quantity': 0, 'shipping': False}
-        cart_items = order['get_cart_quantity']
-
-    context = {
-        'user': request.user,
-        'items': items,
-        'order': order,
-        'cart_items': cart_items,
-    }
-    return render(request, 'shop/checkout.html', context)
+        return render(request, 'shop/empty-cart-checkout.html')
 
 
 def updateItemQuantity(request):
@@ -192,8 +169,10 @@ def processOrder(request):
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
-    mail_data = str(data) + str.join(" ;", [f'{item.product.name} price: {item.product.price} quantity: {item.quantity}' for item in
-                                            order.orderitem_set.all()])
+    mail_data = str(data) + str.join(" ;",
+                                     [f'{item.product.name} price: {item.product.price} quantity: {item.quantity}' for
+                                      item in
+                                      order.orderitem_set.all()])
     if total == order.get_cart_total:
         order.complete = True
         loop.run_in_executor(None, send_order_to_staff, mail_data)

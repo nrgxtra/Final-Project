@@ -16,8 +16,8 @@ def send_order_to_staff(data):
 
 
 def send_order_confirmation_mail(email):
-    email_subject = 'We received your booking request'
-    email_body = 'Our costumer support will contact You to clarify details.'
+    email_subject = 'We received Your order'
+    email_body = f'Once it`s proceeded, we will inform You!\nThank You for beeng part of our exclusive experience!'
     email = EmailMessage(
         subject=email_subject,
         body=email_body,

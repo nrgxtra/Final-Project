@@ -112,7 +112,8 @@
                                 <div class="payment-box hidden" id="payment-info" style="display: none">
                                     <small>Paypal Options</small>
                                      <div id="paypal-button-container"></div>
-                                    <!--button id="make-payment">Make Payment</button-->
+                                    <small>Order With Cash On Delivery</small>
+                                    <button class="default-btn" type="submit" id="cod">Order with COD</button>
                                 </div>
                             </div>
 
@@ -212,6 +213,11 @@
                 ).render('#paypal-button-container');
             }
         </script>
+    <script>
+    document.getElementById('cod').addEventListener('click', function (ev){
+        submitFormData()
+    })
+    </script>
 
     <script type="text/javascript">
         var shipping = '{{ order.shipping }}'
