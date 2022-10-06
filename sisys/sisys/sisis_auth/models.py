@@ -37,6 +37,11 @@ class Profile(models.Model):
         max_length=100,
         blank=True,
     )
+    bio = models.TextField(blank=True, null=True)
+    fb_link = models.CharField(max_length=300, blank=True, null=True)
+    vimeo_link = models.CharField(max_length=300, blank=True, null=True)
+    tweeter_link = models.CharField(max_length=300, blank=True, null=True)
+    link_link = models.CharField(max_length=300, blank=True, null=True)
     user = models.OneToOneField(
         SisisUser,
         on_delete=models.CASCADE,

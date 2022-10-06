@@ -63,7 +63,9 @@
                             <h3 class="title">Popular Tags</h3>
                             <ul class="side-bar-widget-tag">
                                 {% for tag in tags %}
-                                    <li><a href="{% url 'posts_with_tag' tag %}">{{ tag }} </a></li>
+                                    <li>
+                                        <a href="{% url 'posts_with_tag' tag %}"> {{ tag }} </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>

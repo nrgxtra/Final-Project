@@ -19,7 +19,7 @@ from sisys.sisis_auth.models import SisisUser
 from .forms import CommentForm, PostCreationForm
 from .mixins import GroupRequiredMixin
 from .models import Post, Comment, Like, Tag
-from .utils import get_author_name
+from .utils import get_author_name, get_author_bio
 
 
 class HomeView(ListView):
@@ -240,6 +240,11 @@ def author_posts(request, author):
     tags = Tag.objects.all()
     posts = Post.objects.filter(author_id=author_id)
     name = get_author_name(author)
+    bio = get_author_bio(author)
+    fb_link = author.profile.fb_link
+    vm_link = author.profile.vimeo_link
+    tw_link = author.profile.tweeter_link
+    link_link = author.profile.link_link
     paginator = Paginator(posts, 4)
 
     page_number = request.GET.get('page')
@@ -247,6 +252,11 @@ def author_posts(request, author):
 
     context = {
         'author': author,
+        'bio': bio,
+        'fb': fb_link,
+        'vm': vm_link,
+        'tw': tw_link,
+        'link': link_link,
         'name': name,
         'tags': tags,
         'cart_items': cart_items,

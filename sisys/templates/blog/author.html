@@ -37,36 +37,43 @@
                         <div class="author-profile">
                             <img src="{% static 'images/blog/writer.jpeg' %}" alt="images">
                             <h3>{{ name }}</h3>
-                            <p>I am a strange author. Usually writing on the walls...</p>
+                            <p>{{ bio }}</p>
                             <ul class="profile-social-link">
+                                {% if vm %}
                                 <li>
-                                    <a href="https://vimeo.com/" target="_blank">
+                                    <a href="{{ vm }}" target="_blank">
                                         <i class="ri-vimeo-fill"></i>
                                     </a>
                                 </li>
+                                {% elif tw %}
                                 <li>
-                                    <a href="https://twitter.com/" target="_blank">
+                                    <a href="{{ tw }}" target="_blank">
                                         <i class="ri-twitter-fill"></i>
                                     </a>
                                 </li>
+                                {% elif link %}
                                 <li>
-                                    <a href="https://www.linkedin.com/" target="_blank">
+                                    <a href="{{ link }}" target="_blank">
                                         <i class="ri-linkedin-fill"></i>
                                     </a>
                                 </li>
+                                {% elif fb %}
                                 <li>
-                                    <a href="https://www.facebook.com/" target="_blank">
+                                    <a href="{{ fb }}" target="_blank">
                                         <i class="ri-facebook-fill"></i>
                                     </a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </div>
 
                         <div class="side-bar-widget">
                             <h3 class="title">Popular Tags</h3>
                             <ul class="side-bar-widget-tag">
-                                <{% for tag in tags %}
-                                <li><a href="{% url 'posts_with_tag' tag %}">{{ tag }} </a></li>
+                                {% for tag in tags %}
+                                <li>
+                                    <a href="{% url 'posts_with_tag' tag %}"> {{ tag }} </a>
+                                </li>
                             {% endfor %}
                             </ul>
                         </div>
