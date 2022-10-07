@@ -71,7 +71,6 @@ class Question(models.Model):
 
 
 class GalleryPicks(models.Model):
-    id = models.IntegerField(primary_key=True)
     image = models.ImageField(upload_to='gallery')
 
     @property

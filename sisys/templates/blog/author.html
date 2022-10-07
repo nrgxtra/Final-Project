@@ -37,7 +37,9 @@
                         <div class="author-profile">
                             <img src="{% static 'images/blog/writer.jpeg' %}" alt="images">
                             <h3>{{ name }}</h3>
+                            {% if bio %}
                             <p>{{ bio | truncatewords:15}}</p>
+                            {% endif %}
                             <ul class="profile-social-link">
                                 {% if vm %}
                                     <li>

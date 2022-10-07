@@ -64,6 +64,12 @@ class PostView(DetailView):
         pk = self.kwargs["pk"]
         slug = self.kwargs["slug"]
         user = self.request.user
+        if user.is_authenticated:
+            customer, created = Customer.objects.get_or_create(user=user)
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            cart_items = order.get_cart_quantity
+        else:
+            cart_items = 0
         subscribed_user = get_user_subscription(user)
 
         form = CommentForm()
@@ -73,6 +79,7 @@ class PostView(DetailView):
         likes = post.like_set.all()
 
         context['post'] = post
+        context['cart_items'] = cart_items
         context['comments'] = comments
         context['form'] = form
         context['likes'] = likes
@@ -184,10 +191,18 @@ class BlogSearchView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.request.user
+        if self.request.user.is_authenticated:
+            customer, created = Customer.objects.get_or_create(user=user)
+            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            cart_items = order.get_cart_quantity
+        else:
+            cart_items = 0
         posts = self.get_queryset()
-        subscribed_user = get_user_subscription(self.request.user)
+        subscribed_user = get_user_subscription(user)
         context['subscribed_user'] = subscribed_user
         context['posts'] = posts
+        context['cart_items'] = cart_items
 
         return context
 
