@@ -119,6 +119,7 @@ def delete_item(request, pk):
     return render(request, 'shop/item-delete.html', context)
 
 
+@login_required()
 def show_cart(request):
     user = request.user
     subscribed_user = get_user_subscription(user)

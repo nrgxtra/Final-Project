@@ -37,32 +37,35 @@
                         <div class="author-profile">
                             <img src="{% static 'images/blog/writer.jpeg' %}" alt="images">
                             <h3>{{ name }}</h3>
-                            <p>{{ bio }}</p>
+                            <p>{{ bio | truncatewords:15}}</p>
                             <ul class="profile-social-link">
                                 {% if vm %}
-                                <li>
-                                    <a href="{{ vm }}" target="_blank">
-                                        <i class="ri-vimeo-fill"></i>
-                                    </a>
-                                </li>
-                                {% elif tw %}
-                                <li>
-                                    <a href="{{ tw }}" target="_blank">
-                                        <i class="ri-twitter-fill"></i>
-                                    </a>
-                                </li>
-                                {% elif link %}
-                                <li>
-                                    <a href="{{ link }}" target="_blank">
-                                        <i class="ri-linkedin-fill"></i>
-                                    </a>
-                                </li>
-                                {% elif fb %}
-                                <li>
-                                    <a href="{{ fb }}" target="_blank">
-                                        <i class="ri-facebook-fill"></i>
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="{{ vm }}" target="_blank">
+                                            <i class="ri-vimeo-fill"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if tw %}
+                                    <li>
+                                        <a href="{{ tw }}" target="_blank">
+                                            <i class="ri-twitter-fill"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if link %}
+                                    <li>
+                                        <a href="{{ link }}" target="_blank">
+                                            <i class="ri-linkedin-fill"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if fb %}
+                                    <li>
+                                        <a href="{{ fb }}" target="_blank">
+                                            <i class="ri-facebook-fill"></i>
+                                        </a>
+                                    </li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -71,10 +74,10 @@
                             <h3 class="title">Popular Tags</h3>
                             <ul class="side-bar-widget-tag">
                                 {% for tag in tags %}
-                                <li>
-                                    <a href="{% url 'posts_with_tag' tag %}"> {{ tag }} </a>
-                                </li>
-                            {% endfor %}
+                                    <li>
+                                        <a href="{% url 'posts_with_tag' tag %}"> {{ tag }} </a>
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -128,7 +131,7 @@
                                     {% endif %}
                                 {% endfor %}
 
-                                {% if page_obj.has_next%}
+                                {% if page_obj.has_next %}
                                     <a href="{% url 'author_posts' author %}?page={{ page_obj.next_page_number }}"
                                        class="next page-numbers">
                                         <i class="flaticon-arrow-pointing-to-right"></i>
