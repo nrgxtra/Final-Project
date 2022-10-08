@@ -112,8 +112,10 @@
                                 <div class="payment-box hidden" id="payment-info" style="display: none">
                                     <small>Paypal Options</small>
                                      <div id="paypal-button-container"></div>
+                                    <div id="cod-payment">
                                     <small>Order With Cash On Delivery</small>
                                     <button class="default-btn" type="submit" id="cod">Order with COD</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -225,6 +227,7 @@
         var payment = 'PayPal'
         if (shipping === 'False') {
             document.getElementById('shipping-info').innerHTML = ''
+            document.getElementById('cod-payment').innerHTML = ''
         }
 
         var form = document.getElementById('form')

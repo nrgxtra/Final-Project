@@ -31,8 +31,9 @@ class RegisterUser(views.CreateView):
 
     def form_valid(self, form):
         result = super().form_valid(form)
-        form.save()
-        user = self.object
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data['password1'])
+        user.save()
         loop.run_in_executor(None, send_activation_mail, self.request, user)
         return result
 
