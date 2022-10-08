@@ -93,6 +93,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': 5432,
     }
+
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -138,3 +139,4 @@ CELERY_TIMEZONE = 'Europe/Madrid'
 CELERY_RESULT_BACKEND = 'django-db'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

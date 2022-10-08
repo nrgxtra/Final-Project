@@ -36,11 +36,10 @@
                         <div class="title">
                             <h2>Follow Us On Instagram</h2>
                         </div>
-                        {% for image in recent_pics %}
-                            {% if image.id == 1 %}
                                 <div class="gallery-all-img">
+                                    {% if pic1 %}
                                     <div class="img">
-                                        <img src="{{ image.imageURL }}" alt="Gallery" width="550" height="300"/>
+                                        <img src="{{ pic1.imageURL }}" alt="Gallery"/>
                                         <div class="follow-btn-area">
                                             <a href="https://www.instagram.com/?hl=en" target="_blank"
                                                class="follow-btn">
@@ -48,14 +47,17 @@
                                             </a>
                                         </div>
                                     </div>
-                                    {% elif image.id == 2 %}
+                                    {% endif %}
+                                {% if pic2 %}
                                     <div class="img2">
-                                        <img src="{{ image.imageURL }}" alt="Gallery" width="300" height="150"/>
+                                        <img src="{{ pic2.imageURL }}" alt="Gallery" />
                                     </div>
-                                    {% elif image.id == 3 %}
+                                {% endif %}
+                                {% if pic3 %}
                                     <div class="img3">
-                                        <img src="{{ image.imageURL }}" alt="Gallery" width="300" height="200"/>
+                                        <img src="{{ pic3.imageURL }}" alt="Gallery" />
                                     </div>
+                                {% endif %}
                                     <div class="vector-img">
                                         <img src="{% static 'images/gallery/vector-img2.png' %}" alt="Gallery"/>
                                     </div>
@@ -65,25 +67,26 @@
 
                                 <div class="col-lg-6">
                                 <div class="gallery-all-img-two">
-                            {% elif image.id == 4 %}
+                                    {% if pic4 %}
                                 <div class="img">
-                                    <img src="{{ image.imageURL }}" alt="Gallery" width="550" height="300"/>
+                                    <img src="{{ pic4.imageURL }}" alt="Gallery" />
                                     <div class="follow-btn-area">
                                         <a href="https://www.instagram.com/?hl=en" target="_blank" class="follow-btn">
                                             <i class="ri-instagram-line"></i>
                                         </a>
                                     </div>
                                 </div>
-                            {% elif image.id == 5 %}
+                                {% endif %}
+                                    {% if pic5 %}
                                 <div class="img2">
-                                    <img src="{{ image.imageURL }}" alt="Gallery" width="300" height="200"/>
+                                    <img src="{{ pic5.imageURL }}" alt="Gallery" />
                                 </div>
-                            {% elif image.id == 6 %}
+                                {% endif %}
+                                    {% if pic6 %}
                                 <div class="img3">
-                                    <img src="{{ image.imageURL }}" alt="Gallery" width="300" height="200"/>
+                                    <img src="{{ pic6.imageURL }}" alt="Gallery" />
                                 </div>
-                            {% endif %}
-                        {% endfor %}
+                                    {% endif %}
                         <div class="vector-img">
                             <img src="{% static 'images/gallery/vector-img.png' %}" alt="Gallery" width="300" height="200"/>
                         </div>

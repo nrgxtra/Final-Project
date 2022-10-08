@@ -165,11 +165,26 @@ class GalleryView(ListView):
     template_name = 'common/gallery.html'
     model = GalleryPicks
     context_object_name = 'gallery_picks'
-    paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        recent_pics = GalleryPicks.objects.all()[:6]
+
+        idx = GalleryPicks.objects.all().count()
+        if idx > 5:
+            recent_pics = GalleryPicks.objects.all()[idx-6:]
+            pic1 = recent_pics[0]
+            pic2 = recent_pics[1]
+            pic3 = recent_pics[2]
+            pic4 = recent_pics[3]
+            pic5 = recent_pics[4]
+            pic6 = recent_pics[5]
+            context['pic1'] = pic1
+            context['pic2'] = pic2
+            context['pic3'] = pic3
+            context['pic4'] = pic4
+            context['pic5'] = pic5
+            context['pic6'] = pic6
+
         user = self.request.user
         subscribed_user = get_user_subscription(user)
         if user.is_authenticated:
@@ -179,7 +194,8 @@ class GalleryView(ListView):
         else:
             cart_items = '0'
         context['cart_items'] = cart_items
-        context['recent_pics'] = recent_pics
+
+
         context['subscribed_user'] = subscribed_user
         return context
 
