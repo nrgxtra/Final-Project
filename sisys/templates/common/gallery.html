@@ -39,7 +39,7 @@
                                 <div class="gallery-all-img">
                                     {% if pic1 %}
                                     <div class="img">
-                                        <img src="{{ pic1.imageURL }}" alt="Gallery"/>
+                                        <img src="{{ pic1.imageURL }}" style="object-fit: cover" alt="Gallery" width="550" height="490"/>
                                         <div class="follow-btn-area">
                                             <a href="https://www.instagram.com/?hl=en" target="_blank"
                                                class="follow-btn">
@@ -50,12 +50,12 @@
                                     {% endif %}
                                 {% if pic2 %}
                                     <div class="img2">
-                                        <img src="{{ pic2.imageURL }}" alt="Gallery" />
+                                        <img src="{{ pic2.imageURL }}" style="object-fit: cover" width="300" height="220" alt="Gallery" />
                                     </div>
                                 {% endif %}
                                 {% if pic3 %}
                                     <div class="img3">
-                                        <img src="{{ pic3.imageURL }}" alt="Gallery" />
+                                        <img src="{{ pic3.imageURL }}" style="object-fit: cover" alt="Gallery" width="300" height="320"/>
                                     </div>
                                 {% endif %}
                                     <div class="vector-img">
@@ -69,7 +69,7 @@
                                 <div class="gallery-all-img-two">
                                     {% if pic4 %}
                                 <div class="img">
-                                    <img src="{{ pic4.imageURL }}" alt="Gallery" />
+                                    <img src="{{ pic4.imageURL }}" style="object-fit: cover" alt="Gallery" width="550" height="490" />
                                     <div class="follow-btn-area">
                                         <a href="https://www.instagram.com/?hl=en" target="_blank" class="follow-btn">
                                             <i class="ri-instagram-line"></i>
@@ -79,16 +79,16 @@
                                 {% endif %}
                                     {% if pic5 %}
                                 <div class="img2">
-                                    <img src="{{ pic5.imageURL }}" alt="Gallery" />
+                                    <img src="{{ pic5.imageURL }}" style="object-fit: cover" alt="Gallery" width="300" height="220" />
                                 </div>
                                 {% endif %}
                                     {% if pic6 %}
                                 <div class="img3">
-                                    <img src="{{ pic6.imageURL }}" alt="Gallery" />
+                                    <img src="{{ pic6.imageURL }}" style="object-fit: cover"  width="300" height="320" alt="Gallery" />
                                 </div>
                                     {% endif %}
                         <div class="vector-img">
-                            <img src="{% static 'images/gallery/vector-img.png' %}" alt="Gallery" width="300" height="200"/>
+                            <img src="{% static 'images/gallery/vector-img.png' %}" alt="Gallery"/>
                         </div>
                         </div>
                         </div>

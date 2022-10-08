@@ -64,7 +64,7 @@
                     <div class="blog-details-content">
                         <h2 class="title">{{ post.title }}</h2>
                         <div class="blog-preview-img">
-                            <img src="{{ post.imageURL }}" alt="Blog Details" width="616" height="375"/>
+                            <img src="{{ post.imageURL }}" alt="Blog Details" style="object-fit: cover" width="616" height="375"/>
                         </div>
                         <ul class="tag-list">
                             <li class="active"><a href="{% url 'author_posts' post.author %}"> <i

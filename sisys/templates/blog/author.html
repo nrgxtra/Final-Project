@@ -91,7 +91,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="blog-card box-shadow">
                                     <a href="{% url 'post_details' post.id post.slug %}" class="img">
-                                        <img src="{{ post.imageURL }}" alt="Blog" width="296" height="193"/>
+                                        <img src="{{ post.imageURL }}" alt="Blog" style="object-fit: cover" width="296" height="193"/>
                                     </a>
                                     <div class="content">
                                         <ul>

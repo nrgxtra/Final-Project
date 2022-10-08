@@ -41,19 +41,19 @@
                         <div class="about-slider owl-carousel owl-theme">
                             <div class="about-img">
                                 <div class="top-border"></div>
-                                <img src="{% static 'images/about/about-img1.jpg' %}" alt="About" />
+                                <img src="{% static 'images/about/about-img1.jpg' %}" style="object-fit: cover" alt="About" />
                                 <div class="bottom-border bottom-border-color"></div>
                             </div>
 
                             <div class="about-img">
                                 <div class="top-border"></div>
-                                <img src="{% static 'images/about/about-img2.jpg' %}" alt="About" />
+                                <img src="{% static 'images/about/about-img2.jpg' %}" style="object-fit: cover" alt="About" />
                                 <div class="bottom-border bottom-border-color"></div>
                             </div>
 
                             <div class="about-img">
                                 <div class="top-border"></div>
-                                <img src="{% static 'images/about/about-img3.jpg' %}" alt="About" />
+                                <img src="{% static 'images/about/about-img3.jpg' %}" style="object-fit: cover" alt="About" />
                                 <div class="bottom-border bottom-border-color"></div>
                             </div>
                         </div>
@@ -88,11 +88,11 @@
                 <h2>What We Offer</h2>
             </div>
             <div class="row">
-                {% for servis in services %}
+                 {% for servis in services %}
                     <div class="col-lg-4 col-6">
                         <div class="services-card">
                             <a href="{% url 'service_details' servis.id %}">
-                                <img src="{{ servis.imageURL }} " alt="Services" width="550" height="430"/>
+                                <img src="{{ servis.imageURL }} " alt="Services" style="object-fit: cover" width="550" height="430"/>
                             </a>
                             <div class="content">
                                 <h3><a href="{% url 'service_details' servis.id %}">{{ servis.name }}t</a></h3>
@@ -116,9 +116,9 @@
     <!-- Services Area End -->
 
     <!-- Intro Video Area -->
-    <div class="intro-video-area section-bg pb-100">
-        <div class="container">
-            <div class="video-content">
+    <div class="intro-video-area section-bg pb-100" style="object-fit: cover">
+        <div class="container" style="object-fit: cover">
+            <div class="video-content" style="object-fit: cover">
                 <a href="https://www.youtube.com/watch?v=ri-BM1i4WSs" class="play-btn">
                     <i class="ri-play-fill"></i>
                 </a>
@@ -146,7 +146,7 @@
                     <div class="team-card">
                         <div class="team-img">
                             <a href="#">
-                                <img src="{% static 'images/team/team-img1.jpg' %}" alt="Team"/>
+                                <img src="{% static 'images/team/team-img1.jpg' %}" style="object-fit: cover" alt="Team"/>
                             </a>
                             <ul class="social-links-btn">
                                 <li class="share-btn"><i class="flaticon-arrow-pointing-to-right"></i></li>
@@ -188,7 +188,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="book-img">
-                        <img src="{% static 'images/book/book-img1.jpg' %}" alt="Book"/>
+                        <img src="{% static 'images/book/book-img1.jpg' %}" style="object-fit: cover"  width="750" height="730" alt="Book"/>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -244,7 +244,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="blog-card">
                             <a href="{% url 'post_details' post.id post.slug %}" class="img">
-                                <img src="{{ post.imageURL }}" alt="Blog" width="350" height="250"/>
+                                <img src="{{ post.imageURL }}" alt="Blog" style="object-fit: cover" width="350" height="250"/>
                             </a>
                             <div class="content">
                                 <ul>
@@ -285,7 +285,7 @@
                     {% for image in picks %}
                         <div class="col-lg-3 col-6">
                             <div class="gallery-img">
-                                <img src="{{ image.imageURL }}" alt="Gallery"/>
+                                <img src="{{ image.imageURL }}" style="object-fit: cover" width="450" height="290" alt="Gallery"/>
                             </div>
                         </div>
                     {% endfor %}
