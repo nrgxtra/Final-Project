@@ -9,7 +9,7 @@ class Customer(models.Model):
     email = models.CharField(max_length=100, null=True)
 
     def __str__(self):
-        return self.name
+        return self.user.email
 
 
 class Product(models.Model):
@@ -57,6 +57,11 @@ class Order(models.Model):
             if not item.product.digital:
                 shipping = True
         return shipping
+
+    @property
+    def order_items(self):
+        orderitems = [str.join('-', [item.product.name, str(item.quantity)]) for item in self.orderitem_set.all()]
+        return orderitems
 
     def __str__(self):
         return str(self.transaction_id)
