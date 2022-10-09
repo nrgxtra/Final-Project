@@ -5,3 +5,8 @@ EMAIL_HOST_USER='your_mail@domain.com'
 EMAIL_HOST_PASSWORD='your_secret_key_for_email'
 
 SECRET_KEY='secret_key_for_your_site'
+
+POSTGRES_NAME='data base name'
+POSTGRES_USER='data base user'
+POSTGRES_PASSWORD='password for database user'
+DATABASE_PORT='database port'
