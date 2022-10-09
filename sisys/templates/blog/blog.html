@@ -51,8 +51,7 @@
                                 {% for p in resent_posts %}
                                     <article class="item">
                                         <a href="{% url 'post_details' p.id p.slug %}" class="thumb">
-                                            <span class="full-image cover bg1" role="img"><img src="{{ p.imageURL }}"
-                                                                                               alt="Blog"/></span>
+                                            <span class="full-image cover bg1" role="img"><img class="full-image cover bg1" src="{{ p.imageURL }}" style="object-fit: fill"  alt="Blog"/></span>
                                         </a>
                                         <div class="info">
                                             <p>{{ p.created_on | date }}</p>
