@@ -1,13 +1,12 @@
 from django.contrib import admin
-from django.template.defaulttags import url
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('sisys.home_app.urls')),
-    path('accounts/', include('sisys.sisis_auth.urls')),
+    path('', include('home_app.urls')),
+    path('accounts/', include('sisis_auth.urls')),
     path('blog/', include('blog_app.urls')),
     path('shopping/', include('shopping_app.urls')),
     path('newsletters/', include('newsletters_app.urls')),

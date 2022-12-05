@@ -1,6 +1,6 @@
 from django.urls import path
 
-from sisys.sisis_auth.views import UserLoginView, UserLogoutView, RegisterUser, profile_details, AccountView, \
+from sisis_auth.views import UserLoginView, UserLogoutView, RegisterUser, profile_details, AccountView, \
     PassChangeView, PassChangeDoneView, PassResetView, PassResetDoneView, PassConfirmationView, PassResetComplete, \
     EmailConfirmationView, activate, delete_account
 

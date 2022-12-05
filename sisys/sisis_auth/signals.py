@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from shopping_app.models import Customer
-from sisys.sisis_auth.models import Profile
+from sisis_auth.models import Profile
 
 UserModel = get_user_model()
 

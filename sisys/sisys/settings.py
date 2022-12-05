@@ -32,8 +32,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'sisys.sisis_auth',
-    'sisys.home_app',
+    'sisys',
+    'sisis_auth',
+    'home_app',
     'shopping_app',
     'blog_app',
     'newsletters_app.apps.NewslettersAppConfig',

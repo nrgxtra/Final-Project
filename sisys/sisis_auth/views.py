@@ -14,9 +14,9 @@ from newsletters_app.models import NewsletterUser
 from shopping_app.models import Order
 from shopping_app.utils import get_user_subscription
 
-from sisys.sisis_auth.forms import RegisterForm, ProfileForm
-from sisys.sisis_auth.models import Profile, SisisUser
-from sisys.sisis_auth.utils import generate_token, send_activation_mail
+from sisis_auth.forms import RegisterForm, ProfileForm
+from sisis_auth.models import Profile, SisisUser
+from sisis_auth.utils import generate_token, send_activation_mail
 import asyncio
 
 User = get_user_model()

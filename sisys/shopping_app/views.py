@@ -162,7 +162,7 @@ def updateItemQuantity(request):
     print('product:', productId)
 
     customer = request.user.customer
-    product = Product.objects.get(id=productId)
+    product = Product.objects.filter(id=productId).first()
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
     if action == 'add':

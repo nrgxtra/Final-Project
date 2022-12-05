@@ -1,4 +1,4 @@
-from sisys.sisis_auth.models import SisisUser
+from sisis_auth.models import SisisUser
 
 
 def get_author_name(author):

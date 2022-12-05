@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from sisys.home_app.views import HomeView, show_gallery
+from home_app.views import HomeView, show_gallery
 
 urlpatterns = (
     # path('', show_home, name='home'),

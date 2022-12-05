@@ -5,7 +5,7 @@ from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, Group
 
-from sisys.sisis_auth.managers import SisisUserManager
+from sisis_auth.managers import SisisUserManager
 
 
 class SisisUser(AbstractBaseUser, PermissionsMixin):

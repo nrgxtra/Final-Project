@@ -21,6 +21,9 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <script>
+        var user = '{{ request.user }}'
+    </script>
 </head>
 <body>
 
@@ -340,22 +343,22 @@
 
             <div class="col-lg-3 col-sm-6">
                 {% if not subscribed_user %}
-    <div style="display: flex; justify-content: center; align-items: center">
-        <div class="footer-widget pe-2">
-            <h3 style="text-align: center">Our Newsletter</h3>
-            <form action="{% url 'newsletter signup' %}" method="post">
-                {% csrf_token %}
-                <div style="text-align: center">
-                    {{ user.email }}
-                </div>
-                <button class="default-btn" type="submit">
-                    Subscribe Now <i class="flaticon-paper-plane"></i>
-                </button>
-            </form>
+                    <div style="display: flex; justify-content: center; align-items: center">
+                        <div class="footer-widget pe-2">
+                            <h3 style="text-align: center">Our Newsletter</h3>
+                            <form action="{% url 'newsletter signup' %}" method="post">
+                                {% csrf_token %}
+                                <div style="text-align: center">
+                                    {{ user.email }}
+                                </div>
+                                <button class="default-btn" type="submit">
+                                    Subscribe Now <i class="flaticon-paper-plane"></i>
+                                </button>
+                            </form>
 
-        </div>
-    </div>
-    {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
 
             </div>
 
@@ -426,19 +429,7 @@
 </div>
 <!-- Copyright Area End -->
 
-
-<!-- Jquery Min JS -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<!-- Plugins JS -->
-<script src="{% static 'js/plugins.js' %}"></script>
-<!-- Custom  JS -->
-<script src="{% static 'js/custom.js' %}"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init();</script>
-<script src="{% static 'js/cart.js' %}"></script>
 <script>
-    var user = '{{ request.user }}'
-
     function getToken(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -457,5 +448,17 @@
 
     const csrftoken = getToken('csrftoken');
 </script>
+<!-- Jquery Min JS -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<!-- Plugins JS -->
+<script src="{% static 'js/plugins.js' %}"></script>
+<!-- Custom  JS -->
+<script src="{% static 'js/custom.js' %}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script>
+
+
+
+
 </body>
 </html>

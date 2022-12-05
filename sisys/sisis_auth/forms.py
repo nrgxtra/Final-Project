@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
-from sisys.sisis_auth.models import Profile
+from sisis_auth.models import Profile
 
 UserModel = get_user_model()
 

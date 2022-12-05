@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <!-- Inner Banner -->
+            <!-- Inner Banner -->
     <div class="inner-banner">
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -34,7 +34,8 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12">
                         <div class="products-quickView-image">
-                            <img src="{{ product.picture.url }}" alt="Product Details" style="object-fit: cover" width="450" height="450">
+                            <img src="{{ product.picture.url }}" alt="Product Details" style="object-fit: cover"
+                                 width="450" height="450">
                         </div>
                     </div>
 
@@ -54,7 +55,7 @@
                                 </button>
 
                                 <a href="{% url 'shop-home' %}" class="default-btn two">
-                                Continue Shopping
+                                    Continue Shopping
                                 </a>
                             </div>
                             <div class="product-share">
@@ -90,5 +91,46 @@
             </div>
         </div>
     </div>
+  <script>
+var updateBtns = document.getElementsByClassName('update-cart')
+
+for(i = 0; i < updateBtns.length; i++){
+    updateBtns[i].addEventListener('click', function () {
+        var productId = this.dataset.product
+        var action = this.dataset.action
+        if (user === 'AnonymousUser'){
+           returnToLogin()
+        }else {
+            updateUserOrder(productId, action)
+        }
+    })
+}
+function returnToLogin(){
+    location.replace('/accounts/login/')
+}
+function updateUserOrder(productId, action){
+    console.log('user is authenticated, sending data...')
+
+    var url = '/shopping/update_item'
+
+    fetch(url, {
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRFToken':csrftoken,
+        },
+        body:JSON.stringify({'productId': productId, 'action': action})
+    })
+
+        .then((response)=>{
+            return response.json()
+        })
+        .then((data)=>{
+            console.log('data:', data)
+            location.reload()
+        })
+
+}
+</script>
     <!-- Product Details Area End -->
 {% endblock %}
