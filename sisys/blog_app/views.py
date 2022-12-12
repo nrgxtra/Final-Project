@@ -33,6 +33,8 @@ class HomeView(ListView):
         user = self.request.user
         tags = Tag.objects.all()
         subscribed_user = get_user_subscription(user)
+
+
         if user.is_authenticated:
             customer, created = Customer.objects.get_or_create(user=user)
             order, created = Order.objects.get_or_create(customer=customer, complete=False)

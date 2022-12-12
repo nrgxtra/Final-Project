@@ -2,9 +2,13 @@ from sisis_auth.models import SisisUser
 
 
 def get_author_name(author):
+    name = None
     author = SisisUser.objects.filter(email=author).first()
-    idx = [c for c in author.email].index('@')
-    name = author.email[:idx]
+    if author.profile.name:
+        name = author.profile.name
+    else:
+        idx = [c for c in author.email].index('@')
+        name = author.email[:idx]
     return name
 
 

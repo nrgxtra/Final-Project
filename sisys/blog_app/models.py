@@ -33,8 +33,12 @@ class Post(models.Model):
 
     @property
     def author_name(self):
-        idx = [c for c in self.author.email].index('@')
-        name = self.author.email[:idx]
+        name = None
+        if self.author.profile.name:
+            name = self.author.profile.name
+        else:
+            idx = [c for c in self.author.email].index('@')
+            name = self.author.email[:idx]
         return name
 
     def __str__(self):
