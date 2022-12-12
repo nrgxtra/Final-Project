@@ -184,8 +184,10 @@ def processOrder(request):
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
-    mail_data = str(data) + str.join(" ;",
-                                     [f'{item.product.name} price: {item.product.price} quantity: {item.quantity}' for
+    mail_data = f"name: {data['form']['name']}\nemail: {data['form']['email']}\ntotal: {data['form']['total']}\npayment: {data['form']['payment']}\n" \
+                f"SHIPPING INFO\naddress: {data['shipping']['address']}\ncity: {data['shipping']['city']}\nprovince: {data['shipping']['province']}\n" \
+                f"postcode: {data['shipping']['postcode']}\nphone: {data['shipping']['phone']}\nORDERED ITEMS\n" + str.join(" \n",
+                                     [f'-{item.product.name} price: {item.product.price} quantity: {item.quantity}' for
                                       item in
                                       order.orderitem_set.all()])
     if total == order.get_cart_total:
