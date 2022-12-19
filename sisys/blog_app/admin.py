@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog_app.models import Post, Tag
+from blog_app.models import Post, Tag, Comment
 
 
 @admin.register(Post)
@@ -15,3 +15,9 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'content',)
+    list_filter = ('post',)
